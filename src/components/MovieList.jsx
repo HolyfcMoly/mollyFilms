@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Pagination from "./Pagination";
+
 
 const MovieList = ({ movie }) => {
     // console.log(movie, 'movie')
@@ -31,7 +31,6 @@ const MovieList = ({ movie }) => {
                 })
             }
         </div>
-        <Pagination />
         </>
     );
 };

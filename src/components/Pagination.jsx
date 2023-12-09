@@ -1,11 +1,35 @@
-import React from 'react'
+import React from "react";
 
-const Pagination = () => {
-  return (
-    <div className='flexCenter'>
-      
-    </div>
-  )
-}
+const Pagination = ({ currentPage, setPage, totalPages }) => {
+    const handlePrev = () => {
+        if (currentPage !== 1) {
+            setPage((prev) => prev - 1);
+        }
+    };
+    const handleNext = () => {
+        if (currentPage !== totalPages) {
+            setPage((prev) => prev + 1);
+        }
+    };
 
-export default Pagination
+    const handleReset = () => {
+        if (currentPage !== 1) {
+            setPage(1);
+        }
+    };
+
+    return (
+        <div className="flexCenter">
+            <button onClick={handleReset}>В начало</button>
+            <button className="mx-8" onClick={handlePrev}>
+                Prev
+            </button>
+            <span>{currentPage}</span>
+            <button className="mx-8" onClick={handleNext}>
+                Next
+            </button>
+        </div>
+    );
+};
+
+export default Pagination;
