@@ -2,6 +2,7 @@
 import { Link } from "react-router-dom";
 import { logo } from "../assets/index";
 import styles from "../styles/style";
+import Search from "../components/Search";
 
 const Header = () => (
     <header className={`flex flex-1 items-center justify-between w-full py-8 fixed left-0 ${styles.paddingX} z-50 bg-[#16181b]`}>
@@ -12,11 +13,7 @@ const Header = () => (
         </div>
 
         <div className="flex-1">
-            <input
-                type="text"
-                placeholder="Search"
-                className="w-full rounded-[5px]"
-            />
+            <Search />
         </div>
 
         <div className="flex-[0.5] text-right">

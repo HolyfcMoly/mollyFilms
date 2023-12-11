@@ -26,6 +26,14 @@ const getMoviesByGenre = async(genreId, page = 1) => {
     return response;
 }
 
+const getMovieByQuerySearch = async(query,page) => {
+    const response = await axios
+        .get(`${API_URL}search/movie?query=${query}&api_key=${API_KEY}&page=${page}&language=ru`)
+        .then((res) => res)
+        .catch((e) => console.log(e));
+    return response;
+}
+
 const getMovie = async(id) => {
     const response = await axios
         .get(`${API_URL}movie/${id}?api_key=${API_KEY}&language=ru`)
@@ -43,4 +51,4 @@ const getPosterImage = async(id) => {
 }
 
 
-export { getGenre, getMovies, getPosterImage, getMovie, getMoviesByGenre };
+export { getGenre, getMovies, getPosterImage, getMovie, getMoviesByGenre, getMovieByQuerySearch };
