@@ -7,6 +7,7 @@ import Loading from "./components/Loading";
 import Movies from "./components/Movies";
 import MovieInformation from "./components/MovieInformation";
 import MovieList from "./components/MovieList";
+import Profile from "./components/Profile";
 
 function App() {
     return (
@@ -18,11 +19,15 @@ function App() {
                     <Suspense fallback={<Loading />}>
                         <Routes>
                             <Route path="/" element={<Movies />} />
-                            {/* <Route path="/movie/list/:category" element={<MovieList />} /> */}
                             <Route
                                 exact
                                 path="/movie/:id"
                                 element={<MovieInformation />}
+                            />
+                            <Route
+                                exact
+                                path="/profile/:id"
+                                element={<Profile />}
                             />
                         </Routes>
                     </Suspense>

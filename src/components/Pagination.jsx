@@ -19,7 +19,7 @@ const Pagination = ({ currentPage, setPage, totalPages }) => {
     };
 
     return (
-        <div className="flexCenter">
+        <div className="flexCenter py-6">
             <button onClick={handleReset}>В начало</button>
             <button className="mx-8" onClick={handlePrev}>
                 Prev
