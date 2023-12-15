@@ -6,9 +6,9 @@ const SideBar = () => {
     const [data, setData] = useState([]);
 
     const categories = [
-        { label: "Popular", value: "popular" },
-        { label: "Top Rated", value: "top_rated" },
-        { label: "Upcoming", value: "upcoming" },
+        { label: "Популярные", value: "popular" },
+        { label: "Топ оценок", value: "top_rated" },
+        { label: "Новинки", value: "upcoming" },
     ];
 
     useEffect(() => {
@@ -27,7 +27,7 @@ const SideBar = () => {
                                 return (
                                 <li key={value} className="my-3 py-4">
 
-                                        <Link to={`/`} state={{movies: value}}>
+                                        <Link to={`/`} state={{movies: value, genre: label}}>
                                             <div>
                                                 <img src="" alt="" />
                                                 <p>{label}</p>
@@ -45,11 +45,11 @@ const SideBar = () => {
                             ) : (
                                 data.map((item) => {
                                     return (
-                                        <li key={item.id} className=" my-3 text-white">
-                                            <Link to={`/`} state={{movies: item.id}}>
+                                        <li key={item.id} className="active:text-orange-500 my-3 text-white">
+                                            <Link to={`/`} state={{movies: item.id, genre: item.name}}>
                                                 <div>
                                                     <img src="" alt="" />
-                                                    <p>{item.name}</p>
+                                                    <p className="">{item.name.replace(item.name[0], item.name[0].toUpperCase())}</p>
                                                 </div>
                                             </Link>
                                         </li>

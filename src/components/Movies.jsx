@@ -12,7 +12,8 @@ const Movies = () => {
     const [pages, setPages] = useState(0);
 
     const location = useLocation();
-    const { movies, query } = !location.state ? genreMovie : location.state;
+    const { movies, query, genre } = !location.state ? genreMovie : location.state;
+    console.log(genre)
     useEffect(() => {
         if(!query) {
             if (typeof movies === "string") {
@@ -46,6 +47,7 @@ const Movies = () => {
                     <div>
                         <MovieList
                             movie={genreMovie}
+                            genre={genre}
                             // loading={isLoading}
                         />
                     </div>

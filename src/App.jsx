@@ -1,6 +1,7 @@
 import React, { Suspense, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Header, Footer } from "./containers/index";
+import '@smastrom/react-rating/style.css'
 import SideBar from "./pages/SideBar";
 import styles from "./styles/style";
 import Loading from "./components/Loading";

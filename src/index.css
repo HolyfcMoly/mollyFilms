@@ -53,3 +53,23 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   gap: 20px;
 }
+
+.rating p {
+opacity: 0;
+}
+
+.rating:hover p { 
+  opacity: 1;
+}
+
+.show {
+  opacity: 1;
+}
+
+.boxShadow {
+  box-shadow: none;
+}
+
+.boxShadow:hover {
+  box-shadow: 0 0 15px 0 #f97316;
+}
