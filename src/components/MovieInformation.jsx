@@ -20,7 +20,7 @@ const MovieInformation = () => {
             console.log(data.data.cast.slice(0, 10));
         });
     }, [id]);
-    // console.log(data)
+    console.log(data)
     return (
         <>
             <div>

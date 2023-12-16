@@ -2,6 +2,7 @@ import { Rating, ThinStar } from "@smastrom/react-rating";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getGenre } from "../api";
+import Slider from "./Slider";
 const myStyles = {
     itemShapes: ThinStar,
     activeFillColor: "#eaa800",
@@ -15,12 +16,12 @@ const MovieList = ({ movie, genre }) => {
             setMovieGenre(data);
         });
     }, []);
-    console.log(movieGenre);
     console.log(movie);
     return (
         <>
-            <h1>{genre ? genre.replace(genre[0], genre[0].toUpperCase()) : ''}</h1>
-            <div className="gridBox">
+            <h1 className="mb-[1.5rem] text-secondary text-[2.5rem] leading-[2.8rem]">{genre ? genre.replace(genre[0], genre[0].toUpperCase()) : ''}</h1>
+            <Slider movies={movie}/>
+            <div className="gridBox mt-8">
                 {movie.map((item) => (
                     <div
                         className="p-2 w-[200px] max-h-[100%] rounded-xl border-[1px] transition-shadow boxShadow border-orange-500/30"

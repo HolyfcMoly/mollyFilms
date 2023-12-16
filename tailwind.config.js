@@ -3,6 +3,9 @@ export default {
     content: ["./index.html", "./src/**/*.{js,jsx}"],
     theme: {
         extend: {
+            text: {
+                reset: 'unset'
+            },
             colors: {
                 white: "rgb(226 232 240)",
                 secondary: "#F0761D",

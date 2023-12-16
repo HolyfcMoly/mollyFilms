@@ -48,6 +48,19 @@ body {
   background-color: #2828287f;
 }
 
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #2e2e2e;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgba(40, 40, 40, 0.5);
+}
+
 .gridBox {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
