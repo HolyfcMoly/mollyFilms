@@ -12,27 +12,29 @@ import Profile from "./components/Profile";
 
 function App() {
     return (
-        <div className={`${styles.paddingX} w-full flex`}>
+        <div className={`${styles.paddingX} w-full flex flex-col`}>
             <BrowserRouter>
                 <Header />
-                <SideBar />
-                <main className={`${styles.paddingX} w-full flex-1 mt-28`}>
-                    <Suspense fallback={<Loading />}>
-                        <Routes>
-                            <Route path="/" element={<Movies />} />
-                            <Route
-                                exact
-                                path="/movie/:id"
-                                element={<MovieInformation />}
-                            />
-                            <Route
-                                exact
-                                path="/profile/:id"
-                                element={<Profile />}
-                            />
-                        </Routes>
-                    </Suspense>
-                </main>
+                <div>
+                    <SideBar />
+                    <main className={`md:${styles.paddingX} px-0 flex-1 mt-4 md:ml-[12.5rem] overflow-hidden`}>
+                        <Suspense fallback={<Loading />}>
+                            <Routes>
+                                <Route path="/" element={<Movies />} />
+                                <Route
+                                    exact
+                                    path="/movie/:id"
+                                    element={<MovieInformation />}
+                                />
+                                <Route
+                                    exact
+                                    path="/profile/:id"
+                                    element={<Profile />}
+                                />
+                            </Routes>
+                        </Suspense>
+                    </main>
+                </div>
             </BrowserRouter>
         </div>
     );

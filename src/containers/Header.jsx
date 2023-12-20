@@ -5,7 +5,7 @@ import styles from "../styles/style";
 import Search from "../components/Search";
 
 const Header = () => (
-    <header className={`flex flex-1 items-center justify-between w-full py-8 fixed left-0 ${styles.paddingX} z-50 bg-[#16181b]`}>
+    <header className={`flex flex-1 items-center justify-between w-full py-8 sticky top-0 left-0 md:px-4 px-0 z-50 bg-[#16181b]`}>
         <div className="flex-1">
             <Link to={'/'}>
                 <img src={logo} alt="logo" className="w-[150px] h-[30px]" />

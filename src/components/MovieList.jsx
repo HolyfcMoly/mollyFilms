@@ -1,26 +1,32 @@
 import { Rating, ThinStar } from "@smastrom/react-rating";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getGenre } from "../api";
+import { getGenre, getNowPlaying } from "../api";
 import Slider from "./Slider";
 const myStyles = {
     itemShapes: ThinStar,
     activeFillColor: "#eaa800",
     inactiveFillColor: "#7d7d7d",
 };
-const MovieList = ({ movie, genre }) => {
+const MovieList = ({ movie, genre = 'Популярные' }) => {
     const [movieGenre, setMovieGenre] = useState([]);
-
+    const [nowPlayingMovie, setNowPlayingMovie] = useState([])
     useEffect(() => {
         getGenre().then((data) => {
             setMovieGenre(data);
         });
     }, []);
+
+    useEffect(()=> {
+        getNowPlaying().then(data => setNowPlayingMovie(data.data.results))
+    },[])
+    console.log(nowPlayingMovie, ' now play')
     console.log(movie);
     return (
         <>
+            <h1 className="text-secondary text-[2.5rem] leading-[2.8rem]">Сейчас смотрят</h1>
+            <Slider movies={nowPlayingMovie} movieGenre={movieGenre}/>
             <h1 className="mb-[1.5rem] text-secondary text-[2.5rem] leading-[2.8rem]">{genre ? genre.replace(genre[0], genre[0].toUpperCase()) : ''}</h1>
-            <Slider movies={movie}/>
             <div className="gridBox mt-8">
                 {movie.map((item) => (
                     <div

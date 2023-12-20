@@ -5,84 +5,113 @@
 @tailwind utilities;
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-  background-color: #14161a;
+    background-color: #14161a;
 }
 :root {
-  font-family: Poppins, Helvetica, Arial, sans-serif;
-  font-weight: 400;
-  color: rgb(226 232 240);
+    font-family: Poppins, Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    color: rgb(226 232 240);
 }
 
 .bg-main {
-  background-color: #14161a;
+    background-color: #14161a;
 }
 
 .flexCenter {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .flexStart {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 * {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 .custom_scroll::-webkit-scrollbar {
-  width: 10px;
+    width: 10px;
 }
 .custom_scroll::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: #282828;
+    border-radius: 10px;
+    background-color: #282828;
 }
 .custom_scroll::-webkit-scrollbar-track {
-  background-color: #2828287f;
+    background-color: #2828287f;
 }
 
 ::-webkit-scrollbar {
-  width: 12px;
+    width: 12px;
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: #2e2e2e;
+    border-radius: 10px;
+    background-color: #2e2e2e;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: rgba(40, 40, 40, 0.5);
+    background-color: rgba(40, 40, 40, 0.5);
 }
 
 .gridBox {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-  gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 20px;
 }
 
 .rating p {
-opacity: 0;
+    opacity: 0;
 }
 
-.rating:hover p { 
-  opacity: 1;
+.rating:hover p {
+    opacity: 1;
+}
+
+.slide_info {
+    height: calc(100% - 2px);
+}
+
+.slide_info .overview {
+    opacity: 0;
+    height: 0;
+    overflow-y: auto;
+    transition: opacity 0.7s ease-in-out, height 0.5s linear;
+}
+
+.slide_info .overview::-webkit-scrollbar {
+    width: 0;
+}
+
+.slide_info:hover .overview {
+    opacity: 1;
+    max-height: 100px;
+    height: 100%;
+}
+
+.slide_info:hover .slide-description {
+    opacity: 0;
 }
 
 .show {
-  opacity: 1;
+    opacity: 1;
 }
 
-.boxShadow {
-  box-shadow: none;
+.burger_menu svg {
+    height: 24px;
+    width: 24px;
+    
 }
 
-.boxShadow:hover {
-  box-shadow: 0 0 15px 0 #f97316;
+.burger_menu svg path:first-child {
+    stroke-width: 0px;
+    stroke-dasharray: 0;
+    stroke-dashoffset: 0;
 }

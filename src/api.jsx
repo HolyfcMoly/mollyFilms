@@ -47,6 +47,14 @@ const getMovie = async (id) => {
     return response;
 };
 
+const getNowPlaying = async (page = 1) => {
+    const response = await axios
+        .get(`${API_URL}movie/now_playing?page=${page}&api_key=${API_KEY}&language=ru`)
+        .then((res) => res)
+        .catch((e) => console.log(e));
+    return response;
+};
+
 const getRecomendMovies = async (id) => {
     const response = await axios
         .get(
@@ -102,4 +110,5 @@ export {
     getCredits,
     getProfile,
     getMovieByProfileId,
+    getNowPlaying,
 };
