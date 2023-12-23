@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { getCredits, getMovie, getRecomendMovies } from "../api";
+import { getCredits, getMovie, getRecomendMovies } from "../services/api";
 import { Link, useParams } from "react-router-dom";
-import MovieList from "./MovieList";
+import MovieList from "../components/MovieList";
 
 const MovieInformation = () => {
     const { id } = useParams();
     const [data, setData] = useState({});
     const [movies, setMovies] = useState([]);
     const [credits, setCredits] = useState([]);
+
     useEffect(() => {
         getMovie(id).then((data) => {
             setData(data.data);
@@ -20,7 +21,8 @@ const MovieInformation = () => {
             console.log(data.data.cast.slice(0, 10));
         });
     }, [id]);
-    console.log(data)
+
+    console.log(movies)
     return (
         <>
             <div>
@@ -30,7 +32,7 @@ const MovieInformation = () => {
                 />
             </div>
             <div>
-                <MovieList movie={movies} />
+                <MovieList movie={movies} genre={'Рекомендуем также'} setSlide={false}/>
             </div>
             <div>
                 {!credits.length ? (

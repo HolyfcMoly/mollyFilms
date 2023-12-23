@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useTransition } from "react";
 import { useParams } from "react-router-dom";
-import { getMovieByProfileId, getProfile } from "../api";
-import MovieList from "./MovieList";
-import Pagination from "./Pagination";
+import { getMovieByProfileId, getProfile } from "../services/api";
+import MovieList from "../components/MovieList";
+import Pagination from "../components/Pagination";
 
 const Profile = () => {
     const [profile, setProfile] = useState({});
@@ -41,11 +41,8 @@ const Profile = () => {
                 />
                 <p>{profile.name}</p>
             </div>
-            <div className="text-center mt-[2rem]">
-                <h1 className="text-[3rem]">Movies</h1>
-                
-                {totalMovies && <MovieList movie={totalMovies }/>}
-                
+            <div className="mt-[2rem]">
+                {totalMovies && <MovieList movie={totalMovies} genre={'Похожие'} setSlide={false}/>}
             <Pagination 
                 setPage={setPage}
                 currentPage={page}

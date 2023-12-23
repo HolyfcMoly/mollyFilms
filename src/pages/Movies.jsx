@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import { useState } from "react";
-import { getMovieByQuerySearch, getMovies, getMoviesByGenre } from "../api";
-import MovieList from "./MovieList";
+import { getMovieByQuerySearch, getMovies, getMoviesByGenre } from "../services/api";
+import MovieList from "../components/MovieList";
 import { useLocation } from "react-router-dom";
-import Pagination from "./Pagination";
+import Pagination from "../components/Pagination";
 
 const Movies = () => {
     const [genreMovie, setGenreMovie] = useState([]);
@@ -13,7 +13,7 @@ const Movies = () => {
 
     const location = useLocation();
     const { movies, query, genre } = !location.state ? genreMovie : location.state;
-    console.log(genre)
+    
     useEffect(() => {
         if(!query) {
             if (typeof movies === "string") {

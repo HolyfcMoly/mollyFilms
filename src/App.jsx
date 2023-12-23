@@ -1,21 +1,21 @@
 import React, { Suspense, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Header, Footer } from "./containers/index";
+import { Header, Footer } from "./layouts/index";
 import '@smastrom/react-rating/style.css'
-import SideBar from "./pages/SideBar";
+import SideBar from "./layouts/SideBar";
 import styles from "./styles/style";
 import Loading from "./components/Loading";
-import Movies from "./components/Movies";
-import MovieInformation from "./components/MovieInformation";
+import Movies from "./pages/Movies";
+import MovieInformation from "./pages/MovieInformation";
 import MovieList from "./components/MovieList";
-import Profile from "./components/Profile";
+import Profile from "./pages/Profile";
 
 function App() {
     return (
-        <div className={`${styles.paddingX} w-full flex flex-col`}>
+        <div className="w-full flex flex-col">
             <BrowserRouter>
                 <Header />
-                <div>
+                <div className={`${styles.paddingX}`}>
                     <SideBar />
                     <main className={`md:${styles.paddingX} px-0 flex-1 mt-4 md:ml-[12.5rem] overflow-hidden`}>
                         <Suspense fallback={<Loading />}>

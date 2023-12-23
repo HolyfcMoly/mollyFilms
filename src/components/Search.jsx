@@ -11,6 +11,7 @@ const Search = () => {
             setQuery('');
         }
     }
+    
     return (
         <div>
             <input

@@ -104,14 +104,20 @@ body {
     opacity: 1;
 }
 
-.burger_menu svg {
-    height: 24px;
-    width: 24px;
-    
+.menu_open {
+    transform: rotate(0) translate(0);
+    transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s;
 }
 
-.burger_menu svg path:first-child {
-    stroke-width: 0px;
-    stroke-dasharray: 0;
-    stroke-dashoffset: 0;
+.menu_close:nth-child(1) {
+    transform: rotate(45deg) translate(9px,5px);
+    transition: ease-out 0.5s;
+}
+.menu_close:nth-child(2) {
+    transform: scale(0.1);
+    transition: ease-out 0.5s;
+}
+.menu_close:nth-child(3) {
+    transform: rotate(-45deg) translate(10px,-5px);
+    transition: ease-out 0.5s;
 }

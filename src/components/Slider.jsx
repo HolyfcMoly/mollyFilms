@@ -41,11 +41,11 @@ const Slider = ({ movies, movieGenre }) => {
                     </div>
                     <SplideTrack>
                         {movies.map((slide) => (
-                            <SplideSlide key={slide.id}>
+                            <SplideSlide key={slide.id} className="h-full">
                                 <div className="relative slide_info shadow-[inset_0_-40px_72px_12px_rgba(0,0,0,1)] rounded-[10px]">
                                     <img
-                                        src={`https://image.tmdb.org/t/p/original${slide.backdrop_path}`}
-                                        data-splide-lazy={`https://image.tmdb.org/t/p/original${slide.backdrop_path}`}
+                                        src={`https://image.tmdb.org/t/p/original${slide.backdrop_path ? slide.backdrop_path : slide.poster_path}`}
+                                        data-splide-lazy={`https://image.tmdb.org/t/p/original${slide.backdrop_path ? slide.backdrop_path : slide.poster_path}`}
                                         className="w-full object-cover h-full rounded-[10px] relative z-[-1]"
                                         alt={slide.title}
                                     />
