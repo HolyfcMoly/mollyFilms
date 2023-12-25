@@ -42,16 +42,16 @@ const SideBar = () => {
                 </div>
             </button>
             <div
-                className={`fixed overflow-auto bottom-0 ss:top-20 top-32 ${
+                className={`fixed overflow-auto bottom-0 ss:top-[6.3rem] md:top-[5.8rem] top-[8.8rem] ${
                     toggle ? "sm:left-[2rem] left-[1rem]" : "left-[-500px]"
-                } md:left-[unset] transition-[left] ease-in-out duration-500   custom_scroll w-[200px] bg-main z-30`}
+                } md:left-[unset] transition-[left] ease-in-out duration-500 custom_scroll w-[200px] bg-main z-30`}
                 ref={menuRef}
             >
                 <div className="flex flex-col py-2">
                     <ul>
                         {categories.map(({ label, value }) => {
                             return (
-                                <li key={value} className="my-3 py-4" onClick={() => setToggle(!toggle)}>
+                                <li key={value} className="my-3 py-4 active:text-active hover:text-secondary transition-colors duration-300" onClick={() => setToggle(!toggle)}>
                                     <Link
                                         to={`/`}
                                         state={{
@@ -77,7 +77,7 @@ const SideBar = () => {
                                 return (
                                     <li
                                         key={item.id}
-                                        className="active:text-orange-500 my-3 text-white"
+                                        className="active:text-active my-3 hover:text-secondary transition-colors duration-300 text-white"
                                         onClick={() => setToggle(!toggle)}
                                     >
                                         <Link

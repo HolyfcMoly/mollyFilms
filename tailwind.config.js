@@ -7,6 +7,7 @@ export default {
                 white: "rgb(226 232 240)",
                 secondary: "#F0761D",
                 dimWhite: "rgb(148 163 184)",
+                active: "rgba(240, 118, 29, 0.7)",
             },
             screens: {
                 xs: "480px",
