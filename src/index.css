@@ -16,6 +16,13 @@ body {
     color-scheme: dark;
 }
 
+
+.custom_outline a:focus-visible {
+    outline-style: solid;
+    outline-color: aqua;
+    outline-width: 5px;
+}
+
 :root {
     font-family: Poppins, Helvetica, Arial, sans-serif;
     font-weight: 400;
@@ -73,27 +80,27 @@ body {
     }
 
     .custom_scroll::-webkit-scrollbar-button:vertical:decrement {
-        background: url('./assets/arrow-up.svg') center/cover no-repeat #2828287f;
+        background: url('./assets/scroll-icons/arrow-up.svg') center/cover no-repeat #2828287f;
     }
 
     .custom_scroll::-webkit-scrollbar-button:vertical:decrement:hover {
-        background: url('./assets/arrow-up-hover.svg') center/cover no-repeat #2828289e;
+        background: url('./assets/scroll-icons/arrow-up-hover.svg') center/cover no-repeat #2828289e;
     }
 
     .custom_scroll::-webkit-scrollbar-button:vertical:decrement:active {
-        background: url('./assets/arrow-up-active.svg') center/cover no-repeat #3939399e;
+        background: url('./assets/scroll-icons/arrow-up-active.svg') center/cover no-repeat #3939399e;
     }
 
     .custom_scroll::-webkit-scrollbar-button:vertical:increment {
-        background: url('./assets/arrow-down.svg') center/cover no-repeat #2828287f;
+        background: url('./assets/scroll-icons/arrow-down.svg') center/cover no-repeat #2828287f;
     }
 
     .custom_scroll::-webkit-scrollbar-button:vertical:increment:hover {
-        background: url('./assets/arrow-down-hover.svg') center/cover no-repeat #2828289e;
+        background: url('./assets/scroll-icons/arrow-down-hover.svg') center/cover no-repeat #2828289e;
     }
 
     .custom_scroll::-webkit-scrollbar-button:vertical:increment:active {
-        background: url('./assets/arrow-down-active.svg') center/cover no-repeat #3939399e;
+        background: url('./assets/scroll-icons/arrow-down-active.svg') center/cover no-repeat #3939399e;
     }
 
     .custom_scroll::-webkit-scrollbar-button:vertical:start:increment,

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { getGenre } from "../services/api";
 import { Link } from "react-router-dom";
+import ImgByGenre from "../components/ui/GenresIcons";
 
 const SideBar = () => {
     const [data, setData] = useState([]);
@@ -51,17 +52,18 @@ const SideBar = () => {
                     <ul>
                         {categories.map(({ label, value }) => {
                             return (
-                                <li key={value} className="my-3 py-4 active:text-active hover:text-secondary transition-colors duration-300" onClick={() => setToggle(!toggle)}>
+                                <li key={value} className="my-3 py-4 active:text-active hover:text-secondary transition-colors duration-300 custom_outline" onClick={() => setToggle(!toggle)}>
                                     <Link
                                         to={`/`}
                                         state={{
                                             movies: value,
                                             genre: label,
                                         }}
+                                        className=""
                                     >
-                                        <div>
-                                            <img src="" alt="" />
-                                            <p>{label}</p>
+                                        <div className="">
+                                            <ImgByGenre value={value}/>
+                                            <p className="">{label}</p>
                                         </div>
                                     </Link>
                                 </li>
@@ -88,7 +90,7 @@ const SideBar = () => {
                                             }}
                                         >
                                             <div>
-                                                <img src="" alt="" />
+                                                <ImgByGenre value={item.id}/>
                                                 <p className="">
                                                     {item.name.replace(
                                                         item.name[0],
