@@ -16,13 +16,6 @@ body {
     color-scheme: dark;
 }
 
-
-.custom_outline a:focus-visible {
-    outline-style: solid;
-    outline-color: aqua;
-    outline-width: 5px;
-}
-
 :root {
     font-family: Poppins, Helvetica, Arial, sans-serif;
     font-weight: 400;
@@ -168,4 +161,9 @@ body {
 .menu_close:nth-child(3) {
     transform: rotate(-45deg) translate(10px,-5px);
     transition: ease-out 0.5s;
+}
+
+.genre-icons svg {
+    width: 1.5rem;
+    height: 1.5rem;
 }

@@ -23,8 +23,7 @@ import { LiaTvSolid } from "react-icons/lia";
 import { FaPersonMilitaryRifle } from "react-icons/fa6";
 import { IoPlanetOutline } from "react-icons/io5";
 
-const genresAndCategories = [
-    {
+const genresAndCategories = {
         //categories
         popular: <GiFilmStrip />,
         top_rated: <CiStar />,
@@ -35,31 +34,20 @@ const genresAndCategories = [
         16: <RiBearSmileLine />, //animation
         35: <GiDualityMask />, //comedy
         80: <GiPistolGun />, //crime
-        99: <BiCameraMovie />, //history
+        99: <BiCameraMovie />, //documentory
         18: <MdOutlineTheaterComedy />, //drama
         10751: <MdFamilyRestroom />, //family
         14: <PiMagicWandThin />, //fantasy
-        36: <GiSandsOfTime />,
+        36: <GiSandsOfTime />, //history
         27: <GiSkullMask />, //horror
         10402: <PiMusicNoteLight />, //music
         9648: <PiDetectiveLight />, //detective
         10749: <RiHeartsLine />, //romance
         878: <IoPlanetOutline />, //fantasy - фантастика
         10770: <LiaTvSolid />, //Tv
-        53: <GiDrippingKnife />, //triller
+        53: <GiDrippingKnife />, //thriller
         10752: <FaPersonMilitaryRifle />, //War
         37: <GiCactus />, //vestern
-    },
-];
-
-const ImgByGenre = ({ value }) => {
-    let img = null;
-    let obj = genresAndCategories;
-    obj.map((item) => {
-        img = item[value];
-    });
-
-    return img;
 };
 
-export default ImgByGenre;
+export default genresAndCategories

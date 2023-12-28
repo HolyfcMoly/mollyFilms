@@ -4,7 +4,7 @@ import { logo } from "../assets";
 
 const Navbar = () => (
     <nav className="flex ss:flex-1 items-center flex-wrap justify-between w-full">
-        <div className="ss:flex-1">
+        <div className="flex ss:flex-1">
             <Link to={"/"}>
                 <img src={logo} alt="logo" className="w-[150px] h-[30px]" />
             </Link>

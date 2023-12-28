@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { getGenre } from "../services/api";
 import { Link } from "react-router-dom";
-import ImgByGenre from "../components/ui/GenresIcons";
+import genresAndCategories from "../components/ui/GenresIcons";
 
 const SideBar = () => {
     const [data, setData] = useState([]);
@@ -48,30 +48,31 @@ const SideBar = () => {
                 } md:left-[unset] transition-[left] ease-in-out duration-500 custom_scroll w-[200px] bg-main z-30`}
                 ref={menuRef}
             >
-                <div className="flex flex-col py-2">
-                    <ul>
+                <div className="flex flex-col py-2 relative">
+                    <h3 className="sticky top-0 text-secondary z-[1] bg-main">Категории</h3>
+                    <ul className="mb-4 relative">
                         {categories.map(({ label, value }) => {
                             return (
-                                <li key={value} className="my-3 py-4 active:text-active hover:text-secondary transition-colors duration-300 custom_outline" onClick={() => setToggle(!toggle)}>
+                                <li key={value} className="p-1 active:text-active hover:text-secondary transition-colors duration-300 focus-within:text-secondary" onClick={() => setToggle(!toggle)}>
                                     <Link
                                         to={`/`}
                                         state={{
                                             movies: value,
                                             genre: label,
                                         }}
-                                        className=""
+                                        className="block focus:outline-none focus-visible:ring-1 focus-visible:ring-secondary rounded-[5px]"
                                     >
-                                        <div className="">
-                                            <ImgByGenre value={value}/>
-                                            <p className="">{label}</p>
+                                        <div className="flex items-center p-2 genre-icons">
+                                            {genresAndCategories[value]}
+                                            <p className="ml-4">{label}</p>
                                         </div>
                                     </Link>
                                 </li>
                             );
                         })}
                     </ul>
-                    <h3>---</h3>
-                    <ul className="flexStart flex-col">
+                    <h3 className="sticky top-0 text-secondary z-[1] bg-main">Жанры</h3>
+                    <ul>
                         {!data.length ? (
                             <h3>wait</h3>
                         ) : (
@@ -79,7 +80,7 @@ const SideBar = () => {
                                 return (
                                     <li
                                         key={item.id}
-                                        className="active:text-active my-3 hover:text-secondary transition-colors duration-300 text-white"
+                                        className="active:text-active p-1 hover:text-secondary transition-colors duration-300 text-white focus-within:text-secondary"
                                         onClick={() => setToggle(!toggle)}
                                     >
                                         <Link
@@ -88,10 +89,11 @@ const SideBar = () => {
                                                 movies: item.id,
                                                 genre: item.name,
                                             }}
+                                            className="block focus:outline-none focus-visible:ring-1 focus-visible:ring-secondary rounded-[5px]"
                                         >
-                                            <div>
-                                                <ImgByGenre value={item.id}/>
-                                                <p className="">
+                                            <div className="flex items-center p-2 genre-icons">
+                                                {genresAndCategories[item.id]}
+                                                <p className="ml-4">
                                                     {item.name.replace(
                                                         item.name[0],
                                                         item.name[0].toUpperCase()
