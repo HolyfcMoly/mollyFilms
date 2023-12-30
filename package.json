@@ -14,8 +14,10 @@
     "@splidejs/react-splide": "^0.7.12",
     "axios": "^1.6.2",
     "react": "^18.2.0",
+    "react-content-loader": "^6.2.1",
     "react-dom": "^18.2.0",
     "react-icons": "^4.12.0",
+    "react-intersection-observer": "^9.5.3",
     "react-router-dom": "^6.20.1"
   },
   "devDependencies": {

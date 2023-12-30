@@ -1,10 +1,10 @@
 import React, { Suspense, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Header, Footer } from "./layouts/index";
+import { Header } from "./layouts/index";
 import '@smastrom/react-rating/style.css'
 import SideBar from "./layouts/SideBar";
 import styles from "./styles/style";
-import Loading from "./components/Loading";
+// import Loading from "./components/Loading";
 import Movies from "./pages/Movies";
 import MovieInformation from "./pages/MovieInformation";
 import MovieList from "./components/MovieList";
@@ -13,12 +13,13 @@ import Profile from "./pages/Profile";
 function App() {
     return (
         <div className="w-full flex flex-col">
+            {/* <h1 className="text-secondary">Hello</h1> */}
             <BrowserRouter>
                 <Header />
                 <div className={`${styles.paddingX}`}>
                     <SideBar />
                     <main className={`md:${styles.paddingX} px-0 flex-1 mt-4 md:ml-[12.5rem] overflow-hidden`}>
-                        <Suspense fallback={<Loading />}>
+                        {/* <Suspense fallback={<Loading />}> */}
                             <Routes>
                                 <Route path="/" element={<Movies />} />
                                 <Route
@@ -32,7 +33,7 @@ function App() {
                                     element={<Profile />}
                                 />
                             </Routes>
-                        </Suspense>
+                        {/* </Suspense> */}
                     </main>
                 </div>
             </BrowserRouter>

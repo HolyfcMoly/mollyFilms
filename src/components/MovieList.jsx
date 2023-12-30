@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getGenre, getNowPlaying } from "../services/api";
 import Slider from "./Slider";
+import { useInView } from "react-intersection-observer";
+
 
 const myStyles = {
     itemShapes: ThinStar,
@@ -13,6 +15,11 @@ const myStyles = {
 const MovieList = ({ movie, genre = 'Популярные', setSlide = true }) => {
     const [movieGenre, setMovieGenre] = useState([]);
     const [nowPlayingMovie, setNowPlayingMovie] = useState([])
+
+    // const { ref, inView } = useInView({
+    //     threshold: 0,
+    //     triggerOnce: true,
+    // });
 
     useEffect(() => {
         getGenre().then((data) => {
@@ -29,7 +36,7 @@ const MovieList = ({ movie, genre = 'Популярные', setSlide = true }) =
                 </div>
             )}
             <h1 className="mb-[1.5rem] text-secondary text-[2.5rem] leading-[2.8rem]">{genre ? genre.replace(genre[0], genre[0].toUpperCase()) : ''}</h1>
-            <div className="gridBox mt-8">
+            <div  className="gridBox mt-8">
                 {movie.map((item) => (
                     <div
                         className="p-2 w-[200px] max-h-[100%] rounded-xl border-[1px] transition-shadow boxShadow border-orange-500/30"
@@ -44,6 +51,7 @@ const MovieList = ({ movie, genre = 'Популярные', setSlide = true }) =
                                     src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
                                     alt={item.title}
                                     className="w-[100%] h-[100%] object-cover bg-slate-400 rounded-md"
+                                    loading="lazy"
                                 />
                                 <div className="flex flex-col justify-end opacity-0 transition-all hover:opacity-100 absolute inset-0 bg-neutral-900 bg-opacity-50 h-full px-2 py-5">
                                     <div className={`flex`}>

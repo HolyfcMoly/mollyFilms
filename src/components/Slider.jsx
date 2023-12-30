@@ -1,7 +1,7 @@
-import { IoIosArrowForward } from "react-icons/io";
 import "@splidejs/react-splide/css";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import { Link } from "react-router-dom";
+import IconArrowForward from "../assets/icons/IconArrowForward";
 
 const Slider = ({ movies, movieGenre }) => {
 
@@ -36,10 +36,10 @@ const Slider = ({ movies, movieGenre }) => {
                 <div className="relative xl:px-14 md:px-10 px-7">
                     <div className="splide__arrows">
                         <button className="splide__arrow splide__arrow--prev left-0 bg-secondary rounded-[10px] xl:w-[3rem] xl:h-[4rem] md:w-[2rem] md:h-[2rem] w-[1.2rem]">
-                            <IoIosArrowForward />
+                            <IconArrowForward />
                         </button>
                         <button className="splide__arrow splide__arrow--next right-0 bg-secondary rounded-[10px] xl:w-[3rem] xl:h-[4rem] md:w-[2rem] md:h-[2rem] w-[1.2rem]">
-                            <IoIosArrowForward />
+                        <IconArrowForward />
                         </button>
                     </div>
                     <SplideTrack>

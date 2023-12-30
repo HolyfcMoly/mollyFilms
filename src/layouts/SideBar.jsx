@@ -1,11 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import { getGenre } from "../services/api";
 import { Link } from "react-router-dom";
-import genresAndCategories from "../components/ui/GenresIcons";
+import GenrePreLoader from "../components/ui/GenresPreLoader";
+import BurgerBtn from "../components/ui/BurgerBtn";
+import { genreAndCategoriesIcons } from "../assets/icons/genres";
+// import {genresAndCategories} from "../components/ui/genresIcons";
 
 const SideBar = () => {
     const [data, setData] = useState([]);
     const [toggle, setToggle] = useState(false);
+    const [loading, setLoading] = useState(true)
     const categories = [
         { label: "Популярные", value: "popular" },
         { label: "Топ оценок", value: "top_rated" },
@@ -13,10 +17,12 @@ const SideBar = () => {
     ];
 
     const menuRef = useRef(null);
-
+    const skeletonData = new Array(19).fill('id');
+    
     useEffect(() => {
         getGenre().then((data) => {
-            setData(data);
+            data && setData(data);
+            setLoading(false)
         });
 
         const handler = (e) => {
@@ -29,19 +35,7 @@ const SideBar = () => {
 
     return (
         <div>
-            <button
-                className="fixed md:hidden ss:top-[65px] top-[101px] w-[1.9rem] h-[1.9rem]  z-[100]"
-                onClick={(e) => {
-                    e.stopPropagation()
-                    setToggle(!toggle)
-                }}
-            >
-                <div className="burger flex flex-col justify-between items-start h-full w-[1.5rem]">
-                    <div className={`w-full h-[2px] my-1 bg-secondary ${toggle ? 'menu_close' : 'menu_open'}`}></div>
-                    <div className={`w-2/3 h-[2px] my-1 bg-secondary ${toggle ? 'menu_close' : 'menu_open'}`}></div>
-                    <div className={`w-full h-[2px] my-1 bg-secondary ${toggle ? 'menu_close' : 'menu_open'}`}></div>
-                </div>
-            </button>
+            <BurgerBtn setToggle={setToggle} toggle={toggle}/>
             <div
                 className={`fixed overflow-auto bottom-0 ss:top-[6.3rem] md:top-[5.8rem] top-[8.8rem] ${
                     toggle ? "sm:left-[2rem] left-[1rem]" : "left-[-500px]"
@@ -62,8 +56,9 @@ const SideBar = () => {
                                         }}
                                         className="block focus:outline-none focus-visible:ring-1 focus-visible:ring-secondary rounded-[5px]"
                                     >
-                                        <div className="flex items-center p-2 genre-icons">
-                                            {genresAndCategories[value]}
+                                        <div className="flex items-center p-2 ">
+                                            {/* <img src={`${genreAndCategoriesIcons[value]}`} alt="" className="genre-icons invert"/> */}
+                                            {genreAndCategoriesIcons[value]}
                                             <p className="ml-4">{label}</p>
                                         </div>
                                     </Link>
@@ -73,8 +68,14 @@ const SideBar = () => {
                     </ul>
                     <h3 className="sticky top-0 text-secondary z-[1] bg-main">Жанры</h3>
                     <ul>
-                        {!data.length ? (
-                            <h3>wait</h3>
+                        {loading && !data.length ? (
+                            skeletonData.map((item, index)=> {
+                                return (
+                                    <li key={item + index}>
+                                        <GenrePreLoader />
+                                    </li>
+                                )
+                            })
                         ) : (
                             data.map((item) => {
                                 return (
@@ -92,7 +93,11 @@ const SideBar = () => {
                                             className="block focus:outline-none focus-visible:ring-1 focus-visible:ring-secondary rounded-[5px]"
                                         >
                                             <div className="flex items-center p-2 genre-icons">
-                                                {genresAndCategories[item.id]}
+                                            {/* {!genresAndCategories[item.id] ? <GenrePreLoader /> : genresAndCategories[item.id]} */}
+
+                                                {genreAndCategoriesIcons[item.id]}
+                                                {/* {genresAndCategories[item.id]} */}
+                                                {/* <img src={`${genreAndCategoriesIcons[item.id]}`} alt="" /> */}
                                                 <p className="ml-4">
                                                     {item.name.replace(
                                                         item.name[0],

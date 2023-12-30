@@ -4,6 +4,7 @@ import { getMovieByQuerySearch, getMovies, getMoviesByGenre } from "../services/
 import MovieList from "../components/MovieList";
 import { useLocation } from "react-router-dom";
 import Pagination from "../components/Pagination";
+import Preloader from "../components/ui/Preloader";
 
 const Movies = () => {
     const [genreMovie, setGenreMovie] = useState([]);
@@ -18,22 +19,22 @@ const Movies = () => {
         if(!query) {
             if (typeof movies === "string") {
                 getMovies(movies,currentPage).then((data) => {
-                    setGenreMovie(data.data.results);
-                    setCurrentPage(data.data.page);
-                    setPages(data.data.total_pages);
+                    data.data.results && setGenreMovie(data.data.results);
+                    data.data.page && setCurrentPage(data.data.page);
+                    data.data.total_pages && setPages(data.data.total_pages);
                 });
             } else {
                 getMoviesByGenre(movies,currentPage).then((data) => {
-                    setGenreMovie(data.data.results);
-                    setCurrentPage(data.data.page);
-                    setPages(data.data.total_pages);
+                    data.data.results && setGenreMovie(data.data.results);
+                    data.data.page && setCurrentPage(data.data.page);
+                    data.data.total_pages && setPages(data.data.total_pages);
                 });
             }
         } else {
             getMovieByQuerySearch(query, currentPage).then(data => {
-                setGenreMovie(data.data.results);
-                setCurrentPage(data.data.page);
-                setPages(data.data.total_pages);
+                data.data.results && setGenreMovie(data.data.results);
+                data.data.page && setCurrentPage(data.data.page);
+                data.data.total_pages && setPages(data.data.total_pages);
             })
         }
     }, [ query,movies, currentPage ]);
@@ -41,7 +42,7 @@ const Movies = () => {
     return (
         <>
             {!genreMovie.length ? (
-                <h3>loading movies</h3>
+                <Preloader />
             ) : (
                 <>
                     <div>
