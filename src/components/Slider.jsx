@@ -39,7 +39,7 @@ const Slider = ({ movies, movieGenre }) => {
                             <IconArrowForward />
                         </button>
                         <button className="splide__arrow splide__arrow--next right-0 bg-secondary rounded-[10px] xl:w-[3rem] xl:h-[4rem] md:w-[2rem] md:h-[2rem] w-[1.2rem]">
-                        <IconArrowForward />
+                            <IconArrowForward />
                         </button>
                     </div>
                     <SplideTrack>
@@ -68,14 +68,14 @@ const Slider = ({ movies, movieGenre }) => {
                                                 </p>
                                             </div>
                                             <div
-                                                className={`flex flex-col absolute bottom-0 left-0 slide-description justify-end w-full px-4 pb-4 transition-opacity duration-300`}
+                                                className={`flex flex-col absolute bottom-0 left-0 slide-description justify-end w-full px-4 pb-2 xl:pb-6 transition-opacity duration-300`}
                                             >
-                                                <h2 className="text-sm md:text-xl">
+                                                <h2 className="text-sm lg:text-xl xl:text-2xl">
                                                     {slide.title}
                                                 </h2>
                                                 <div className="flex items-center gap-3">
                                                     <p
-                                                        className={`text-xs md:text-base ${
+                                                        className={`text-xs lg:text-base ${
                                                             slide.vote_average >= 7
                                                                 ? "bg-secondary"
                                                                 : "bg-gray-700"
@@ -83,7 +83,7 @@ const Slider = ({ movies, movieGenre }) => {
                                                     >
                                                         {slide.vote_average.toFixed(1)}
                                                     </p>
-                                                    <p className="text-xs md:text-base md:leading-7">
+                                                    <p className="text-xs lg:text-lg xl:text-xl md:leading-7">
                                                         {slide.release_date.slice(
                                                             0,
                                                             4
@@ -93,7 +93,7 @@ const Slider = ({ movies, movieGenre }) => {
                                                         genre.id ===
                                                         slide.genre_ids[0] ? (
                                                             <p
-                                                                className="text-xs md:text-base md:leading-7"
+                                                                className="text-xs lg:text-lg xl:text-xl md:leading-7"
                                                                 key={genre.id}
                                                             >
                                                                 {genre.name.replace(

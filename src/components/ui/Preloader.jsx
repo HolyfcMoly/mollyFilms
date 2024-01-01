@@ -1,10 +1,10 @@
 import React from "react";
 
-const Preloader = () => {
+const Preloader = ({container, spinner}) => {
     return (
-        <div className="flex items-center justify-center w-full h-full min-h-[500px]">
-            <div className={`relative animate-spin block w-[150px] h-[150px] border-4 border-secondary rounded-[50%] border-s-transparent
-            before:absolute inset-0 before:block before:w-full before:h-full before:border-4 before:border-opacity-20 before:border-secondary before:rounded-[50%]`}></div>
+        <div className={`flex items-center justify-center w-full h-full min-h-[500px] ${container}`}>
+            <div className={` animate-spin  border-solid w-[150px] h-[150px] ${spinner} border-2 border-secondary rounded-[50%] border-s-transparent
+            `}></div>
         </div>
     );
 };

@@ -22,12 +22,15 @@ const Movies = () => {
                     data.data.results && setGenreMovie(data.data.results);
                     data.data.page && setCurrentPage(data.data.page);
                     data.data.total_pages && setPages(data.data.total_pages);
+                    // setIsLoading(false)
                 });
             } else {
                 getMoviesByGenre(movies,currentPage).then((data) => {
                     data.data.results && setGenreMovie(data.data.results);
                     data.data.page && setCurrentPage(data.data.page);
                     data.data.total_pages && setPages(data.data.total_pages);
+                    // setIsLoading(false)
+
                 });
             }
         } else {
@@ -35,6 +38,8 @@ const Movies = () => {
                 data.data.results && setGenreMovie(data.data.results);
                 data.data.page && setCurrentPage(data.data.page);
                 data.data.total_pages && setPages(data.data.total_pages);
+                // setIsLoading(false)
+
             })
         }
     }, [ query,movies, currentPage ]);
@@ -50,6 +55,7 @@ const Movies = () => {
                             movie={genreMovie}
                             genre={genre}
                             // loading={isLoading}
+                            // setIsLoading={setIsLoading}
                         />
                     </div>
                     <Pagination
