@@ -7,8 +7,8 @@ const GenrePreLoader = (props) => (
     width={170}
     height={50}
     viewBox="0 0 180 55"
-    backgroundColor="#827d7d"
-    foregroundColor="#bababa"
+    backgroundColor="#212223"
+    foregroundColor="#14161a"
     {...props}
   >
     <rect x="45" y="20" rx="3" ry="3" width="88" height="22" /> 

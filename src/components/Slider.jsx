@@ -12,8 +12,12 @@ const Slider = ({ movies, movieGenre }) => {
         pauseOnHover: true,
         resetProgress: false,
         width: "100%",
+        // fixedHeight: "100%",
         perPage: 3,
         breakpoints: {
+            1700: {
+                height: "450px"
+            },
             1040: {
                 focus: "start",
                 perPage: 2,
@@ -23,7 +27,7 @@ const Slider = ({ movies, movieGenre }) => {
             },
         },
         focus: "center",
-        autoHeight: true,
+        // autoHeight: true,
         pagination: false,
         lazyLoad: "nearby",
         arrows: true,
@@ -31,7 +35,7 @@ const Slider = ({ movies, movieGenre }) => {
     };
 
     return (
-        <div className="wrapper py-10">
+        <div className="wrapper py-10 ">
             <Splide options={options} hasTrack={false}>
                 <div className="relative xl:px-14 md:px-10 px-7">
                     <div className="splide__arrows">
@@ -42,11 +46,11 @@ const Slider = ({ movies, movieGenre }) => {
                             <IconArrowForward />
                         </button>
                     </div>
-                    <SplideTrack>
+                    <SplideTrack className="">
                         {movies.map((slide) => (
                             <SplideSlide key={slide.id} className="h-full">
-                                <Link to={`/movie/${slide.id}`}>
-                                    <div className="relative slide_info shadow-[inset_0_-40px_72px_12px_rgba(0,0,0,1)] cursor-pointer rounded-[10px]">
+                                <Link to={`/movie/${slide.id}`} className="md:min-h-[180px] xl:min-h-[230px] h-full block">
+                                    <div className="relative slide_info shadow-[inset_0_-40px_72px_12px_rgba(0,0,0,1)] cursor-pointer rounded-[10px] md:min-h-[180px] xl:min-h-[230px] ">
                                         <img
                                             src={`https://image.tmdb.org/t/p/original${
                                                 slide.backdrop_path
