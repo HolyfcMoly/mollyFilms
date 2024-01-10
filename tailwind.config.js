@@ -16,6 +16,7 @@ export default {
                 md: "1060px",
                 lg: "1200px",
                 xl: "1700px",
+                fhd: '1920px',
             },
             flex: {
                 '1/2': '0.5 1 0%',

@@ -7,14 +7,11 @@ const MovieList = ({ movie, genre = "Популярные", setSlide = true }) =
     const [movieGenre, setMovieGenre] = useState([]);
     const [nowPlayingMovie, setNowPlayingMovie] = useState([]);
 
-    
     useEffect(() => {
-        getGenre().then((data) => {
-            setMovieGenre(data);
-        });
+        getGenre().then((data) => setMovieGenre(data));
         getNowPlaying().then((data) => setNowPlayingMovie(data.data.results));
     }, []);
-    // console.log(movie, "movie");
+
     return (
         <>
             {setSlide && (
@@ -30,7 +27,11 @@ const MovieList = ({ movie, genre = "Популярные", setSlide = true }) =
             </h1>
             <div className="gridBox mt-8">
                 {movie.map((item) => (
-                    <MovieCard key={item.id} movieGenre={movieGenre} movie={item}/>
+                    <MovieCard
+                        key={item.id}
+                        movieGenre={movieGenre}
+                        movie={item}
+                    />
                 ))}
             </div>
         </>

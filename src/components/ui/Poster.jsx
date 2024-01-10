@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Preloader from "./Preloader";
 
-const Poster = ({ src, alt }) => {
+const Poster = ({ src, alt, className }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
@@ -20,7 +20,7 @@ const Poster = ({ src, alt }) => {
             <img
                 src={src}
                 alt={alt}
-                className="w-[100%] h-[100%] object-cover bg-transparent rounded-md"
+                className={`w-[100%] h-[100%] object-cover ${className}`}
                 loading="lazy"
                 onLoad={() => setIsLoading(true)}
             />

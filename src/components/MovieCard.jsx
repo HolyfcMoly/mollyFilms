@@ -31,6 +31,7 @@ const MovieCard = ({ movieGenre, movie }) => {
                         <Poster
                             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                             alt={movie.title}
+                            className={`rounded-md bg-transparent`}
                         />
                     ) : (
                         <ImgPreLoader />

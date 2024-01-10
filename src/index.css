@@ -20,6 +20,8 @@ body {
     font-family: Poppins, Helvetica, Arial, sans-serif;
     font-weight: 400;
     color: rgb(226 232 240);
+
+    --color-secondary: #F0761D;
 }
 
 .bg-main {
@@ -117,7 +119,7 @@ body {
 }
 
 .slide_info {
-    height: calc(100% - 2px);
+    height: calc(100% - 0px);
 }
 
 .slide_info .overview {
@@ -166,4 +168,20 @@ body {
 .genre-icons svg {
     width: 1.5rem;
     height: 1.5rem;
+}
+
+@layer utilities {
+    .custom__arrow- svg {
+
+    }
+    .custom__arrow-unset svg {
+        width: unset;
+        height: unset;
+        fill: unset;
+    }
+    .custom__arrow-xl svg {
+        width: 48px;
+        height: 48px;
+        fill: var(--color-secondary);
+    }
 }
