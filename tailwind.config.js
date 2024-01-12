@@ -10,6 +10,7 @@ export default {
                 active: "rgba(240, 118, 29, 0.7)",
             },
             screens: {
+                xss: "384px",
                 xs: "480px",
                 ss: "620px",
                 sm: "768px",
@@ -17,6 +18,7 @@ export default {
                 lg: "1200px",
                 xl: "1700px",
                 fhd: '1920px',
+                sfhd: '2080px',
             },
             flex: {
                 '1/2': '0.5 1 0%',

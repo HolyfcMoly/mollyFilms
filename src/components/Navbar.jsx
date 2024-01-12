@@ -6,7 +6,7 @@ const Navbar = () => (
     <nav className="flex ss:flex-1 items-center flex-wrap justify-between w-full">
         <div className="flex ss:flex-1">
             <Link to={"/"}>
-                <img src={logo} alt="logo" className="w-[150px] h-[30px]" />
+                <img src={logo} alt="logo" className="sfhd:w-[250px] sfhd:h-[60px] w-[150px] h-[30px]" />
             </Link>
         </div>
 

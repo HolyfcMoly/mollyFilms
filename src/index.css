@@ -21,7 +21,7 @@ body {
     font-weight: 400;
     color: rgb(226 232 240);
 
-    --color-secondary: #F0761D;
+    --color-secondary: #f0761d;
 }
 
 .bg-main {
@@ -46,7 +46,6 @@ body {
 
 /* media for custom scroll-bar */
 @media screen and (min-width: 1024px) {
-    
     .custom_scroll::-webkit-scrollbar {
         width: 14px;
     }
@@ -71,43 +70,52 @@ body {
         display: block;
         background-color: aliceblue;
         background-size: cover;
-        
     }
 
     .custom_scroll::-webkit-scrollbar-button:vertical:decrement {
-        background: url('./assets/scroll-icons/arrow-up.svg') center/cover no-repeat #2828287f;
+        background: url("./assets/scroll-icons/arrow-up.svg") center/cover
+            no-repeat #2828287f;
     }
 
     .custom_scroll::-webkit-scrollbar-button:vertical:decrement:hover {
-        background: url('./assets/scroll-icons/arrow-up-hover.svg') center/cover no-repeat #2828289e;
+        background: url("./assets/scroll-icons/arrow-up-hover.svg") center/cover
+            no-repeat #2828289e;
     }
 
     .custom_scroll::-webkit-scrollbar-button:vertical:decrement:active {
-        background: url('./assets/scroll-icons/arrow-up-active.svg') center/cover no-repeat #3939399e;
+        background: url("./assets/scroll-icons/arrow-up-active.svg")
+            center/cover no-repeat #3939399e;
     }
 
     .custom_scroll::-webkit-scrollbar-button:vertical:increment {
-        background: url('./assets/scroll-icons/arrow-down.svg') center/cover no-repeat #2828287f;
+        background: url("./assets/scroll-icons/arrow-down.svg") center/cover
+            no-repeat #2828287f;
     }
 
     .custom_scroll::-webkit-scrollbar-button:vertical:increment:hover {
-        background: url('./assets/scroll-icons/arrow-down-hover.svg') center/cover no-repeat #2828289e;
+        background: url("./assets/scroll-icons/arrow-down-hover.svg")
+            center/cover no-repeat #2828289e;
     }
 
     .custom_scroll::-webkit-scrollbar-button:vertical:increment:active {
-        background: url('./assets/scroll-icons/arrow-down-active.svg') center/cover no-repeat #3939399e;
+        background: url("./assets/scroll-icons/arrow-down-active.svg")
+            center/cover no-repeat #3939399e;
     }
 
     .custom_scroll::-webkit-scrollbar-button:vertical:start:increment,
-    .custom_scroll::-webkit-scrollbar-button:vertical:end:decrement  {
+    .custom_scroll::-webkit-scrollbar-button:vertical:end:decrement {
         display: none;
     }
 }
+@media screen and (min-width: 2080px) {
+    .custom_scroll::-webkit-scrollbar {
+        width: 25px;
+    }
 
-.gridBox {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    gap: 20px;
+    .custom_scroll::-webkit-scrollbar-button:vertical:increment,
+    .custom_scroll::-webkit-scrollbar-button:vertical:decrement {
+        height: 50px;
+    }
 }
 
 .rating p {
@@ -152,7 +160,7 @@ body {
 }
 
 .menu_close:nth-child(1) {
-    transform: rotate(45deg) translate(9px,5px);
+    transform: rotate(45deg) translate(9px, 5px);
     transition: ease-out 0.5s;
 }
 .menu_close:nth-child(2) {
@@ -161,24 +169,38 @@ body {
     transition: ease-out 0.5s;
 }
 .menu_close:nth-child(3) {
-    transform: rotate(-45deg) translate(10px,-5px);
+    transform: rotate(-45deg) translate(10px, -5px);
     transition: ease-out 0.5s;
 }
 
-.genre-icons svg {
-    width: 1.5rem;
-    height: 1.5rem;
-}
-
 @layer utilities {
-    .custom__arrow- svg {
-
+    .gridBox {
+        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
     }
+
+    .gridBox-min {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+
+    .custom__arrow- svg {
+    }
+
+    .genre-icons svg {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+
+    .genre-icons-xl svg {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
     .custom__arrow-unset svg {
         width: unset;
         height: unset;
         fill: unset;
     }
+
     .custom__arrow-xl svg {
         width: 48px;
         height: 48px;

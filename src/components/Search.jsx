@@ -20,7 +20,7 @@ const Search = () => {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search"
-                className="w-full focus:outline-none rounded-[5px] ring-secondary focus-visible:ring-1 px-2 py-[2px] caret-secondary text-white"
+                className="w-full focus:outline-none rounded-[5px] ring-secondary focus-visible:ring-1 sfhd:py-2 px-2 py-[2px] caret-secondary sfhd:text-2xl text-white"
             />
         </div>
     );

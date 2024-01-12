@@ -13,12 +13,11 @@ import Profile from "./pages/Profile";
 function App() {
     return (
         <div className="w-full flex flex-col">
-            {/* <h1 className="text-secondary">Hello</h1> */}
             <BrowserRouter>
                 <Header />
                 <div className={`${styles.paddingX}`}>
                     <SideBar />
-                    <main className={`md:${styles.paddingX} px-0 flex-1 mt-4 md:ml-[12.5rem] overflow-hidden`}>
+                    <main className={`md:${styles.paddingX} px-0 flex-1 mt-4 sfhd:ml-[22rem] md:ml-[12.5rem] overflow-hidden`}>
                         {/* <Suspense fallback={<Loading />}> */}
                             <Routes>
                                 <Route path="/" element={<Movies />} />

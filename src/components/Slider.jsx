@@ -20,7 +20,7 @@ const Slider = ({ movies, movieGenre }) => {
         height: "350px",
         perPage: 3,
         breakpoints: {
-            1920: {
+            2080: {
                 height: "250px",
             },
             1700: {
@@ -98,19 +98,19 @@ const Slider = ({ movies, movieGenre }) => {
                                             )}
                                             <div className="flex flex-col justify-between absolute inset-0 px-3 py-4 hover:bg-neutral-900 hover:bg-opacity-50 transition-all duration-300">
                                                 <div className="h-full z-10">
-                                                    <p className="overview text-xs md:text-sm">
+                                                    <p className="sfhd:text-2xl overview text-xs md:text-sm">
                                                         {slide.overview}
                                                     </p>
                                                 </div>
                                                 <div
                                                     className={`flex flex-col absolute bottom-0 left-0 slide-description justify-end w-full px-4 pb-2 xl:pb-6 transition-opacity duration-300`}
                                                 >
-                                                    <h2 className="text-sm lg:text-xl xl:text-2xl">
+                                                    <h2 className="sfhd:text-3xl text-sm lg:text-xl xl:text-2xl">
                                                         {slide.title}
                                                     </h2>
                                                     <div className="flex items-center gap-3">
                                                         <p
-                                                            className={`text-xs lg:text-base ${
+                                                            className={`sfhd:text-2xl lg:text-base text-xs  ${
                                                                 slide.vote_average >=
                                                                 7
                                                                     ? "bg-secondary"
@@ -121,7 +121,7 @@ const Slider = ({ movies, movieGenre }) => {
                                                                 1
                                                             )}
                                                         </p>
-                                                        <p className="text-xs lg:text-lg xl:text-xl md:leading-7">
+                                                        <p className="sfhd:text-2xl text-xs lg:text-lg xl:text-xl md:leading-7">
                                                             {slide.release_date.slice(
                                                                 0,
                                                                 4
@@ -133,7 +133,7 @@ const Slider = ({ movies, movieGenre }) => {
                                                                 slide
                                                                     .genre_ids[0] ? (
                                                                     <p
-                                                                        className="text-xs lg:text-lg xl:text-xl md:leading-7"
+                                                                        className="sfhd:text-2xl text-xs lg:text-lg xl:text-xl md:leading-7"
                                                                         key={
                                                                             genre.id
                                                                         }
@@ -159,7 +159,7 @@ const Slider = ({ movies, movieGenre }) => {
                     </div>
                 </Splide>
             ) : (
-                <div className="flex items-center fhd:h-[350px] xl:h-[250px] lg:h-[190px] md:h-[160px] sm:h-[200px] ss:h-[280px] xs:h-[250px] h-[200px]">
+                <div className="flex items-center sfhd:h-[350px] xl:h-[250px] lg:h-[190px] md:h-[160px] sm:h-[200px] ss:h-[280px] xs:h-[250px] h-[200px]">
                     <Preloader container={"min-h-0"} />
                 </div>
             )}

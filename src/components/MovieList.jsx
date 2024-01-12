@@ -25,7 +25,7 @@ const MovieList = ({ movie, genre = "Популярные", setSlide = true }) =
             <h1 className="mb-[1.5rem] text-secondary text-[2.5rem] leading-[2.8rem]">
                 {genre ? genre.replace(genre[0], genre[0].toUpperCase()) : ""}
             </h1>
-            <div className="gridBox mt-8">
+            <div className="grid sfhd:gap-11 gap-5 sfhd:place-items-start sfhd:grid-cols-[repeat(auto-fit,_minmax(350px,_1fr))] place-items-center items-start ss:gridBox gridBox-min mt-8 ">
                 {movie.map((item) => (
                     <MovieCard
                         key={item.id}
