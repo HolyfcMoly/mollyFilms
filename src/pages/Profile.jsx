@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getMovieByProfileId, getProfile } from "../services/api";
 import MovieList from "../components/MovieList";
 import Pagination from "../components/Pagination";
+import BackButton from "../components/ui/BackButton";
 
 const Profile = () => {
     const [profile, setProfile] = useState({});
@@ -20,7 +21,7 @@ const Profile = () => {
             // console.log(data.data);
         });
         getMovieByProfileId(id).then(data => {
-            console.log(data.data.cast)
+            console.log(data.data.cast, 'cast')
             setMovies(data.data.cast)
         })
     }, [id]);
@@ -33,7 +34,8 @@ const Profile = () => {
     }, [movies, moviesPerPage, page]);
 
     return (
-        <>
+        <><div>
+            <BackButton className={`my-1`}/>
             <div>
                 <img
                     src={`https://image.tmdb.org/t/p/w200${profile.profile_path}`}
@@ -49,6 +51,7 @@ const Profile = () => {
                 totalPages={pages}
             />
             </div>
+        </div>
         </>
     );
 };

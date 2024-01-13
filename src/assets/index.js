@@ -1,3 +1,4 @@
-import logo from './logo.svg'
+import logo from './logo.svg';
+import avatar from './avatar.svg';
 
-export { logo }
+export { logo, avatar }

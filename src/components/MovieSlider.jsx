@@ -7,7 +7,7 @@ import Poster from "./ui/Poster";
 import { useEffect, useState } from "react";
 import Preloader from "./ui/Preloader";
 
-const Slider = ({ movies, movieGenre }) => {
+const MovieSlider = ({ movies, movieGenre }) => {
     const [isSplideLoaded, setIsSplideLoaded] = useState(false);
 
     const options = {
@@ -167,4 +167,4 @@ const Slider = ({ movies, movieGenre }) => {
     );
 };
 
-export default Slider;
+export default MovieSlider;

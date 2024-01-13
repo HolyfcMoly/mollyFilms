@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getGenre, getNowPlaying } from "../services/api";
-import Slider from "./Slider";
+import MovieSlider from "./MovieSlider";
 import MovieCard from "./MovieCard";
 
 const MovieList = ({ movie, genre = "Популярные", setSlide = true }) => {
@@ -19,7 +19,7 @@ const MovieList = ({ movie, genre = "Популярные", setSlide = true }) =
                     <h1 className="text-secondary text-[2.5rem] leading-[2.8rem]">
                         Сейчас смотрят
                     </h1>
-                    <Slider movies={nowPlayingMovie} movieGenre={movieGenre} />
+                    <MovieSlider movies={nowPlayingMovie} movieGenre={movieGenre} />
                 </div>
             )}
             <h1 className="mb-[1.5rem] text-secondary text-[2.5rem] leading-[2.8rem]">

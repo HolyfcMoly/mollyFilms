@@ -8,6 +8,7 @@ export default {
                 secondary: "#F0761D",
                 dimWhite: "rgb(148 163 184)",
                 active: "rgba(240, 118, 29, 0.7)",
+                dark: '#212223',
             },
             screens: {
                 xss: "384px",

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const Search = () => {
     const [query, setQuery] = useState('');
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const handleKeyPress = (event) => {
         if(event.key === 'Enter') {
