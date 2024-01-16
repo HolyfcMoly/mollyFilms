@@ -12,15 +12,9 @@ const ProfileSlider = ({ credits }) => {
 
     const options = {
         type: "loop",
-        gap: "1rem",
-        autoplay: false,
-        pauseOnHover: true,
-        resetProgress: false,
         width: "100%",
         autoHeight: true,
-        // height: "190px",
         perPage: 9,
-        padding: { left: '1rem', right: '1rem' },
         breakpoints: {
             2080: {
                 perPage: 8,
@@ -28,11 +22,13 @@ const ProfileSlider = ({ credits }) => {
             1700: {
                 perPage: 7,
             },
-            1040: {
-                perPage: 5,
-                focus: "start",
+            1200: {
+                perPage: 6,
             },
             768: {
+                perPage: 5,
+            },
+            620: {
                 perPage: 4,
             },
             480: {
@@ -42,11 +38,10 @@ const ProfileSlider = ({ credits }) => {
                 perPage: 2,
             },
         },
-        focus: "center",
+        focus: "start",
         pagination: false,
         lazyLoad: "nearby",
         arrows: true,
-        interval: 5000,
     };
 
     useEffect(() => {
@@ -59,7 +54,7 @@ const ProfileSlider = ({ credits }) => {
         <div className="py-10">
             {isSplideLoaded ? (
                 <Splide options={options} hasTrack={false}>
-                    <div className="relative xl:px-14 md:px-10 sm:px-7 px-0">
+                    <div className="relative  xl:px-14 md:px-10 sm:px-7 px-0 overflow-hidden">
                         <div className="splide__arrows">
                             <button className="splide__arrow splide__arrow--prev sm:custom__arrow-unset custom__arrow-xl left-0 sm:bg-secondary sm:rounded-[10px] rounded-l-[8px] rounded-r-none xl:w-[3rem] xl:h-[4rem] md:w-[2rem] md:h-[2rem] sm:w-[1.2rem] xs:w-[2.8rem] w-[2rem] sm:p-0 ss:py-[8.65rem] xs:py-[7.7rem] py-[6.15rem]  bg-transparent">
                                 <IconArrowForward />
@@ -70,19 +65,21 @@ const ProfileSlider = ({ credits }) => {
                         </div>
                         <SplideTrack>
                             {credits.map((cast) => (
-                                <SplideSlide key={cast.id} className="">
-                                    <div className="sfhd:w-[140px] w-[80px] h-full">
+                                <SplideSlide key={cast.id} className="px-2 flex justify-center  w-full">
+                                    <div className="sfhd:w-[140px] max-w-[90px] w-full h-full">
                                         <Link
                                             to={`/profile/${cast.id}`}
-                                            className="h-full"
+                                            className=""
                                         >
-                                            <div className="">
+                                            <div>
+                                                <div >
                                                     <img
-                                                        src={`${!cast.profile_path ? `${avatar}` : `https://image.tmdb.org/t/p/w200${cast.profile_path}`}`}
+                                                        src={`${!cast.profile_path ? `${avatar}` : `https://image.tmdb.org/t/p/original${cast.profile_path}`}`}
                                                         alt={`${cast.original_name}`}
-                                                        className="object-cover w-full h-[120px] rounded-full bg-dark/25"
+                                                        className="object-cover w-full h-full rounded-2xl bg-dark/25"
                                                     />
-                                                <p className="sfhd:text-2xl">
+                                                </div>
+                                                <p className="mt-3 sfhd:text-2x md:text-sm text-xs">
                                                     {cast.original_name}
                                                 </p>
                                             </div>

@@ -48,11 +48,11 @@ const SideBar = () => {
             <div
                 className={`fixed overflow-auto bottom-0 sfhd:top-[7.65rem] ss:top-[6.3rem] md:top-[5.8rem] top-[8.8rem] ${
                     toggle ? "sm:left-[2rem] left-[1rem]" : "left-[-500px]"
-                } md:left-[unset] transition-[left] ease-in-out duration-500 custom_scroll sfhd:text-3xl sfhd:w-[350px] w-[200px] bg-main z-30`}
+                } md:left-[unset] transition-[left] ease-in-out duration-500 custom_scroll sfhd:text-3xl sfhd:w-[350px] w-[200px] xl:w-[250px] bg-main z-30`}
                 ref={menuRef}
             >
                 <div className="flex flex-col py-2 relative">
-                    <h3 className="sticky top-0 sfhd:text-4xl text-secondary z-[1] bg-main">
+                    <h3 className="sticky top-0 sfhd:text-4xl xl:text-2xl text-secondary z-[1] bg-main">
                         Категории
                     </h3>
                     <ul className="mb-4 relative">
@@ -60,7 +60,7 @@ const SideBar = () => {
                             return (
                                 <li
                                     key={value}
-                                    className="p-1 sfhd:py-6 active:text-active hover:text-secondary transition-colors duration-300 focus-within:text-secondary"
+                                    className="sfhd:py-6 xl:py-3 p-1 active:text-active hover:text-secondary transition-colors duration-300 focus-within:text-secondary"
                                     onClick={() => setToggle(!toggle)}
                                 >
                                     <Link
@@ -73,14 +73,14 @@ const SideBar = () => {
                                     >
                                         <div className="flex items-center p-2 sfhd:genre-icons-xl ">
                                             {genreAndCategoriesIcons[value]}
-                                            <p className="ml-4 sfhd:text-2xl">{label}</p>
+                                            <p className="ml-4 sfhd:text-2xl xl:text-xl">{label}</p>
                                         </div>
                                     </Link>
                                 </li>
                             );
                         })}
                     </ul>
-                    <h3 className="sticky top-0 sfhd:text-4xl text-secondary z-[1] bg-main">
+                    <h3 className="sticky top-0 sfhd:text-4xl xl:text-2xl text-secondary z-[1] bg-main">
                         Жанры
                     </h3>
                     <ul>
@@ -96,7 +96,7 @@ const SideBar = () => {
                                 return (
                                     <li
                                         key={item.id}
-                                        className="active:text-active p-1 sfhd:py-6 hover:text-secondary transition-colors duration-300 text-white focus-within:text-secondary"
+                                        className="active:text-active sfhd:py-6 xl:py-3 p-1 hover:text-secondary transition-colors duration-300 text-white focus-within:text-secondary"
                                         onClick={() => setToggle(!toggle)}
                                     >
                                         <Link
@@ -113,7 +113,7 @@ const SideBar = () => {
                                                         item.id
                                                     ]
                                                 }
-                                                <p className="ml-4">
+                                                <p className="ml-4 sfhd:text-2xl xl:text-xl">
                                                     {item.name.replace(
                                                         item.name[0],
                                                         item.name[0].toUpperCase()

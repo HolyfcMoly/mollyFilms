@@ -42,7 +42,7 @@ const Movies = () => {
     return (
         <>
             {!genreMovie.length ? (
-                <Preloader />
+                <Preloader container={`min-h-[500px]`}/>
             ) : (
                 <>
                     <div>

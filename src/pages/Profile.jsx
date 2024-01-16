@@ -34,8 +34,11 @@ const Profile = () => {
     }, [movies, moviesPerPage, page]);
 
     return (
-        <><div>
-            <BackButton className={`my-1`}/>
+        <>
+        <div>
+            <div className="pb-6">
+            <BackButton className={`flex items-center mt-1`} />
+            </div>
             <div>
                 <img
                     src={`https://image.tmdb.org/t/p/w200${profile.profile_path}`}

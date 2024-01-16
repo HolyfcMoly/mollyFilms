@@ -107,6 +107,16 @@ body {
         display: none;
     }
 }
+@media screen and (min-width: 1700px) {
+    .custom_scroll::-webkit-scrollbar {
+        width: 20px;
+    }
+
+    .custom_scroll::-webkit-scrollbar-button:vertical:increment,
+    .custom_scroll::-webkit-scrollbar-button:vertical:decrement {
+        height: 30px;
+    }
+}
 @media screen and (min-width: 2080px) {
     .custom_scroll::-webkit-scrollbar {
         width: 25px;
@@ -182,8 +192,11 @@ body {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     }
 
-    .custom__arrow- svg {
+    .custom__arrow-secondary svg {
+        fill: var(--color-secondary);
     }
+
+    
 
     .genre-icons svg {
         width: 1.5rem;

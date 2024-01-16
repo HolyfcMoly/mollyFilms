@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Preloader from "./Preloader";
 
-const Poster = ({ src, alt, className }) => {
+const Poster = ({ src, alt, className, spinner, container }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
@@ -12,8 +12,8 @@ const Poster = ({ src, alt, className }) => {
         <>
             {!isLoading && (
                 <Preloader
-                    container={"min-h-full absolute inset-0"}
-                    spinner={"w-[20px] h-[20px]"}
+                    container={`min-h-full absolute inset-0 ${container}`}
+                    spinner={`w-[20px] h-[20px] ${spinner}`}
                 />
             )}
 
