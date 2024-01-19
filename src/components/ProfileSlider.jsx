@@ -56,32 +56,34 @@ const ProfileSlider = ({ credits }) => {
                 <Splide options={options} hasTrack={false}>
                     <div className="relative  xl:px-14 md:px-10 sm:px-7 px-0 overflow-hidden">
                         <div className="splide__arrows">
-                            <button className="splide__arrow splide__arrow--prev sm:custom__arrow-unset custom__arrow-xl left-0 sm:bg-secondary sm:rounded-[10px] rounded-l-[8px] rounded-r-none xl:w-[3rem] xl:h-[4rem] md:w-[2rem] md:h-[2rem] sm:w-[1.2rem] xs:w-[2.8rem] w-[2rem] sm:p-0 ss:py-[8.65rem] xs:py-[7.7rem] py-[6.15rem]  bg-transparent">
+                            <button className="splide__arrow splide__arrow--prev sfhd:custom__arrow-xxl sm:custom__arrow-unset custom__arrow-xl left-0 sm:bg-secondary sm:rounded-[10px] rounded-l-[8px] rounded-r-none xl:w-[3rem] xl:h-[4rem] md:w-[2rem] md:h-[2rem] sm:w-[1.2rem] xs:w-[2.8rem] w-[2rem] sm:p-0 ss:py-[8.65rem] xs:py-[7.7rem] py-[6.15rem]  bg-transparent">
                                 <IconArrowForward />
                             </button>
-                            <button className="splide__arrow splide__arrow--next sm:custom__arrow-unset custom__arrow-xl right-0 sm:bg-secondary sm:rounded-[10px] rounded-l-[0] rounded-r-[8px] xl:w-[3rem] xl:h-[4rem] md:w-[2rem] md:h-[2rem] sm:w-[1.2rem] xs:w-[2.8rem] w-[2rem] sm:p-0 ss:py-[8.65rem] xs:py-[7.7rem] py-[6.15rem] bg-transparent">
+                            <button className="splide__arrow splide__arrow--next sfhd:custom__arrow-xxl sm:custom__arrow-unset custom__arrow-xl right-0 sm:bg-secondary sm:rounded-[10px] rounded-l-[0] rounded-r-[8px] xl:w-[3rem] xl:h-[4rem] md:w-[2rem] md:h-[2rem] sm:w-[1.2rem] xs:w-[2.8rem] w-[2rem] sm:p-0 ss:py-[8.65rem] xs:py-[7.7rem] py-[6.15rem] bg-transparent">
                                 <IconArrowForward />
                             </button>
                         </div>
                         <SplideTrack>
                             {credits.map((cast) => (
                                 <SplideSlide key={cast.id} className="px-2 flex justify-center  w-full">
-                                    <div className="sfhd:w-[140px] max-w-[90px] w-full h-full">
+                                    <div className="sfhd:w-[140px] sfhd:max-w-[120px] max-w-[90px] w-full h-full">
                                         <Link
                                             to={`/profile/${cast.id}`}
                                             className=""
                                         >
                                             <div>
-                                                <div >
+                                                <div className="sfhd:h-[180px] h-[135px]">
                                                     <img
                                                         src={`${!cast.profile_path ? `${avatar}` : `https://image.tmdb.org/t/p/original${cast.profile_path}`}`}
                                                         alt={`${cast.original_name}`}
+                                                        loading="lazy"
                                                         className="object-cover w-full h-full rounded-2xl bg-dark/25"
                                                     />
                                                 </div>
-                                                <p className="mt-3 sfhd:text-2x md:text-sm text-xs">
+                                                <p className="mt-3 sfhd:text-2xl xl:text-xl md:text-sm text-xs">
                                                     {cast.original_name}
                                                 </p>
+                                                <p className="text-dimWhite xl:text-base text-xs">{cast.character}</p>
                                             </div>
                                         </Link>
                                     </div>

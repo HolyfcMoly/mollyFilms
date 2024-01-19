@@ -99,16 +99,25 @@ const getPosterImage = async (id) => {
     return response;
 };
 
+const getMovieTrailer = async (id) => {
+    const response = await axios
+        .get(`${API_URL}movie/${id}/videos?api_key=${API_KEY}&language=en}`)
+        .then((res) => res)
+        .catch((e) => console.log(e));
+    return response;
+};
+
 export {
-    getGenre,
-    getMovies,
-    getPosterImage,
     getMovie,
+    getMovies,
     getMoviesByGenre,
     getMovieByQuerySearch,
-    getRecomendMovies,
+    getMovieByProfileId,
+    getMovieTrailer,
     getCredits,
     getProfile,
-    getMovieByProfileId,
+    getGenre,
+    getPosterImage,
     getNowPlaying,
+    getRecomendMovies,
 };

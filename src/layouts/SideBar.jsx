@@ -5,6 +5,7 @@ import GenrePreLoader from "../components/ui/GenresPreLoader";
 import BurgerBtn from "../components/ui/BurgerBtn";
 import { genreAndCategoriesIcons } from "../assets/icons/genres";
 import useResize from "../hooks/useResize";
+import { clickOutside } from "../utils";
 
 const SideBar = () => {
     const [data, setData] = useState([]);
@@ -33,14 +34,10 @@ const SideBar = () => {
         setIsMobile(false);
         if (width < 1060) {
             setIsMobile(true);
-            const handler = (e) => {
-                if (!menuRef.current.contains(e.target)) {
-                    setToggle(false);
-                }
-            };
+            const handler = clickOutside(menuRef, setToggle)
             document.addEventListener("click", handler);
         }
-    }, [width]);
+    }, [width, toggle]);
 
     return (
         <div>

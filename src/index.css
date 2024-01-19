@@ -219,4 +219,9 @@ body {
         height: 48px;
         fill: var(--color-secondary);
     }
+
+    .custom__arrow-xxl svg {
+        width: 68px;
+        height: 68px;
+    }
 }
