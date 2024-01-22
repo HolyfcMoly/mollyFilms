@@ -183,6 +183,41 @@ body {
     transition: ease-out 0.5s;
 }
 
+
+.my-modal-enter {
+    opacity: 0;
+}
+.my-modal-enter .video {
+    transform: scale(0.5);
+}
+
+.my-modal-enter-active {
+    opacity: 1;
+    transition: opacity linear 0.3s;
+}
+.my-modal-enter-active .video {
+    transform: scale(1);
+    transition: transform linear 0.3s;
+}
+
+.my-modal-exit {
+    opacity: 1;
+}
+.my-modal-exit .video {
+    transform: scale(1);
+}
+
+.my-modal-exit-active {
+    opacity: 0;
+    transition: opacity linear 0.3s ;
+}
+.my-modal-exit-active .video {
+    transform: scale(0.5);
+    transition: transform linear 0.3s ;
+}
+
+
+
 @layer utilities {
     .gridBox {
         grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
@@ -195,8 +230,6 @@ body {
     .custom__arrow-secondary svg {
         fill: var(--color-secondary);
     }
-
-    
 
     .genre-icons svg {
         width: 1.5rem;

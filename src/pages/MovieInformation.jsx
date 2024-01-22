@@ -77,7 +77,7 @@ const MovieInformation = () => {
                                 </h1>
                                 <p className="xl:text-3xl text-base">{movie.tagline}</p>
                             </div>
-                            <div className="flex justify-between xl:genre-icons-xl genre-icons mb-10">
+                            <div className="flex justify-center space-x-3 xl:genre-icons-xl genre-icons mb-10">
                                 {genres.map((item) => {
                                     return (
                                         <div key={item.id} className="flex items-center ">
@@ -114,11 +114,9 @@ const MovieInformation = () => {
                                 <p className="xl:text-2xl">{movie.overview}</p>
                             </div>
                         </div>
-                            <div className="mt-10">
+                            <div className="flex  mt-10">
                                 <ImdbBtn src={`https://www.imdb.com/title/${movie.imdb_id}`}/>
                                 {trailerVideo && (<TrailerBtn trailer={trailerVideo} />)}
-                                
-
                             </div>
                     </div>
                 </div>
