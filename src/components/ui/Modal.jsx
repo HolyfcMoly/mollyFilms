@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { CSSTransition } from "react-transition-group";
 
-const Modal = ({ openIn, modalClass, containerClass, children }) => {
+const Modal = ({ openIn, modalClass, containerClass ='', children }) => {
     const nodeRef = useRef(null);
 
     return (

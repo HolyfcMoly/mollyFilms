@@ -1,11 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
-import { clickOutside } from "../../utils";
+import { clickOutside, toggleBodyClasses } from "../../utils";
 import Preloader from "./Preloader";
 import Modal from "./Modal";
+import useResize from "../../hooks/useResize";
+import { close } from "../../assets";
 
 const TrailerBtn = ({ className = "", trailer }) => {
     const [youTubeKey, setYouTubeKey] = useState("");
     const [open, setOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+    const width = useResize();
+
     const clickRef = useRef(null);
 
     useEffect(() => {
@@ -22,7 +27,12 @@ const TrailerBtn = ({ className = "", trailer }) => {
     useEffect(() => {
         const handler = clickOutside(clickRef, setOpen, open);
         document.addEventListener("click", handler);
-    }, [open]);
+        setIsMobile(false);
+        if (width < 1023) {
+            setIsMobile(true);
+        }
+        toggleBodyClasses(open, isMobile);
+    }, [open, width, isMobile]);
 
     return (
         <>
@@ -41,16 +51,27 @@ const TrailerBtn = ({ className = "", trailer }) => {
                     className={`fixed inset-0 flex items-center z-[-1] bg-black/70`}
                 ></div>
                 <div
-                    className={`absolute  top-1/2 left-1/2 flex items-center justify-center  -translate-y-1/2 -translate-x-1/2 w-1/2 h-1/2`}
+                    className={`absolute  top-1/2 left-1/2 flexCenter -translate-y-1/2 -translate-x-1/2 sm:w-1/2 ss:w-2/3 w-10/12 ss:h-1/2 h-2/6`}
                     ref={clickRef}
                 >
                     {youTubeKey.length > 0 ? (
-                        <iframe
-                            autoPlay
-                            allow="autoplay"
-                            src={`https://www.youtube.com/embed/${youTubeKey[0].key}`}
-                            className={`w-full h-full bg-black video`}
-                        ></iframe>
+                        <div className="w-full h-full">
+                            <button
+                                className="absolute ss:-right-5 right-0 ss:-top-8 -top-6 ss:h-auto ss:w-auto h-6 w-6"
+                                onClick={(e) => {
+                                    setOpen(!open);
+                                    e.stopPropagation();
+                                }}
+                            >
+                                <img src={close} />
+                            </button>
+                            <iframe
+                                autoPlay
+                                allow="autoplay"
+                                src={`https://www.youtube.com/embed/${youTubeKey[0].key}`}
+                                className={`w-full h-full bg-black video`}
+                            ></iframe>
+                        </div>
                     ) : (
                         <div className="w-full h-full bg-black video">
                             <Preloader />
