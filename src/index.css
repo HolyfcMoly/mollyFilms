@@ -187,34 +187,34 @@ body {
 .my-modal-enter {
     opacity: 0;
 }
-/* .my-modal-enter .video {
+.my-modal-enter .video {
     transform: scale(0.5);
-} */
+}
 
 .my-modal-enter-active {
     opacity: 1;
     transition: opacity linear 0.3s;
 }
-/* .my-modal-enter-active .video {
+.my-modal-enter-active .video {
     transform: scale(1);
     transition: transform linear 0.3s;
-} */
+}
 
 .my-modal-exit {
     opacity: 1;
 }
-/* .my-modal-exit .video {
+.my-modal-exit .video {
     transform: scale(1);
-} */
+}
 
 .my-modal-exit-active {
     opacity: 0;
     transition: opacity linear 0.3s ;
 }
-/* .my-modal-exit-active .video {
+.my-modal-exit-active .video {
     transform: scale(0.5);
     transition: transform linear 0.3s ;
-} */
+}
 
 
 
