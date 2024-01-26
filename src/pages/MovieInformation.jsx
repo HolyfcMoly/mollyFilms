@@ -11,7 +11,7 @@ import BackButton from "../components/ui/BackButton";
 import ProfileSlider from "../components/ProfileSlider";
 import Poster from "../components/ui/Poster";
 import { Rating, ThinStar } from "@smastrom/react-rating";
-import { convertRuntime } from "../utils";
+import { convertRuntime, filteredJob } from "../utils";
 import { genreAndCategoriesIcons } from "../assets/icons/genres";
 import ImdbBtn from "../components/ui/ImdbBtn";
 import TrailerBtn from "../components/ui/TrailerBtn";
@@ -28,22 +28,27 @@ const MovieInformation = () => {
     const [movie, setMovie] = useState({});
     const [movies, setMovies] = useState([]);
     const [credits, setCredits] = useState([]);
+    const [crew, setCrew] = useState([]);
     const [video, setVideo] = useState([]);
     const [trailerVideo, setTrailerVideo] = useState([]);
     const genres = movie.genres || [];
     const runtime = convertRuntime(movie.runtime);
 
+    const director = filteredJob(crew, "Directing");
+    const producer = filteredJob(crew, "Production");
+    const operator = filteredJob(crew, "Camera");
+    const writer = filteredJob(crew, "Writing");
+
     useEffect(() => {
         getMovie(id).then((data) => {
-            console.log(data.data);
             setMovie(data.data);
         });
         getRecomendMovies(id).then((data) => {
             setMovies(data.data.results);
         });
         getCredits(id).then((data) => {
-            console.log(data.data.cast);
             setCredits(data.data.cast);
+            setCrew(data.data.crew);
         });
         getMovieTrailer(id).then((data) => {
             setVideo(data.data.results);
@@ -84,16 +89,20 @@ const MovieInformation = () => {
                                         : movie.release_date}
                                     )
                                 </h1>
-                                <p className="xl:text-3xl text-base">
-                                    {movie.tagline}
-                                </p>
+                                {movie.tagline ? (
+                                    <p className="xl:text-3xl text-base">
+                                        {movie.tagline}
+                                    </p>
+                                ) : (
+                                    ""
+                                )}
                             </div>
-                            <div className="flex justify-center space-x-3 xl:genre-icons-xl genre-icons mb-10">
+                            <div className="flex justify-center flex-wrap space-x-3 xl:genre-icons-xl genre-icons mb-10">
                                 {genres.map((item) => {
                                     return (
                                         <div
                                             key={item.id}
-                                            className="flex items-center "
+                                            className="flex items-center py-2"
                                         >
                                             {genreAndCategoriesIcons[item.id]}
                                             <p className="xs:ml-3 ml-1 xl:text-2xl xs:text-base text-xs">
@@ -123,14 +132,16 @@ const MovieInformation = () => {
                                 <p className="xl:text-2xl">{runtime}</p>
                             </div>
                             {!movie.overview ? (
-                                ''
+                                ""
                             ) : (
-                            <div>
-                                <h2 className="xl:text-4xl text-xl mb-3">
-                                    Описание
-                                </h2>
-                                <p className="xl:text-2xl">{movie.overview}</p>
-                            </div>
+                                <div>
+                                    <h2 className="xl:text-4xl text-xl mb-3">
+                                        Описание
+                                    </h2>
+                                    <p className="xl:text-2xl">
+                                        {movie.overview}
+                                    </p>
+                                </div>
                             )}
                         </div>
                         <div className="flex sm:justify-start justify-center mt-10">
@@ -144,8 +155,13 @@ const MovieInformation = () => {
                         </div>
                         {credits.length && credits.length <= 3 ? (
                             <div className="flex sm:justify-between sm:space-x-0 justify-center space-x-4 mt-10">
+                                <h1>Актеры</h1>
                                 {credits.map((cast) => (
-                                    <CastCard key={cast.id} cast={cast} className=""/>
+                                    <CastCard
+                                        key={cast.id}
+                                        cast={cast}
+                                        className=""
+                                    />
                                 ))}
                             </div>
                         ) : (
@@ -153,26 +169,144 @@ const MovieInformation = () => {
                         )}
                     </div>
                 </div>
-                <div className="flex flex-col flex-1.5">
-                    <div className="">
-                        {credits.length && credits.length > 3 ? (
-                            <ProfileSlider credits={credits} />
-                        ) : (
-                            ""
-                        )}
+                {credits.length && credits.length > 3 ? (
+                    <div className="flex flex-col flex-1.5 mt-10">
+                        <h1 className="text-[2.5rem] leading-[2.8rem] text-secondary">
+                            Актеры
+                        </h1>
+                        <ProfileSlider credits={credits} />
                     </div>
-                </div>
-                    {!movies.length ? (
-                        ""
-                    ) : (
-                        <div className="mt-10">
-                            <MovieList
-                                movie={movies}
-                                genre={"Рекомендуем также"}
-                                setSlide={false}
-                            />
+                ) : (
+                    ""
+                )}
+                {crew.length ? (
+                    <div className="flex flex-col">
+                        <h1 className=" text-2xl text-secondary">
+                            Подробнее о {movie ? "фильме" : ""}
+                        </h1>
+                        <div className="flex mt-5 flex-wrap flex-col ss:flex-row">
+                            <div className="flex-1 mb-4 ss:mb-0">
+                                <h1 className="text-xl text-secondary mb-3">
+                                    Информация
+                                </h1>
+                                <ul className="[&_li:not(:last-child)]:mb-3">
+                                    {movie.production_countries && (
+                                        <li>
+                                            <h2 className="text-lg text-secondary">Страна</h2>
+                                            {movie.production_countries.map(
+                                                (item) => (
+                                                    <p key={item.iso_3166_1} className="text-base text-dimWhite">
+                                                        {item.name}
+                                                    </p>
+                                                )
+                                            )}
+                                        </li>
+                                    )}
+                                    <li>
+                                        <h2 className="text-lg text-secondary">Оригинальное название</h2>
+                                        <p className="text-base text-dimWhite">{movie.original_title}</p>
+                                    </li>
+                                    <li>
+                                        <h2 className="text-lg text-secondary">Премьера в мире</h2>
+                                        <p className="text-base text-dimWhite">{movie.release_date}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className="flex-1">
+                                <h1 className="text-xl text-secondary mb-3">Съёмочная группа</h1>
+                                <ul className="flex flex-col flex-wrap [&_li:not(:last-child)]:mb-3 *:inline-block ">
+                                    {director.length > 0 && (
+                                        <li>
+                                            <h2 className="text-lg text-secondary">
+                                                Режиссёр
+                                            </h2>
+                                            {director.map((item, index) => {
+                                                return (
+                                                    <h3
+                                                        key={item.id}
+                                                        className="text-base text-dimWhite inline "
+                                                    >
+                                                        {director.length - 1 ===
+                                                        index
+                                                            ? item.name
+                                                            : `${item.name}, ` }
+                                                    </h3>
+                                                );
+                                            })}
+                                        </li>
+                                    )}
+                                    {producer.length > 0 && (
+                                        <li>
+                                            <h2 className="text-lg text-secondary">
+                                                Продюсер
+                                            </h2>
+                                            {producer.map((item, index) => {
+                                                return (
+                                                    <h3
+                                                        key={item.id}
+                                                        className="text-base text-dimWhite inline"
+                                                    >
+                                                        {producer.length - 1 ===
+                                                        index
+                                                            ? item.name
+                                                            : `${item.name}, `}
+                                                    </h3>
+                                                );
+                                            })}
+                                        </li>
+                                    )}
+                                    {writer.length > 0 && (
+                                        <li>
+                                            <h2 className="text-lg text-secondary">
+                                                Сценарист
+                                            </h2>
+                                            {writer.map((item, index) => (
+                                                <h3
+                                                    key={item.id}
+                                                    className="text-base text-dimWhite inline"
+                                                >
+                                                    {writer.length - 1 === index
+                                                        ? item.name
+                                                        : `${item.name}, `}
+                                                </h3>
+                                            ))}
+                                        </li>
+                                    )}
+                                    {operator.length > 0 && (
+                                        <li>
+                                            <h2 className="text-lg text-secondary">
+                                                Оператор
+                                            </h2>
+                                            {operator.map((item, index) => (
+                                                <h3
+                                                    key={item.id}
+                                                    className="text-base text-dimWhite inline"
+                                                >
+                                                    {operator.length - 1 === index
+                                                        ? item.name
+                                                        : `${item.name}, `}
+                                                </h3>
+                                            ))}
+                                        </li>
+                                    )}
+                                </ul>
+                            </div>
                         </div>
-                    )}
+                    </div>
+                ) : (
+                    ""
+                )}
+                {!movies.length ? (
+                    ""
+                ) : (
+                    <div className="mt-10">
+                        <MovieList
+                            movie={movies}
+                            genre={"Рекомендуем также"}
+                            setSlide={false}
+                        />
+                    </div>
+                )}
             </div>
         </>
     );
