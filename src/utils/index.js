@@ -1,6 +1,7 @@
 export const convertRuntime = (runtime) => {
     const hours = Math.floor(runtime / 60);
     const mins = runtime % 60;
+    if(!hours || !mins) return '';
     if (hours === 0) return `${mins}мин`;
     return `${hours}ч ${mins}мин`;
 };
@@ -39,3 +40,30 @@ export const filteredJob = (crew, department = "") => {
     });
     return uniqueCrew.slice(0, 10);
 };
+
+
+export const getFullAge = (birthday) => {
+    const date = new Date(); 
+    const now = new Date(date.getFullYear(), date.getMonth(), date.getDate()); //today without time
+    const birthDate = new Date(birthday); 
+    const birthDay = new Date(now.getFullYear(), birthDate.getMonth(), birthDate.getDate());// birthday 
+    let fullAge = date.getFullYear() - birthDate.getFullYear(); // age
+
+    //if the birthday is just ahead. then age - 1
+    if(now < birthDay) {
+        return --fullAge
+    }
+
+    return fullAge
+}
+
+export const getStringAge = (fullAge) => {
+    if(fullAge % 10 === 1 && fullAge !== 11) {
+        return `${fullAge} год` // для 1 года
+    }
+    if(fullAge % 10 >= 2 && fullAge % 10 <= 4 && (fullAge < 12 || fullAge > 14)) {
+        return `${fullAge} года` // 2,3,4 года кроме 12,13 и 14
+    }
+
+    return `${fullAge} лет` // для всех остальных
+}
