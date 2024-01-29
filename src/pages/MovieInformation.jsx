@@ -81,13 +81,12 @@ const MovieInformation = () => {
 
                     <div className="xl:w-[] sm:w-[50%] w-full flex flex-col justify-between">
                         <div>
-                            <div className="text-center mb-10">
+                            <div className="flex flex-col items-center text-center ss:mb-10 mb-2">
                                 <h1 className="xl:text-5xl text-3xl mb-3">
-                                    {movie.title}(
+                                    {movie.title}
                                     {movie.release_date
-                                        ? movie.release_date.slice(0, 4)
-                                        : movie.release_date}
-                                    )
+                                        ? `(${movie.release_date.slice(0, 4)})`
+                                        : ""}
                                 </h1>
                                 {movie.tagline ? (
                                     <p className="xl:text-3xl text-base">
@@ -97,7 +96,7 @@ const MovieInformation = () => {
                                     ""
                                 )}
                             </div>
-                            <div className="flex justify-center flex-wrap space-x-3 xl:genre-icons-xl genre-icons mb-10">
+                            <div className="flex justify-center flex-wrap space-x-3 xl:genre-icons-xl genre-icons ss:mb-10 mb-3">
                                 {genres.map((item) => {
                                     return (
                                         <div
@@ -115,26 +114,28 @@ const MovieInformation = () => {
                                     );
                                 })}
                             </div>
-                            <div className="flex sm:justify-between sm:space-x-0 justify-center space-x-5 mb-10">
+                            <div className="flex sm:justify-between sm:space-x-0 justify-center space-x-5 ss:mb-10 mb-5">
                                 <div className="flex">
                                     <span className="xl:text-2xl mr-3">
                                         {movie.vote_average
                                             ? movie.vote_average.toFixed(1)
                                             : movie.vote_average}
                                     </span>
-                                    <Rating
-                                        readOnly
-                                        value={movie.vote_average / 2}
-                                        itemStyles={myStyles}
-                                        className="xl:max-w-[150px] max-w-[100px]"
-                                    />
+                                    {movie.vote_average && (
+                                        <Rating
+                                            readOnly
+                                            value={movie.vote_average / 2}
+                                            itemStyles={myStyles}
+                                            className="xl:max-w-[150px] max-w-[100px]"
+                                        />
+                                    )}
                                 </div>
                                 <p className="xl:text-2xl">{runtime}</p>
                             </div>
                             {!movie.overview ? (
                                 ""
                             ) : (
-                                <div>
+                                <div className="ss:mb-10 mb-5">
                                     <h2 className="xl:text-4xl text-xl mb-3">
                                         Описание
                                     </h2>
@@ -144,7 +145,7 @@ const MovieInformation = () => {
                                 </div>
                             )}
                         </div>
-                        <div className="flex sm:justify-start justify-center mt-10">
+                        <div className="flex sm:justify-start justify-center">
                             <ImdbBtn
                                 src={`https://www.imdb.com/title/${movie.imdb_id}`}
                                 className={`mr-3`}
@@ -154,8 +155,9 @@ const MovieInformation = () => {
                             )}
                         </div>
                         {credits.length && credits.length <= 3 ? (
-                            <div className="flex sm:justify-between sm:space-x-0 justify-center space-x-4 mt-10">
-                                <h1>Актеры</h1>
+                            <>
+                                <h1 className="ss:mt-10 mt-3 mb-3 text-[2.5rem] leading-[2.8rem] text-secondary">Актеры</h1>
+                            <div className="flex   space-x-4 mt-6">
                                 {credits.map((cast) => (
                                     <CastCard
                                         key={cast.id}
@@ -164,13 +166,15 @@ const MovieInformation = () => {
                                     />
                                 ))}
                             </div>
+                            
+                            </>
                         ) : (
                             ""
                         )}
                     </div>
                 </div>
                 {credits.length && credits.length > 3 ? (
-                    <div className="flex flex-col flex-1.5 mt-10">
+                    <div className="flex flex-col flex-1.5 ss:mt-10 mt-3">
                         <h1 className="text-[2.5rem] leading-[2.8rem] text-secondary">
                             Актеры
                         </h1>
@@ -180,7 +184,7 @@ const MovieInformation = () => {
                     ""
                 )}
                 {crew.length ? (
-                    <div className="flex flex-col">
+                    <div className="flex flex-col mt-5">
                         <h1 className=" text-2xl text-secondary">
                             Подробнее о {movie ? "фильме" : ""}
                         </h1>
@@ -189,13 +193,18 @@ const MovieInformation = () => {
                                 <h1 className="text-xl text-secondary mb-3">
                                     Информация
                                 </h1>
-                                <ul className="[&_li:not(:last-child)]:mb-3">
+                                <ul className="[&_li:not(:last-child)]:mb-3 [&_li]:text-base">
                                     {movie.production_countries && (
                                         <li>
-                                            <h2 className="text-lg text-secondary">Страна</h2>
+                                            <h2 className=" text-secondary">
+                                                Страна
+                                            </h2>
                                             {movie.production_countries.map(
                                                 (item) => (
-                                                    <p key={item.iso_3166_1} className="text-base text-dimWhite">
+                                                    <p
+                                                        key={item.iso_3166_1}
+                                                        className=" text-dimWhite"
+                                                    >
                                                         {item.name}
                                                     </p>
                                                 )
@@ -203,33 +212,43 @@ const MovieInformation = () => {
                                         </li>
                                     )}
                                     <li>
-                                        <h2 className="text-lg text-secondary">Оригинальное название</h2>
-                                        <p className="text-base text-dimWhite">{movie.original_title}</p>
+                                        <h2 className="text-secondary">
+                                            Оригинальное название
+                                        </h2>
+                                        <p className="text-dimWhite">
+                                            {movie.original_title}
+                                        </p>
                                     </li>
                                     <li>
-                                        <h2 className="text-lg text-secondary">Премьера в мире</h2>
-                                        <p className="text-base text-dimWhite">{movie.release_date}</p>
+                                        <h2 className="text-secondary">
+                                            Премьера в мире
+                                        </h2>
+                                        <p className="text-dimWhite">
+                                            {movie.release_date}
+                                        </p>
                                     </li>
                                 </ul>
                             </div>
                             <div className="flex-1">
-                                <h1 className="text-xl text-secondary mb-3">Съёмочная группа</h1>
-                                <ul className="flex flex-col flex-wrap [&_li:not(:last-child)]:mb-3 *:inline-block ">
+                                <h1 className="text-xl text-secondary mb-3">
+                                    Съёмочная группа
+                                </h1>
+                                <ul className="flex flex-col flex-wrap [&_li:not(:last-child)]:mb-3 [&_li]:text-base ">
                                     {director.length > 0 && (
                                         <li>
-                                            <h2 className="text-lg text-secondary">
+                                            <h2 className="text-secondary">
                                                 Режиссёр
                                             </h2>
                                             {director.map((item, index) => {
                                                 return (
                                                     <h3
                                                         key={item.id}
-                                                        className="text-base text-dimWhite inline "
+                                                        className="text-dimWhite inline "
                                                     >
                                                         {director.length - 1 ===
                                                         index
                                                             ? item.name
-                                                            : `${item.name}, ` }
+                                                            : `${item.name}, `}
                                                     </h3>
                                                 );
                                             })}
@@ -237,14 +256,14 @@ const MovieInformation = () => {
                                     )}
                                     {producer.length > 0 && (
                                         <li>
-                                            <h2 className="text-lg text-secondary">
+                                            <h2 className="text-secondary">
                                                 Продюсер
                                             </h2>
                                             {producer.map((item, index) => {
                                                 return (
                                                     <h3
                                                         key={item.id}
-                                                        className="text-base text-dimWhite inline"
+                                                        className="text-dimWhite inline"
                                                     >
                                                         {producer.length - 1 ===
                                                         index
@@ -257,13 +276,13 @@ const MovieInformation = () => {
                                     )}
                                     {writer.length > 0 && (
                                         <li>
-                                            <h2 className="text-lg text-secondary">
+                                            <h2 className="text-secondary">
                                                 Сценарист
                                             </h2>
                                             {writer.map((item, index) => (
                                                 <h3
                                                     key={item.id}
-                                                    className="text-base text-dimWhite inline"
+                                                    className="text-dimWhite inline"
                                                 >
                                                     {writer.length - 1 === index
                                                         ? item.name
@@ -274,15 +293,16 @@ const MovieInformation = () => {
                                     )}
                                     {operator.length > 0 && (
                                         <li>
-                                            <h2 className="text-lg text-secondary">
+                                            <h2 className="text-secondary">
                                                 Оператор
                                             </h2>
                                             {operator.map((item, index) => (
                                                 <h3
                                                     key={item.id}
-                                                    className="text-base text-dimWhite inline"
+                                                    className="text-dimWhite inline"
                                                 >
-                                                    {operator.length - 1 === index
+                                                    {operator.length - 1 ===
+                                                    index
                                                         ? item.name
                                                         : `${item.name}, `}
                                                 </h3>
