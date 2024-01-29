@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Preloader from "./Preloader";
+import ImgPreLoader from "./ImgPreLoader";
 
 const Poster = ({ src, alt, className, spinner, container }) => {
     const [isLoading, setIsLoading] = useState(false);

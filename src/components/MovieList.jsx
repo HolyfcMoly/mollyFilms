@@ -9,8 +9,10 @@ const MovieList = ({ movie, genre = "Популярные", setSlide = true }) =
 
     useEffect(() => {
         getGenre().then((data) => setMovieGenre(data));
-        getNowPlaying().then((data) => setNowPlayingMovie(data.data.results));
-    }, []);
+        if(setSlide) {
+            getNowPlaying().then((data) => setNowPlayingMovie(data.data.results));
+        }
+    }, [setSlide]);
 
     return (
         <>

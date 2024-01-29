@@ -17,7 +17,7 @@ function App() {
                 <Header />
                 <div className={`${styles.paddingX}`}>
                     <SideBar />
-                    <main className={`md:${styles.paddingX} px-0 flex-1  sfhd:ml-[22rem] xl:ml-[16rem] md:ml-[12.5rem] overflow-hidden`}>
+                    <main className={`md:px-8 px-2 flex-1  sfhd:ml-[22rem] xl:ml-[16rem] md:ml-[12.5rem] overflow-hidden`}>
                         {/* <Suspense fallback={<Loading />}> */}
                             <Routes>
                                 <Route path="/" element={<Movies />} />

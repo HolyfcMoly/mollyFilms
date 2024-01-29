@@ -29,11 +29,11 @@ const MovieCard = ({ movieGenre, movie }) => {
                     }`}
                 >
                     {inView ? (
-                        <Poster
-                            src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-                            alt={movie.title}
-                            className={`sfhd:rounded-xl rounded-md bg-transparent`}
-                        />
+                            <Poster
+                                src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                                alt={movie.title}
+                                className={`sfhd:rounded-xl rounded-md bg-transparent`}
+                            />
                     ) : (
                         <ImgPreLoader />
                     )}
