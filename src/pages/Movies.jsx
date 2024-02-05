@@ -17,13 +17,21 @@ const Movies = () => {
     
     useEffect(() => {
         if(!query) {
-            if (typeof movies === "string") {
+            if(!movies) {
                 getMovies(movies,currentPage).then((data) => {
                     data.data.results && setGenreMovie(data.data.results);
                     data.data.page && setCurrentPage(data.data.page);
                     data.data.total_pages && setPages(data.data.total_pages);
                 });
-            } else {
+            }
+            if (movies && typeof movies === "string") {
+                getMovies(movies,currentPage).then((data) => {
+                    data.data.results && setGenreMovie(data.data.results);
+                    data.data.page && setCurrentPage(data.data.page);
+                    data.data.total_pages && setPages(data.data.total_pages);
+                });
+            } 
+            if(movies && typeof movies === "number") {
                 getMoviesByGenre(movies,currentPage).then((data) => {
                     data.data.results && setGenreMovie(data.data.results);
                     data.data.page && setCurrentPage(data.data.page);
@@ -37,7 +45,7 @@ const Movies = () => {
                 data.data.total_pages && setPages(data.data.total_pages);
             })
         }
-    }, [ query,movies, currentPage ]);
+    }, [ query, movies, currentPage ]);
 
     return (
         <>
