@@ -3,19 +3,16 @@ import Search from "./Search";
 import { logo } from "../assets";
 
 const Navbar = () => (
-    <nav className="flex ss:flex-1 items-center flex-wrap justify-between w-full">
-        <div className="flex ss:flex-1">
+    <nav className="flex ss:flex-1 relative items-center ss:justify-between justify-start w-full">
+        <div className="flex flex-1">
             <Link to={"/"}>
                 <img src={logo} alt="logo" className="sfhd:w-[250px] sfhd:h-[60px] w-[150px] h-[30px]" />
             </Link>
         </div>
 
-        <div className="ss:flex-1 ss:mt-0 mt-[1rem] ss:order-none order-3 w-full">
-            <Search />
-        </div>
-
-        <div className="ss:flex-[0.5] text-right">
-            <a href="!#">Code Link</a>
+        <div className="flex-1 flex w-full">
+            <Search className={`flex-1 flex justify-end relative`}/>
+            <div className="flex-[0.5]"></div>
         </div>
     </nav>
 );

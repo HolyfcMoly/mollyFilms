@@ -12,21 +12,20 @@ const myStyles = {
     inactiveFillColor: "#7d7d7d",
 };
 
-const MovieCard = ({ movieGenre, movie }) => {
+const MovieCard = ({ movieGenre, movie, containerClass = ''}) => {
     const { ref, inView } = useInView({
         threshold: 0.2,
         triggerOnce: true,
     });
-
     return (
-        <div className={`p-2 sfhd:w-[350px] ss:w-[200px] xss:w-[150px] w-[200px]  max-h-[100%] rounded-xl`} ref={ref}>
+        <div className={`p-2 sfhd:w-[350px] ss:w-[200px] xss:w-[150px] w-[200px]  max-h-[100%] rounded-xl ${containerClass}`} ref={ref}>
             <Link
                 to={`/movie/${movie.id}`}
                 className="flex flex-col relative group focus:outline-none"
             >
                 <div
                     className={`sfhd:mb-5 mb-2 sfhd:h-[500px] ss:h-[300px] xss:h-[200px] h-[280px] sfhd:p-2 p-1 relative scale-100 group-hover:scale-105 group-active:scale-100 group-focus:scale-105 transition-all rounded-xl border-[1px] border-orange-500/30 group-hover:border-orange-500/70 group-focus:border-orange-500/70 shadow-orange-500 group-hover:shadow-[0_0_15px_-3px_var(--tw-shadow-color)] group-focus:shadow-[0_0_15px_-3px_var(--tw-shadow-color)]
-                    }`}
+                    `}
                 >
                     {inView ? (
                             <Poster
@@ -52,8 +51,8 @@ const MovieCard = ({ movieGenre, movie }) => {
                                 ? movie.release_date.slice(0, 4)
                                 : movie.release_date}
                         </h3>
-                        {movieGenre.map((genre) =>
-                            genre.id === movie.genre_ids[0] ? (
+                        {movieGenre && movieGenre.map((genre) =>
+                            movie.genre_ids && genre.id === movie.genre_ids[0] ? (
                                 <p key={genre.id} className="sfhd:text-2xl">
                                     {genre.name.replace(
                                         genre.name[0],

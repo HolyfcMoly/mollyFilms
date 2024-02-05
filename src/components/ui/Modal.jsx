@@ -14,7 +14,7 @@ const Modal = ({ openIn, modalClass, containerClass ='', children }) => {
                 unmountOnExit
             >
                 <div
-                    className={`fixed inset-0 z-[1000] ${containerClass}`}
+                    className={`z-[1000] ${containerClass}`}
                     ref={nodeRef}
                 >
                     {children}

@@ -31,7 +31,7 @@ const TrailerBtn = ({ className = "", trailer }) => {
         if (width < 1023) {
             setIsMobile(true);
         }
-        toggleBodyClasses(open, isMobile);
+        toggleBodyClasses(open, !isMobile);
     }, [open, width, isMobile]);
 
     return (
@@ -46,7 +46,7 @@ const TrailerBtn = ({ className = "", trailer }) => {
                 Trailer
             </button>
 
-            <Modal openIn={open} modalClass={"my-modal"}>
+            <Modal openIn={open} modalClass={"my-modal"} containerClass={`fixed inset-0`}>
                 <div
                     className={`fixed inset-0 flex items-center z-[-1] bg-black/70`}
                 ></div>
