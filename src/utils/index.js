@@ -6,13 +6,11 @@ export const convertRuntime = (runtime) => {
     return `${hours}ч ${mins}мин`;
 };
 
-export const clickOutside = (ref, setOpen = Function.prototype, open) => {
-    return (event) => {
-        if (ref.current && !ref.current.contains(event.target)) {
-            !open ? setOpen(false) : setOpen(!open);
-        }
-    };
-};
+export const clickOutSide = (event, ref, fn = Function.prototype) => {
+    if(event.target !== ref.current) {
+        fn(event);
+    }
+}
 
 export const toggleBodyClasses = (isOpen, isMobile, timeout = 300) => {
     if (isOpen) {
@@ -32,6 +30,19 @@ export const toggleBodyClasses = (isOpen, isMobile, timeout = 300) => {
     }
 };
 
+//filter duplicates by id
+export const filterDuplicates = (arr) => {
+        if(!Array.isArray(arr)) {
+            return [];
+        }
+
+        const newArr = [...new Set(arr.map(item => item.id))].map(id => {
+            return arr.find(item => item.id === id)
+        });
+        return newArr
+}
+
+//filter jobs by department and delete duplicates
 export const filteredJob = (crew, department = "") => {
     const filteredDepartment = crew.filter(item => item.department === department);
     
