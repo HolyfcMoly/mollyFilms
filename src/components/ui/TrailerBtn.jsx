@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { clickOutside, toggleBodyClasses } from "../../utils";
+import { clickOutSide, toggleBodyClasses } from "../../utils";
 import Preloader from "./Preloader";
 import Modal from "./Modal";
 import useResize from "../../hooks/useResize";
@@ -25,8 +25,12 @@ const TrailerBtn = ({ className = "", trailer }) => {
     }, [trailer]);
 
     useEffect(() => {
-        const handler = clickOutside(clickRef, setOpen, open);
-        document.addEventListener("click", handler);
+        const toggleTrailer = () => {
+            !open ? setOpen(false) : setOpen(!open);
+        }
+        document.addEventListener("click", (e) => {
+            clickOutSide(e, clickRef, toggleTrailer);
+        });
         setIsMobile(false);
         if (width < 1023) {
             setIsMobile(true);
