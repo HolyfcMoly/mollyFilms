@@ -45,7 +45,7 @@ const MovieSlider = ({ movies, movieGenre }) => {
                 height: "200px",
             },
         },
-        focus: "center",
+        focus: "start",
         pagination: false,
         lazyLoad: "nearby",
         arrows: true,
@@ -77,6 +77,7 @@ const MovieSlider = ({ movies, movieGenre }) => {
                                     <Link
                                         to={`/movie/${slide.id}`}
                                         className=" h-full block"
+                                        state={{media_type: `${slide.media_type === 'movie' || slide.release_date ? 'movie' : 'tv'}`}}
                                     >
                                         <div className="relative slide_info shadow-[inset_0_-40px_72px_12px_rgba(0,0,0,1)] cursor-pointer rounded-[10px] ">
                                             {slide.backdrop_path ||
