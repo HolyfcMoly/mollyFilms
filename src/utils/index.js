@@ -43,17 +43,19 @@ export const filterDuplicates = (arr) => {
 }
 
 //filter jobs by department and delete duplicates
-export const filteredJob = (crew, department = "") => {
-    const filteredDepartment = crew.filter(item => item.department === department);
+export const filteredJob = (crew = [], department = "", type='') => {
+    if(!crew || null) return [];
+    const filteredDepartment = crew.filter(item => item[type] === department );
     
     const uniqueCrew = [...new Set(filteredDepartment.map(item => item.id))].map(id => {
         return filteredDepartment.find(dep => dep.id === id)
     });
-    return uniqueCrew.slice(0, 10);
+    return uniqueCrew;
 };
 
 
 export const getFullAge = (birthday) => {
+    if(!birthday || null) return;
     const date = new Date(); 
     const now = new Date(date.getFullYear(), date.getMonth(), date.getDate()); //today without time
     const birthDate = new Date(birthday); 
@@ -68,13 +70,37 @@ export const getFullAge = (birthday) => {
     return fullAge
 }
 
-export const getStringAge = (fullAge) => {
-    if(fullAge % 10 === 1 && fullAge !== 11) {
-        return `${fullAge} год` // для 1 года
-    }
-    if(fullAge % 10 >= 2 && fullAge % 10 <= 4 && (fullAge < 12 || fullAge > 14)) {
-        return `${fullAge} года` // 2,3,4 года кроме 12,13 и 14
-    }
+export const getStringDeclination = (number, word = '') => {
+    if(!number || null) return '';
+    if(word === 'сезон') {
+        if(number % 10 === 1 && number !== 11) {
+            return `${number} сезон` // для 1 
+        }
+        if(number % 10 >= 2 && number % 10 <= 4 && (number < 12 || number > 14)) {
+            return `${number} сезона` // 2,3,4 кроме 12,13 и 14
+        }
+    
+        return `${number} сезонов` // для всех остальных
 
-    return `${fullAge} лет` // для всех остальных
+    } else if(word === 'год') {
+        if(number % 10 === 1 && number !== 11) {
+            return `${number} год` 
+        }
+        if(number % 10 >= 2 && number % 10 <= 4 && (number < 12 || number > 14)) {
+            return `${number} года` 
+        }
+    
+        return `${number} лет`
+        
+    } else if(word === 'эпизод') {
+        if(number % 10 === 1 && number !== 11) {
+            return `${number} 'эпизод'` 
+        }
+        if(number % 10 >= 2 && number % 10 <= 4 && (number < 12 || number > 14)) {
+            return `${number} эпизода` 
+        }
+    
+        return `${number} эпизодов` 
+    }
+    
 }
