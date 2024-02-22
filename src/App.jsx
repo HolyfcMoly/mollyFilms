@@ -7,8 +7,8 @@ import styles from "./styles/style";
 // import Loading from "./components/Loading";
 import Movies from "./pages/Movies";
 import MovieInformation from "./pages/MovieInformation";
-import MovieList from "./components/MovieList";
 import Profile from "./pages/Profile";
+import Footer from "./layouts/Footer";
 
 function App() {
     return (
@@ -17,7 +17,7 @@ function App() {
                 <Header />
                 <div className={`${styles.paddingX}`}>
                     <SideBar />
-                    <main className={`md:px-8 px-2 flex-1  sfhd:ml-[22rem] xl:ml-[16rem] md:ml-[12.5rem] overflow-hidden`}>
+                    <main className={`md:px-8 xss:px-2 pt-1 flex-1  sfhd:ml-[22rem] xl:ml-[16rem] md:ml-[12.5rem] overflow-hidden`}>
                         {/* <Suspense fallback={<Loading />}> */}
                             <Routes>
                                 <Route path="/" element={<Movies />} />
@@ -33,6 +33,7 @@ function App() {
                                 />
                             </Routes>
                         {/* </Suspense> */}
+                        <Footer />
                     </main>
                 </div>
             </BrowserRouter>
