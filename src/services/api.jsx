@@ -75,7 +75,7 @@ const getMovieByQuerySearch = async (query, page) => {
     return response;
 };
 
-const getMultiSearchByQuery = async (query, page) => {
+const getMultiSearchByQuery = async (query, page = 1) => {
     const response = await axios
         .get(
             `${API_URL}search/multi?query=${query}&api_key=${API_KEY}&page=${page}&language=ru`
@@ -165,6 +165,16 @@ const getMovieByProfileId = async (id) => {
     return response;
 };
 
+const getTvByProfileId = async (id) => {
+    const response = await axios
+        .get(
+            `${API_URL}person/${id}/tv_credits?api_key=${API_KEY}&language=ru`
+        )
+        .then((res) => res)
+        .catch((e) => console.log(e));
+    return response;
+};
+
 const getPosterImage = async (id) => {
     const response = await axios
         .get(`${API_URL}movie/${id}?api_key=${API_KEY}}`)
@@ -197,6 +207,14 @@ const getExternalIds = async (id) => {
     return response;
 };
 
+const getPersonImages = async (id) => {
+    const response = await axios
+        .get(`${API_URL}person/${id}/images?api_key=${API_KEY}`)
+        .then((res) => res)
+        .catch((e) => console.log(e));
+    return response;
+};
+
 export {
     getMovie,
     getMovies,
@@ -219,6 +237,8 @@ export {
     getSeriesTrailer,
     getRecommendSeries,
     getExternalIds,
+    getTvByProfileId,
     //utils
     cancelRequests,
+    getPersonImages,
 };
