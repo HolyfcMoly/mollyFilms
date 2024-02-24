@@ -1,6 +1,9 @@
 import { API_KEY, API_URL } from "./config";
 import axios from "axios";
 
+axios.defaults.retry = true;
+axios.defaults.retries = 3;
+
 let controller = null;
 
 const createApi = () => {
@@ -19,7 +22,7 @@ const cancelRequests = () => {
 export const refreshAPI = () => {
     cancelRequests();
     api = createApi(); 
-  }
+}
 
 const getGenre = () => {
     const response = axios
@@ -43,7 +46,7 @@ const getMovies = async (category = "popular", page = 1) => {
             `${API_URL}movie/${category}?api_key=${API_KEY}&page=${page}&language=ru`
         )
         .then((res) => res)
-        .catch((e) => console.log(e));
+        .catch((e) => e);
     return response;
 };
 
@@ -51,7 +54,7 @@ const getPopularTv = async (page = 1) => {
     const response = await api
         .get(`${API_URL}tv/popular?api_key=${API_KEY}&page=${page}&language=ru`)
         .then((res) => res)
-        .catch((e) => console.log(e));
+        .catch((e) => e);
     return response;
 };
 
