@@ -1,18 +1,15 @@
 import React from "react";
 
 const Pagination = ({ currentPage, setPage, totalPages }) => {
-    
     const handlePrev = () => {
         if (currentPage !== 1) {
             setPage((prev) => +prev - 1);
         }
     };
     const handleNext = () => {
-        if (currentPage !== totalPages) {
+        if (currentPage < totalPages) {
             setPage((prev) => +prev + 1);
-        } else {
-            setPage(currentPage)
-        }
+        } 
     };
 
     const handleReset = () => {
