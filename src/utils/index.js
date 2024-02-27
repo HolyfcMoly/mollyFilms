@@ -104,3 +104,23 @@ export const getStringDeclination = (number, word = '') => {
     }
     
 }
+
+export const getPremierDate = (str) => {
+    if(typeof str !== 'string') return;
+    const monthNames = [
+        "Января",
+        "Февраля",
+        "Марта",
+        "Апреля",
+        "Майя",
+        "Июня",
+        "Июля",
+        "Августа",
+        "Сентября",
+        "Октября",
+        "Ноября",
+        "Декабря",
+    ];
+    const date = new Date(str);
+    return `${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()}`  ;
+}
