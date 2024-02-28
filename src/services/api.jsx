@@ -104,6 +104,22 @@ const getSeries = async (id) => {
     return response;
 };
 
+const getTvSeriesEpisode = async (id, seasonNumber) => {
+    const response = await axios
+        .get(`${API_URL}tv/${id}/season/${seasonNumber}?api_key=${API_KEY}&language=ru`)
+        .then((res) => res)
+        .catch((e) => console.log(e));
+    return response;
+};
+
+const getTvSeriesVideos = async (id, seasonNumber) => {
+    const response = await axios
+        .get(`${API_URL}tv/${id}/season/${seasonNumber}/videos?api_key=${API_KEY}`)
+        .then((res) => res)
+        .catch((e) => console.log(e));
+    return response;
+};
+
 const getNowPlaying = async (page = 1) => {
     const response = await axios
         .get(
@@ -241,6 +257,8 @@ export {
     getRecommendSeries,
     getExternalIds,
     getTvByProfileId,
+    getTvSeriesEpisode,
+    getTvSeriesVideos,
     //utils
     cancelRequests,
     getPersonImages,
