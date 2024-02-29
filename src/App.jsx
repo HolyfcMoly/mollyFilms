@@ -9,6 +9,7 @@ import Movies from "./pages/Movies";
 import MovieInformation from "./pages/MovieInformation";
 import Profile from "./pages/Profile";
 import Footer from "./layouts/Footer";
+import EpisodeInfo from "./pages/EpisodeInfo";
 
 function App() {
     return (
@@ -26,6 +27,7 @@ function App() {
                                     path="/movie/:id"
                                     element={<MovieInformation />}
                                 />
+                                <Route exact path="/movie/:id/season/:number" element={<EpisodeInfo />} />
                                 <Route
                                     exact
                                     path="/profile/:id"
