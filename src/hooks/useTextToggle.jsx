@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
-const useTextToggle = (fullText = '') => {
+const useTextToggle = (fullText = '', symbols = 550) => {
     const [displayText,setDisplayText] = useState('');
 
-    const getPreviewText = (text = '') => {
-        if(text.length <= 550) return text;
-        return text.slice(0, 550) + '...'
-    }
+    const getPreviewText = useCallback((text = '') => {
+        if(text.length <= symbols) return text;
+        return text.slice(0, symbols) + '...'
+    },[symbols])
 
     const toggleText = () => {
         if(displayText.length < fullText.length) {
@@ -18,7 +18,7 @@ const useTextToggle = (fullText = '') => {
 
     useEffect(() => {
         setDisplayText(getPreviewText(fullText))
-    },[fullText])
+    },[fullText, getPreviewText])
     return [displayText, toggleText]
 }
 
