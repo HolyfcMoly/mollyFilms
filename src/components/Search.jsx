@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getMovieByQuerySearch, getMultiSearchByQuery } from "../services/api";
+import { getMultiSearchByQuery } from "../services/api";
 import ImgPreLoader from "./ui/ImgPreLoader";
 import { search, serial } from "../assets";
 import useResize from "../hooks/useResize";
@@ -39,6 +39,10 @@ const Search = ({ className }) => {
         setQuery("");
         e.stopPropagation();
     };
+
+    const handleClick = (item) => {
+        localStorage.setItem('type', item.media_type);
+    }
 
     useEffect(() => {
         setIsMobile(false);
@@ -174,6 +178,7 @@ const Search = ({ className }) => {
                                             to={`/movie/${item.id}`}
                                             onClick={(e) => {
                                                 handleReset(e);
+                                                handleClick(item)
                                             }}
                                             state={{media_type: item.media_type}}
                                             className="flex relative group focus:outline-none"
