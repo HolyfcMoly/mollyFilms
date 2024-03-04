@@ -14,6 +14,7 @@ import Poster from "../components/ui/Poster";
 import { avatar } from "../assets";
 import useTextToggle from "../hooks/useTextToggle";
 import { excludeGenres } from "../assets/icons/genres";
+import ToggleOverview from "../components/ToggleOverview";
 
 const Profile = () => {
     const [profile, setProfile] = useState({});
@@ -99,22 +100,7 @@ const Profile = () => {
                             )}
                         </div>
                         {profile.biography && (
-                            <div className="mt-3 text-left">
-                                <p className={`xl:text-2xl`}>{text}</p>
-                                {text.length > 550 && (
-                                    <button
-                                        onClick={() => {
-                                            setExpand(!expand);
-                                            toggleText();
-                                        }}
-                                        className="text-dimWhite mt-2"
-                                    >
-                                        {!expand
-                                            ? "Показать полностью"
-                                            : "Скрыть"}
-                                    </button>
-                                )}
-                            </div>
+                            <ToggleOverview fullText={fullText} textSymbols={550} className={`text-left mt-3`}/>
                         )}
                     </div>
                 </div>
