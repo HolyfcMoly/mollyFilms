@@ -10,7 +10,7 @@ const myStyles = {
 const VoteRating = ({vote}) => {
     return (
         <div className="flex">
-            <span className="xl:text-2xl mr-3">
+            <span className="sfhd:text-3xl xl:text-2xl mr-3">
                 {vote
                     ? vote.toFixed(1)
                     : vote}
@@ -20,7 +20,7 @@ const VoteRating = ({vote}) => {
                     readOnly
                     value={vote / 2}
                     itemStyles={myStyles}
-                    className="xl:max-w-[150px] max-w-[100px]"
+                    className="sfhd:max-w-[180px] xl:max-w-[150px] max-w-[100px]"
                 />
             )}
         </div>

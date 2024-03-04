@@ -15,14 +15,14 @@ const ToggleOverview = ({
         <div className={`${className}`}>
             {text && (
                 <>
-                    <p className={`xl:text-3xl ${textClass}`}>{text}</p>
+                    <p className={`sfhd:text-3xl xl:text-2xl ${textClass}`}>{text}</p>
                     {text.length > textSymbols && (
                         <button
                             onClick={() => {
                                 setExpand(!expand);
                                 toggleText();
                             }}
-                            className="text-dimWhite xl:text-2xl"
+                            className="text-dimWhite sfhd:text-3xl xl:text-2xl"
                         >
                             {!expand ? "Показать полностью" : "Скрыть"}
                         </button>

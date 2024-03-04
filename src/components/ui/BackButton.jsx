@@ -10,7 +10,7 @@ const BackButton = ({className}) => {
             onClick={() => navigate(-1)}
         >
             {<IconArrowForward className={`sfhd:w-8 sfhd:h-8 xl:w-6 xl:h-6 w-5 h-5 scale-[-1] fill-secondary transition-colors group-hover:fill-white`}/>}
-            Back
+            Назад
         </button>
     );
 };
