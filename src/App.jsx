@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Header } from "./layouts/index";
 import '@smastrom/react-rating/style.css'
@@ -9,6 +9,7 @@ import Movies from "./pages/Movies";
 import MovieInformation from "./pages/MovieInformation";
 import Profile from "./pages/Profile";
 import Footer from "./layouts/Footer";
+import TvEpisodesInfo from "./pages/TvEpisodesInfo";
 import EpisodeInfo from "./pages/EpisodeInfo";
 
 function App() {
@@ -27,7 +28,8 @@ function App() {
                                     path="/movie/:id"
                                     element={<MovieInformation />}
                                 />
-                                <Route exact path="/movie/:id/season/:number" element={<EpisodeInfo />} />
+                                <Route exact path="/movie/:id/season/:number" element={<TvEpisodesInfo />} />
+                                <Route exact path="/movie/:id/season/:number/episode/:count" element={<EpisodeInfo />} />
                                 <Route
                                     exact
                                     path="/profile/:id"
