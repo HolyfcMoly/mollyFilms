@@ -1,7 +1,7 @@
 export const convertRuntime = (runtime) => {
+    if(!runtime) return '';
     const hours = Math.floor(runtime / 60);
     const mins = runtime % 60;
-    if(!hours || !mins) return '';
     if (hours === 0) return `${mins}мин`;
     return `${hours}ч ${mins}мин`;
 };
@@ -123,4 +123,11 @@ export const getPremierDate = (str) => {
     ];
     const date = new Date(str);
     return `${date.getDate()} ${monthNames[date.getMonth()]} ${date.getFullYear()}`  ;
+}
+
+//get unique id
+export const getRandomKey = (min,max) => {
+    const num = Math.floor(Math.random() * (max - min) * max);
+    const letter = Array(3).fill(null).map(() => String.fromCharCode(Math.random() > 0.5 ? 65 + Math.floor(Math.random() * 26) : 97 + Math.floor(Math.random() * 26))).join('')
+    return {id:`${num}${letter}`}
 }
