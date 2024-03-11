@@ -131,3 +131,11 @@ export const getRandomKey = (min,max) => {
     const letter = Array(3).fill(null).map(() => String.fromCharCode(Math.random() > 0.5 ? 65 + Math.floor(Math.random() * 26) : 97 + Math.floor(Math.random() * 26))).join('')
     return {id:`${num}${letter}`}
 }
+
+export const setLocalStorageItem = (type, value) => {
+    localStorage.setItem(`${type}`, value)
+}
+
+export const deleteFromLocalStorage = (value) => {
+    localStorage.removeItem(value)
+}
