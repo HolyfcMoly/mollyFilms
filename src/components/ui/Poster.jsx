@@ -4,9 +4,9 @@ import ImgPreLoader from "./ImgPreLoader";
 
 const Poster = ({ src, alt, className, spinner, container }) => {
     const [isLoading, setIsLoading] = useState(false);
-
     useEffect(() => {
-        setIsLoading(false);
+        if (!src) setIsLoading(false);
+        
     }, [src]);
 
     return (
@@ -19,7 +19,7 @@ const Poster = ({ src, alt, className, spinner, container }) => {
             )}
 
             <img
-                src={src}
+                src={src ? src : ''}
                 alt={alt}
                 className={`w-[100%] h-[100%] object-cover ${className}`}
                 loading="lazy"
