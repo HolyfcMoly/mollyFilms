@@ -246,9 +246,41 @@ body {
     transition: opacity linear 0.3s;
 }
 
-.search-modal-exit-active > div {
+.search-modal-exit-active .slider {
     top: -500px;
     transition: top linear 0.3s;
+}
+
+.image-slider-modal-enter {
+    opacity: 0;
+}
+.image-slider-modal-enter .slider {
+    transform: scale(0.5);
+}
+
+.image-slider-modal-enter-active {
+    opacity: 1;
+    transition: opacity linear 0.3s;
+}
+.image-slider-modal-enter-active .slider {
+    transform: scale(1);
+    transition: transform linear 0.3s;
+}
+
+.image-slider-modal-exit {
+    opacity: 1;
+}
+.image-slider-modal-exit .slider {
+    transform: scale(1);
+}
+
+.image-slider-modal-exit-active {
+    opacity: 0;
+    transition: opacity linear 0.3s ;
+}
+.image-slider-modal-exit-active .slider {
+    transform: scale(0.5);
+    transition: transform linear 0.3s ;
 }
 
 
@@ -281,6 +313,12 @@ body {
         width: unset;
         height: unset;
         fill: unset;
+    }
+
+    .custom__arrow-xs svg {
+        width: 32px;
+        height: 32px;
+        fill: var(--color-secondary);
     }
 
     .custom__arrow-xl svg {
