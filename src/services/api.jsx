@@ -112,6 +112,30 @@ const getTvSeriesEpisode = async (id, seasonNumber) => {
     return response;
 };
 
+const getEpisodeInfo = async (id, seasonNumber, episodeNumber, extra = false) => {
+    const response = await axios
+        .get(`${!extra ? `${API_URL}tv/${id}/season/${seasonNumber}/episode/${episodeNumber}?api_key=${API_KEY}&language=ru`: `${API_URL}tv/${id}/season/${seasonNumber}/episode/${episodeNumber}?api_key=${API_KEY}&append_to_response=videos,images`}`)
+        .then((res) => res)
+        .catch((e) => console.log(e));
+    return response;
+};
+
+const getEpisodeExternalIds = async (id, seasonNumber, episodeNumber) => {
+    const response = await axios
+        .get(`${API_URL}tv/${id}/season/${seasonNumber}/episode/${episodeNumber}/external_ids?api_key=${API_KEY}`)
+        .then((res) => res)
+        .catch((e) => console.log(e));
+    return response;
+};
+
+const getEpisodeCredits = async (id, seasonNumber, episodeNumber) => {
+    const response = await axios
+        .get(`${API_URL}tv/${id}/season/${seasonNumber}/episode/${episodeNumber}/credits?api_key=${API_KEY}`)
+        .then((res) => res)
+        .catch((e) => console.log(e));
+    return response;
+};
+
 const getTvSeriesVideos = async (id, seasonNumber) => {
     const response = await axios
         .get(`${API_URL}tv/${id}/season/${seasonNumber}/videos?api_key=${API_KEY}`)
@@ -259,6 +283,9 @@ export {
     getTvByProfileId,
     getTvSeriesEpisode,
     getTvSeriesVideos,
+    getEpisodeInfo,
+    getEpisodeExternalIds,
+    getEpisodeCredits,
     //utils
     cancelRequests,
     getPersonImages,
