@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { getGenre, getTvGenre } from "../services/api";
-import { Link } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import GenrePreLoader from "../components/ui/GenresPreLoader";
 import BurgerBtn from "../components/ui/BurgerBtn";
 import { genreAndCategoriesIcons } from "../assets/icons/genres";
@@ -14,6 +14,7 @@ const SideBar = () => {
     const [isMobile, setIsMobile] = useState(false);
     const width = useResize();
     const [seriesGenre, setSeriesGenre] = useState([]);
+    const navigate = useNavigate()
 
     const categories = [
         { label: "Популярные", value: "popular" },
@@ -24,8 +25,9 @@ const SideBar = () => {
     const menuRef = useRef(null);
     const skeletonData = new Array(19).fill("id");
 
-    const handleGenreChange = () => {
-        localStorage.setItem("isGenreChanged", true);
+    const handleGenreChange = (movies, genre) => {
+        const newParams = new URLSearchParams({id: String(movies), g: genre})
+        navigate(`/?${newParams.toString()}`, {replace: true})
     };
 
     useEffect(() => {
@@ -72,18 +74,13 @@ const SideBar = () => {
                             return (
                                 <li
                                     key={value}
-                                    className="sfhd:py-6 xl:py-3 p-1 active:text-active hover:text-secondary transition-colors duration-300 focus-within:text-secondary"
+                                    className="sfhd:py-6 xl:py-3 p-1 active:text-active hover:text-secondary transition-colors duration-300 focus-within:text-secondary cursor-pointer"
                                     onClick={() => {
+                                        handleGenreChange(value, label);
                                         setToggle(!toggle);
                                     }}
                                 >
-                                    <Link
-                                        to={`/`}
-                                        state={{
-                                            movies: value,
-                                            genre: label,
-                                        }}
-                                        onClick={() => handleGenreChange() }
+                                    <div
                                         className="block focus:outline-none focus-visible:ring-1 focus-visible:ring-secondary rounded-[5px]"
                                     >
                                         <div className="flex items-center p-2 sfhd:genre-icons-xl ">
@@ -92,7 +89,7 @@ const SideBar = () => {
                                                 {label}
                                             </p>
                                         </div>
-                                    </Link>
+                                    </div>
                                 </li>
                             );
                         })}
@@ -114,16 +111,13 @@ const SideBar = () => {
                                     <li
                                         key={item.id}
                                         className="active:text-active sfhd:py-6 xl:py-3 p-1 hover:text-secondary transition-colors duration-300 text-white focus-within:text-secondary"
-                                        onClick={() => setToggle(!toggle)}
+                                        onClick={() => {
+                                            handleGenreChange(item.id, item.name);
+                                            setToggle(!toggle);
+                                        }}
                                     >
-                                        <Link
-                                            to={`/`}
-                                            state={{
-                                                movies: item.id,
-                                                genre: item.name,
-                                            }}
-                                            onClick={() => handleGenreChange() }
-                                            className="block focus:outline-none focus-visible:ring-1 focus-visible:ring-secondary rounded-[5px]"
+                                        <div
+                                            className="block focus:outline-none focus-visible:ring-1 focus-visible:ring-secondary rounded-[5px] cursor-pointer"
                                         >
                                             <div className="flex items-center p-2 sfhd:genre-icons-xl genre-icons">
                                                 {
@@ -138,7 +132,7 @@ const SideBar = () => {
                                                     )}
                                                 </p>
                                             </div>
-                                        </Link>
+                                        </div>
                                     </li>
                                 );
                             })}
