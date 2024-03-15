@@ -1,20 +1,32 @@
 import React from "react";
 
-const Pagination = ({ currentPage, setPage, totalPages }) => {
+const Pagination = ({ currentPage, searchParams, setPage, totalPages }) => {
+    const newParams = new URLSearchParams(searchParams); 
+
+    const setUrlQuery = (urlParams, btn) => {
+        if(btn === 'prev' || btn === 'next') {
+            urlParams.set('p', `${+currentPage + (btn === 'prev' ? - 1 : + 1)}`);
+            setPage(urlParams.toString())
+        }
+        if(btn === 'reset') {
+            urlParams.set('p', '1');
+            setPage(urlParams)
+        }
+    }
+
     const handlePrev = () => {
-        if (currentPage !== 1) {
-            setPage((prev) => +prev - 1);
+        if (+currentPage !== 1) {
+            setUrlQuery(newParams, 'prev');
         }
     };
     const handleNext = () => {
-        if (currentPage < totalPages) {
-            setPage((prev) => +prev + 1);
+        if (+currentPage < totalPages) {
+            setUrlQuery(newParams, 'next');
         } 
     };
-
     const handleReset = () => {
-        if (currentPage !== 1) {
-            setPage(1);
+        if (+currentPage !== 1) {
+            setUrlQuery(newParams, 'reset');
         }
     };
 
