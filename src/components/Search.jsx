@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { getMultiSearchByQuery } from "../services/api";
 import ImgPreLoader from "./ui/ImgPreLoader";
 import { search, serial } from "../assets";
@@ -42,6 +42,10 @@ const Search = ({ className }) => {
 
     const handleClick = (item) => {
         localStorage.setItem('type', item.media_type);
+    }
+    const allResults = () => {
+        const newParams = new URLSearchParams({ q: query, g: 'Результаты поиска', s: true });
+        navigate(`/?${newParams.toString()}`, {replace: true})
     }
 
     useEffect(() => {
@@ -157,14 +161,13 @@ const Search = ({ className }) => {
                 containerClass={`fixed`}
             >
                 <div className="fixed sfhd:top-[5.5rem] top-[3.5rem] left-0  h-[70dvh] sm:px-8 px-4 py-5 w-full overflow-y-auto overflow-x-hidden bg-[#14161a] bg-opacity-[0.98] z-[100]">
-                    <Link
-                        to={`/`}
-                        state={{ query: query, genre: `Результаты поиска`, search: true }}
-                        className="text-secondary inline-flex items-center sfhd:text-5xl md:text-4xl text-2xl"
+                    <div
+                        onClick={allResults}
+                        className="text-secondary inline-flex items-center sfhd:text-5xl md:text-4xl text-2xl cursor-pointer"
                     >
                         Все результаты
                         <IconArrowForward fill="#f0761d"/>
-                    </Link>
+                    </div>
 
                     <div className="grid grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] gap-3 py-3">
                         {moviesAndSeries.length
