@@ -28,8 +28,8 @@ function App() {
                                     path="/movie/:id"
                                     element={<MovieInformation />}
                                 />
-                                <Route exact path="/movie/:id/season/:number" element={<TvEpisodesInfo />} />
-                                <Route exact path="/movie/:id/season/:number/episode/:count" element={<EpisodeInfo />} />
+                                <Route exact path="/movie/:id/season/:sNumber" element={<TvEpisodesInfo />} />
+                                <Route exact path="/movie/:id/season/:sNumber/episode/:eNumber" element={<EpisodeInfo />} />
                                 <Route
                                     exact
                                     path="/profile/:id"
