@@ -10,6 +10,10 @@ import Preloader from "./ui/Preloader";
 const MovieSlider = ({ movies, movieGenre }) => {
     const [isSplideLoaded, setIsSplideLoaded] = useState(false);
 
+    const handleClick = (movie) => {
+        localStorage.setItem('type', movie.media_type ? movie.media_type : movie.first_air_date ? 'tv' : 'movie');
+    }
+
     const options = {
         type: "loop",
         gap: "1rem",
@@ -78,6 +82,7 @@ const MovieSlider = ({ movies, movieGenre }) => {
                                         to={`/movie/${slide.id}`}
                                         className=" h-full block"
                                         state={{media_type: `${slide.media_type === 'movie' || slide.release_date ? 'movie' : 'tv'}`}}
+                                        onClick={() => handleClick(slide)}
                                     >
                                         <div className="relative slide_info shadow-[inset_0_-40px_72px_12px_rgba(0,0,0,1)] cursor-pointer rounded-[10px] ">
                                             {slide.backdrop_path ||
