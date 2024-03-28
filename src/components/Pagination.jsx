@@ -3,16 +3,20 @@ import ReactPaginate from 'react-paginate'
 import { MAX_PAGES } from "../services/config";
 import IconArrowForward from "../assets/icons/IconArrowForward";
 
-const Pagination2 = ({ searchParams, setPage, totalPages, profile = false }) => {
+const Pagination = ({ searchParams, setPage, totalPages, profile = false}) => {
     const newParams = useMemo(() => new URLSearchParams(searchParams), [searchParams]); 
     const [prevId, setPrevId] = useState(null);
     const [prevGenre, setPrevGenre] = useState(null);
+    const [prevHome, setPrevHome] = useState(null);
+    const [prevType, setPrevType] = useState(null);
     const [prevQuery, setPrevQuery] = useState(null);
     const [prevDisabled, setPrevDisabled] = useState(false);
     const [nextDisabled, setNextDisabled] = useState(false);
     const id = newParams.get('id');
     const g = newParams.get('g');
     const q = newParams.get('q');
+    const h = newParams.get('h');
+    const t = newParams.get('t');
     const ref = useRef(1)
     
     const setUrlQuery = (urlParams, page) => {
@@ -21,14 +25,18 @@ const Pagination2 = ({ searchParams, setPage, totalPages, profile = false }) => 
             setPage(urlParams.toString())
         }
     }
+    // console.log(Number(totalPages))
+    // console.log(MAX_PAGES)
 
     useEffect(() => {
-        if(id !== prevId || g !== prevGenre || q !== prevQuery) {
+        if(id !== prevId || g !== prevGenre || q !== prevQuery || h !== prevHome || t !== prevType) {
+            setPrevType(t)
+            setPrevHome(h)
             setPrevId(id);
             setPrevGenre(g);
             setPrevQuery(q);
         }
-    },[newParams, prevId, prevGenre, g, id, q, prevQuery])
+    },[prevId, prevGenre, g, id, q, prevQuery, h, prevHome, t, prevType])
 
     useEffect(() => {
         ref.current = +newParams.get('p') || 1;
@@ -52,7 +60,7 @@ const Pagination2 = ({ searchParams, setPage, totalPages, profile = false }) => 
                 onPageChange={handlePageClick}
                 forcePage={profile ? 0 : ref.current - 1}
                 pageRangeDisplayed={3}
-                pageCount={totalPages > MAX_PAGES ? MAX_PAGES : totalPages}
+                pageCount={isNaN(totalPages) || isNaN(MAX_PAGES) ? MAX_PAGES : totalPages > MAX_PAGES ? MAX_PAGES : totalPages}
                 previousLabel={
                     <IconArrowForward className={`rotate-180   ${prevDisabled ? 'opacity-50' : 'opacity-100'}`} fill={`#F0761D`}/>
                 }
@@ -68,5 +76,5 @@ const Pagination2 = ({ searchParams, setPage, totalPages, profile = false }) => 
     );
 };
 
-export default Pagination2;
+export default Pagination;
 
