@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
     getCredits,
     getExternalIds,
@@ -10,7 +10,7 @@ import {
     getSeriesCredits,
     getSeriesTrailer,
 } from "../services/api";
-import { useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import MovieList from "../components/MovieList";
 import BackButton from "../components/ui/BackButton";
 import ProfileSlider from "../components/ProfileSlider";
@@ -20,12 +20,16 @@ import {
     convertRuntime,
     filterDuplicates,
     filteredJob,
+    getPremierDate,
     getStringDeclination,
 } from "../utils";
 import { genreAndCategoriesIcons } from "../assets/icons/genres";
 import ImdbBtn from "../components/ui/ImdbBtn";
 import TrailerBtn from "../components/ui/TrailerBtn";
 import CastCard from "../components/CastCard";
+import useTextToggle from "../hooks/useTextToggle";
+import CrewItem from "../components/CrewItem";
+import ToggleOverview from "../components/ToggleOverview";
 
 const myStyles = {
     itemShapes: ThinStar,
@@ -43,25 +47,32 @@ const MovieInformation = () => {
     const [video, setVideo] = useState([]);
     const [trailerVideo, setTrailerVideo] = useState([]);
     const [externalIds, setExternalIds] = useState({});
-
+    const [expand,setExpand] = useState(false);
+    const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const newParams = useMemo(() => new URLSearchParams(searchParams), [searchParams])
+    
     const genres = movie.genres || [];
-    const runtime = convertRuntime(movie.runtime);
+    const fullText = movie.overview || '';
+    const runtime = convertRuntime(movie.runtime ?? movie.episode_run_time?.[0] ?? movie.last_episode_to_air?.runtime);
     const seasonCount = getStringDeclination(movie.number_of_seasons, "сезон");
-
-    const director = filteredJob(crew, "Directing", "department");
-    const producer = filteredJob(crew, "Production", "department");
-    const operator = filteredJob(crew, "Camera", "department");
-    const writer = filteredJob(crew, "Writing", "department");
+    
+    const [text, toggleText] = useTextToggle(fullText);
+    const director = filteredJob(crew, "Directing", "department").slice(0, 10);
+    const producer = filteredJob(crew, "Production", "department").slice(0, 10);
+    const operator = filteredJob(crew, "Camera", "department").slice(0, 10);
+    const writer = filteredJob(crew, "Writing", "department").slice(0, 10);
     const cast = filterDuplicates(credits);
-
     const { media_type } = location.state || {};
-    console.log(media_type)
-    console.log(location.state)
-    console.log(movies)
+    const defaultType = media_type || localStorage.getItem('type') || '';
+    
+    // const handleClick = (id) => {
+    //     navigate(`/movie/${id}?${newParams.toString()}`)
+    // }
+
     useEffect(() => {
-        if (media_type && media_type === "tv") {
+        if (defaultType && defaultType === "tv" ) {
             getSeries(id).then((data) => {
-                // console.log(data.data)
                 data && setMovie(data.data);
             });
             getSeriesCredits(id).then((data) => {
@@ -79,7 +90,6 @@ const MovieInformation = () => {
             });
         } else {
             getMovie(id).then((data) => {
-                console.log(data.data);
                 data && setMovie(data.data);
             });
             getRecommendMovies(id).then((data) => {
@@ -93,17 +103,16 @@ const MovieInformation = () => {
                 data && setVideo(data.data.results);
             });
         }
-    }, [id, media_type]);
+    }, [id, defaultType]);
 
-    const movieStatus = [
-        { Canceled: "Отменен" },
-        { Ended: "Завершен" },
-        { Released: "Выпущен" },
-        { ReturningSeries: "Выходит" },
-        { In_Production: "Скоро" },
-    ];
+    const movieStatus = {
+        Canceled: "Отменен" ,
+        Ended: "Завершен" ,
+        Released: "Выпущен" ,
+        'Returning Series': "Выходит" ,
+        In_Production: "Скоро" ,
+    };
     
-
     useEffect(() => {
         const trailers = video.filter((item) => item.type === "Trailer");
         setTrailerVideo(trailers);
@@ -111,7 +120,7 @@ const MovieInformation = () => {
     return (
         <>
             <div className="flex flex-col">
-                <div className="pb-6">
+                <div className="pb-6 pl-1">
                     <BackButton
                         className={`flex items-center mt-1 sfhd:pl-4 sfhd:pr-6 sfhd:py-4 xl:pl-3 xl:pr-5 xl:py-3`}
                     />
@@ -132,10 +141,11 @@ const MovieInformation = () => {
                     </div>
 
                     <div className="xl:w-[] sm:w-[50%] w-full flex flex-col justify-between">
+                        {/* overview */}
                         <div>
                             <div className="flex flex-col items-center text-center ss:mb-10 mb-2">
                                 <h1 className="xl:text-5xl text-3xl mb-3">
-                                    {media_type === "tv"
+                                    {defaultType && defaultType === "tv"
                                         ? movie.name
                                         : movie.title}
                                     
@@ -144,7 +154,7 @@ const MovieInformation = () => {
                                     )}
                                 </h1>
                                 <p>
-                                    {media_type === "tv" && movie.in_production
+                                    {defaultType === "tv" && movie.in_production
                                         ? `(${movie.first_air_date.slice(0,4)}-...)`: ""}
                                     {movie.first_air_date &&
                                         movie.last_air_date && (
@@ -214,16 +224,15 @@ const MovieInformation = () => {
                                     <h2 className="xl:text-4xl text-xl mb-3">
                                         Описание
                                     </h2>
-                                    <p className="xl:text-2xl">
-                                        {movie.overview}
-                                    </p>
+                                    <ToggleOverview fullText={fullText} textSymbols={550}/>
                                 </div>
                             )}
                         </div>
+                        {/* buttons */}
                         <div className="flex sm:justify-start justify-center">
                             <ImdbBtn
                                 src={
-                                    media_type === "tv"
+                                    defaultType === "tv"
                                         ? `https://www.imdb.com/title/${externalIds.imdb_id}`
                                         : `https://www.imdb.com/title/${movie.imdb_id}`
                                 }
@@ -233,6 +242,7 @@ const MovieInformation = () => {
                                 <TrailerBtn trailer={trailerVideo} />
                             )}
                         </div>
+                        {/* cast */}
                         {cast.length && cast.length <= 3 ? (
                             <>
                                 <h1 className="ss:mt-10 mt-3 mb-3 text-[2.5rem] leading-[2.8rem] text-secondary">
@@ -253,31 +263,33 @@ const MovieInformation = () => {
                         )}
                     </div>
                 </div>
+                {/* episodes */}
                 {movie.seasons && (
                     <div className="mt-8">
                         <h2 className="text-[2.5rem] leading-[2.8rem] text-secondary">
                             Сезоны
                         </h2>
-                        <div className="flex items-start flex-wrap gap-5">
+                        <div className="flex items-start flex-wrap gap-5 xs:justify-start justify-center">
                             {movie.seasons.map((item) => {
                                 return item.name === "Спецматериалы" ? (
                                     ""
                                 ) : (
-                                    <div key={item.id} className="mt-3 w-20">
+                                    <Link to={`/movie/${movie.id}/season/${item.season_number}`} state={{movie: movie, imdbId: externalIds.imdb_id}} key={item.id} className="mt-3 w-20">
                                         <div className="">
                                             <img
-                                                src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
+                                                src={`https://image.tmdb.org/t/p/original${item.poster_path ? item.poster_path : movie.poster_path}`}
                                                 alt="season_poster"
                                                 className="h-full w-full object-contain"
                                             />
                                         </div>
-                                        <h2>{item.name}</h2>
-                                    </div>
+                                        <h2 className="break-words">{item.name}</h2>
+                                    </Link>
                                 );
                             })}
                         </div>
                     </div>
                 )}
+                {/* cast */}
                 {cast.length && cast.length > 3 ? (
                     <div className="flex flex-col flex-1.5 ss:mt-10 mt-3">
                         <h1 className="text-[2.5rem] leading-[2.8rem] text-secondary">
@@ -288,10 +300,9 @@ const MovieInformation = () => {
                 ) : (
                     ""
                 )}
-                {crew.length ? (
                     <div className="flex flex-col mt-5">
                         <h1 className=" text-2xl text-secondary">
-                            Подробнее о {movie ? "фильме" : ""}
+                            Подробнее о {defaultType && defaultType === 'movie' ? "фильме" : "сериале"}
                         </h1>
                         <div className="flex mt-5 flex-wrap flex-col ss:flex-row">
                             <div className="flex-1 mb-4 ss:mb-0">
@@ -348,8 +359,8 @@ const MovieInformation = () => {
                                                 Премьера в мире
                                             </h2>
                                             <p className="text-dimWhite">
-                                                {movie.release_date}
-                                                {movie.first_air_date}
+                                                {movie.release_date && getPremierDate(movie.release_date)} 
+                                                {movie.first_air_date && getPremierDate(movie.first_air_date)}
                                             </p>
                                         </li>
                                     ) : (
@@ -361,101 +372,30 @@ const MovieInformation = () => {
                                                 Статус
                                             </h2>
                                             <p className="text-dimWhite">
-                                                {movieStatus.map(
-                                                    (item) => item[movie.status]
-                                                )}
+                                                {movieStatus[movie.status]}
                                             </p>
                                         </li>
                                     )}
                                 </ul>
                             </div>
+                            {/* crew */}
+                        {crew.length ? (
                             <div className="flex-1">
                                 <h1 className="text-xl text-secondary mb-3">
                                     Съёмочная группа
                                 </h1>
                                 <ul className="flex flex-col flex-wrap [&_li:not(:last-child)]:mb-3 [&_li]:text-base ">
-                                    {director.length > 0 && (
-                                        <li>
-                                            <h2 className="text-secondary">
-                                                Режиссёр
-                                            </h2>
-                                            {director.map((item, index) => {
-                                                return (
-                                                    <h3
-                                                        key={item.id}
-                                                        className="text-dimWhite inline "
-                                                    >
-                                                        {director.length - 1 ===
-                                                        index
-                                                            ? item.name
-                                                            : `${item.name}, `}
-                                                    </h3>
-                                                );
-                                            })}
-                                        </li>
-                                    )}
-                                    {producer.length > 0 && (
-                                        <li>
-                                            <h2 className="text-secondary">
-                                                Продюсер
-                                            </h2>
-                                            {producer.map((item, index) => {
-                                                return (
-                                                    <h3
-                                                        key={item.id}
-                                                        className="text-dimWhite inline"
-                                                    >
-                                                        {producer.length - 1 ===
-                                                        index
-                                                            ? item.name
-                                                            : `${item.name}, `}
-                                                    </h3>
-                                                );
-                                            })}
-                                        </li>
-                                    )}
-                                    {writer.length > 0 && (
-                                        <li>
-                                            <h2 className="text-secondary">
-                                                Сценарист
-                                            </h2>
-                                            {writer.map((item, index) => (
-                                                <h3
-                                                    key={item.id}
-                                                    className="text-dimWhite inline"
-                                                >
-                                                    {writer.length - 1 === index
-                                                        ? item.name
-                                                        : `${item.name}, `}
-                                                </h3>
-                                            ))}
-                                        </li>
-                                    )}
-                                    {operator.length > 0 && (
-                                        <li>
-                                            <h2 className="text-secondary">
-                                                Оператор
-                                            </h2>
-                                            {operator.map((item, index) => (
-                                                <h3
-                                                    key={item.id}
-                                                    className="text-dimWhite inline"
-                                                >
-                                                    {operator.length - 1 ===
-                                                    index
-                                                        ? item.name
-                                                        : `${item.name}, `}
-                                                </h3>
-                                            ))}
-                                        </li>
-                                    )}
+                                    {director.length > 0 && <CrewItem crew={director} job={'Режиссёр'}/>}
+                                    {producer.length > 0 && <CrewItem crew={producer} job={'Продюсер'}/>}
+                                    {writer.length > 0 && <CrewItem crew={writer} job={'Сценарист'}/>}
+                                    {operator.length > 0 && <CrewItem crew={operator} job={'Оператор'}/>}
                                 </ul>
                             </div>
+                        ) : (
+                            ""
+                        )}
                         </div>
                     </div>
-                ) : (
-                    ""
-                )}
                 {!movies.length ? (
                     ""
                 ) : (
