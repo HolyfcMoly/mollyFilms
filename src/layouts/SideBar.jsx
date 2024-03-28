@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { getGenre, getTvGenre } from "../services/api";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import GenrePreLoader from "../components/ui/GenresPreLoader";
@@ -6,46 +6,61 @@ import BurgerBtn from "../components/ui/BurgerBtn";
 import { genreAndCategoriesIcons } from "../assets/icons/genres";
 import useResize from "../hooks/useResize";
 import { clickOutSide, filterDuplicates } from "../utils";
+import Menu from "../components/Menu";
 
 const SideBar = () => {
     const [data, setData] = useState([]);
     const [toggle, setToggle] = useState(false);
     const [loading, setLoading] = useState(true);
     const [isMobile, setIsMobile] = useState(false);
+    const [isMenu, setIsMenu] = useState(false);
     const width = useResize();
     const [seriesGenre, setSeriesGenre] = useState([]);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const newParams = useMemo(() => new URLSearchParams(searchParams), [searchParams])
+    const t = searchParams.get('t') || '';
+    const storage = localStorage.getItem('type');
 
     const categories = [
         { label: "Популярные", value: "popular" },
         { label: "Топ оценок", value: "top_rated" },
-        { label: "Новинки", value: "upcoming" },
+        { label: "Новинки", value: t === 'movie' ? "upcoming" : "on_the_air" },
     ];
 
     const menuRef = useRef(null);
     const skeletonData = new Array(19).fill("id");
 
     const handleGenreChange = (movies, genre) => {
-        const newParams = new URLSearchParams({id: String(movies), g: genre})
+        newParams.set('p', 1)
+        newParams.set('id', String(movies))
+        newParams.set('g', genre);
+        localStorage.setItem('tabType', 'Все')
         navigate(`/?${newParams.toString()}`, {replace: true})
     };
 
     useEffect(() => {
-        getGenre().then((data) => {
+        
+        if(t && t === 'tv' || storage && storage === 'tv') {
+            getTvGenre().then((data) => {
+                data && setData(data);
+                setLoading(false);
+            });
+        } else {
+            getGenre().then((data) => {
             data && setData(data);
             setLoading(false);
         });
-
-        getTvGenre().then((data) => {
-            data && setSeriesGenre(data);
-            setLoading(false);
-        });
-    }, []);
+        }
+    }, [t, storage]);
+    
 
     useEffect(() => {
         setIsMobile(false);
+        setIsMenu(false);
         if (width < 1060) {
             setIsMobile(true);
+            if(width < 768.99) setIsMenu(true);
             const toggleSideBar = () => {
                 !toggle ? setToggle(false) : setToggle(!toggle);
             };
@@ -65,7 +80,8 @@ const SideBar = () => {
                 } md:left-[unset] transition-[left] ease-in-out duration-500 custom_scroll sfhd:text-3xl sfhd:w-[350px] w-[200px] xl:w-[250px] bg-main z-30`}
                 ref={menuRef}
             >
-                <div className="flex flex-col py-2 relative">
+                {isMenu && <Menu containerClass={`mb-5 sticky top-0`} listClass={`flex-col`}/>}
+                <div className="flex flex-col py-2 relative bg-main">
                     <h3 className="sticky top-0 sfhd:text-4xl xl:text-2xl text-secondary z-[1] bg-main">
                         Категории
                     </h3>
