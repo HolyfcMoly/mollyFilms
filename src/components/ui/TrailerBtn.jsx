@@ -78,6 +78,15 @@ const TrailerBtn = ({ className = "", trailer }) => {
                         </div>
                     ) : (
                         <div className="w-full h-full bg-black video">
+                            <button
+                                className="absolute ss:-right-5 right-0 ss:-top-8 -top-6 ss:h-auto ss:w-auto h-6 w-6"
+                                onClick={(e) => {
+                                    setOpen(!open);
+                                    e.stopPropagation();
+                                }}
+                            >
+                                <img src={close} />
+                            </button>
                             <Preloader />
                         </div>
                     )}
