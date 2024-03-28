@@ -1,41 +1,177 @@
-import React, { useEffect, useState } from "react";
-import { getGenre, getNowPlaying } from "../services/api";
+import React, { useEffect, useRef, useState } from "react";
+import { getGenre, getNowPlaying, getTvGenre } from "../services/api";
 import MovieSlider from "./MovieSlider";
 import MovieCard from "./MovieCard";
+import {
+    filterByProperty,
+    filterDuplicates,
+    filteredJob,
+    getRandomKey,
+} from "../utils";
+import { Link } from "react-router-dom";
 
-const MovieList = ({ movie, genre = "Популярные", setSlide = true }) => {
+const MovieList = ({
+    movie,
+    genre = "Популярные",
+    setSlide = true,
+    query = "",
+    search = false,
+    all = false,
+}) => {
     const [movieGenre, setMovieGenre] = useState([]);
     const [nowPlayingMovie, setNowPlayingMovie] = useState([]);
 
+    const actors = filteredJob(movie, "Acting", "known_for_department");
+    const films = filteredJob(movie, "movie", "media_type");
+    const series = filteredJob(movie, "tv", "media_type");
+    const movies = [...films, ...series];
+    const filteredMovies = filterDuplicates(movie);
+    const allMovies = filterByProperty(filteredMovies, "title");
+    const allSeries = filterByProperty(filteredMovies, "name");
+    const ref = useRef('');
+    const [storageRef, setStorageRef] = useState('')
+    const categories = ["Все", "Фильмы", "Сериалы"];
+    const storage = ref.current = localStorage.getItem('tabType') || '';
+
+    const handleClick = (e) => {
+        localStorage.setItem("tabType", e);
+        setStorageRef(e);
+    };
+
+    const handleFilms = (storage) => {
+        if(storage === "Сериалы") {
+            return allSeries
+        } else if(storage === "Фильмы") {
+            return allMovies
+        } else {
+            return filteredMovies
+        }
+    }
+    
     useEffect(() => {
-        getGenre().then((data) => setMovieGenre(data));
-        if(setSlide) {
-            getNowPlaying().then((data) => setNowPlayingMovie(data.data.results));
+        Promise.all([getGenre(), getTvGenre()]).then(
+            ([movieGenres, tvGenres]) => {
+                const allGenres = filterDuplicates([
+                    ...movieGenres,
+                    ...tvGenres,
+                ]);
+                setMovieGenre(allGenres);
+            }
+        );
+        if (setSlide) {
+            getNowPlaying().then((data) =>
+                setNowPlayingMovie(data.data.results)
+            );
         }
     }, [setSlide]);
+
+    useEffect(() => {
+        setStorageRef(storage)
+    }, [storageRef, storage])
 
     return (
         <>
             {setSlide && (
                 <div>
-                    <h1 className="text-secondary text-[2.5rem] leading-[2.8rem]">
+                    <h1 className="text-secondary sfhd:text-5xl md:text-4xl text-2xl">
                         Сейчас смотрят
                     </h1>
-                    <MovieSlider movies={nowPlayingMovie} movieGenre={movieGenre} />
+                    <MovieSlider
+                        movies={nowPlayingMovie}
+                        movieGenre={movieGenre}
+                    />
                 </div>
             )}
-            <h1 className="mb-[1.5rem] text-secondary text-[2.5rem] leading-[2.8rem]">
-                {genre ? genre.replace(genre[0], genre[0].toUpperCase()) : ""}
-            </h1>
-            <div className="grid sfhd:gap-11 gap-5 sfhd:place-items-start sfhd:grid-cols-[repeat(auto-fit,_minmax(350px,_1fr))] place-items-center items-start ss:gridBox gridBox-min mt-8 ">
-                {movie.map((item) => (
-                    <MovieCard
-                        key={item.id}
-                        movieGenre={movieGenre}
-                        movie={item}
-                    />
-                ))}
-            </div>
+            {filteredMovies.length && !search ? (
+                <>
+                    <h1 className="mb-[1.5rem] text-secondary sfhd:text-5xl md:text-4xl text-2xl">
+                        {genre
+                            ? genre.replace(genre[0], genre[0].toUpperCase())
+                            : ""}
+                        {query && <span className="">{` "${query}"`}</span>}
+                    </h1>
+                    {all && (
+                        <div className="flex gap-3">
+                            {categories.map((item) => (
+                                <span
+                                    className="cursor-pointer hover:text-secondary transition-colors duration-300"
+                                    key={getRandomKey(1, 10).id}
+                                    onClick={(e) =>
+                                        handleClick(e.target.innerHTML)
+                                    }
+                                >
+                                    {item}
+                                </span>
+                            ))}
+                        </div>
+                    )}
+
+                    <div className="grid sfhd:gap-11 gap-5 sfhd:place-items-start sfhd:grid-cols-[repeat(auto-fit,_minmax(350px,_1fr))] place-items-center items-start ss:gridBox gridBox-min mt-8 ">
+                        {handleFilms(storageRef).map((item) => (
+                            <MovieCard
+                                key={item.id}
+                                movieGenre={movieGenre}
+                                movie={item}
+                            />
+                        ))}
+                    </div>
+                </>
+            ) : (
+                ""
+            )}
+            {search && (
+                <>
+                    {movies.length ? (
+                        <>
+                            <h1 className="mb-[1.5rem] text-secondary sfhd:text-5xl md:text-4xl text-2xl">
+                                {genre
+                                    ? genre.replace(
+                                          genre[0],
+                                          genre[0].toUpperCase()
+                                      )
+                                    : ""}
+                                {query && (
+                                    <span className="">{` "${query}"`}</span>
+                                )}
+                            </h1>
+                            <div className="grid sfhd:gap-11 gap-5 sfhd:place-items-start sfhd:grid-cols-[repeat(auto-fit,_minmax(350px,_1fr))] place-items-center items-start ss:gridBox gridBox-min mt-8 ">
+                                {movies.map((item) => (
+                                    <MovieCard
+                                        key={item.id}
+                                        movieGenre={movieGenre}
+                                        movie={item}
+                                    />
+                                ))}
+                            </div>
+                        </>
+                    ) : (
+                        ""
+                    )}
+                    {actors.length ? (
+                        <>
+                            <h1 className="mb-[1.5rem] mt-6 text-secondary sfhd:text-5xl md:text-4xl text-2xl">
+                                Актеры
+                            </h1>
+                            <div className="flex flex-wrap ">
+                                {actors.map((item) => (
+                                    <Link
+                                        key={item.id}
+                                        to={`/profile/${item.id}`}
+                                        className="flex flex-wrap flex-col py-3 px-2 md:basis-[calc(99.9%*1/3)] ss:basis-[calc(99.9%*1/2)] w-full"
+                                    >
+                                        <h2>{item.name}</h2>
+                                        <p className="text-dimWhite">
+                                            {item.known_for_department}
+                                        </p>
+                                    </Link>
+                                ))}
+                            </div>
+                        </>
+                    ) : (
+                        ""
+                    )}
+                </>
+            )}
         </>
     );
 };
