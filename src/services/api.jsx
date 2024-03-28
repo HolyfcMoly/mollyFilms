@@ -1,4 +1,4 @@
-import { API_KEY, API_URL } from "./config";
+import { API_KEY, API_URL, YANDEX_API_KEY, YANDEX_FOLDER_ID } from "./config";
 import axios from "axios";
 
 axios.defaults.retry = true;
@@ -11,7 +11,7 @@ const createApi = () => {
     return axios.create({
         signal: controller.signal,
     });
-}
+};
 
 let api = createApi();
 
@@ -21,8 +21,41 @@ const cancelRequests = () => {
 
 export const refreshAPI = () => {
     cancelRequests();
-    api = createApi(); 
-}
+    api = createApi();
+};
+export const translateText = async (text, targetLang = "ru") => {
+    // const apiUrl = "/api";
+    //при деплои использовать вместо ^
+    const apiUrl =
+        "https://translate.api.cloud.yandex.net/translate/v2/translate";
+    const body = {
+        folder_id: `${YANDEX_FOLDER_ID}`,
+        targetLanguageCode: targetLang,
+        texts: [text ? text : ""],
+    };
+
+    const headers = {
+        "Content-Type": "application/json",
+        Authorization: `Api-Key ${YANDEX_API_KEY}`,
+    };
+
+    const response = await api
+        .post(apiUrl, body, { headers })
+        .then((data) => data.data.translations[0].text)
+        .catch((e) => {
+            console.error("Error translating text:", e);
+            return text;
+        });
+    return response;
+    // try {
+    //     const response = await api.post(apiUrl, body, { headers });
+    //     const translatedText = response.data.translations[0].text;
+    //     return translatedText;
+    // } catch (error) {
+    //     console.error("Error translating text:", error);
+    //     return text;
+    // }
+};
 
 const getGenre = () => {
     const response = axios
@@ -40,19 +73,25 @@ const getTvGenre = () => {
     return response;
 };
 
-const getMovies = async (category = "popular", page = 1) => {
+const getMovies = async (category = "", page = 1) => {
     const response = await api
         .get(
-            `${API_URL}movie/${category}?api_key=${API_KEY}&page=${page}&language=ru`
+            `${API_URL}movie/${
+                category || "popular"
+            }?api_key=${API_KEY}&page=${page}&language=ru`
         )
         .then((res) => res)
         .catch((e) => e);
     return response;
 };
 
-const getPopularTv = async (page = 1) => {
+const getCategoryTv = async (category = "", page = 1) => {
     const response = await api
-        .get(`${API_URL}tv/popular?api_key=${API_KEY}&page=${page}&language=ru`)
+        .get(
+            `${API_URL}tv/${
+                category || "popular"
+            }?api_key=${API_KEY}&page=${page}&language=ru`
+        )
         .then((res) => res)
         .catch((e) => e);
     return response;
@@ -62,6 +101,16 @@ const getMoviesByGenre = async (genreId, page = 1) => {
     const response = await api
         .get(
             `${API_URL}discover/movie?with_genres=${genreId}&api_key=${API_KEY}&page=${page}&language=ru`
+        )
+        .then((res) => res)
+        .catch((e) => e);
+    return response;
+};
+
+const getTvByGenre = async (genreId, page = 1) => {
+    const response = await api
+        .get(
+            `${API_URL}discover/tv?with_genres=${genreId}&api_key=${API_KEY}&page=${page}&language=ru`
         )
         .then((res) => res)
         .catch((e) => e);
@@ -106,15 +155,28 @@ const getSeries = async (id) => {
 
 const getTvSeriesEpisode = async (id, seasonNumber) => {
     const response = await axios
-        .get(`${API_URL}tv/${id}/season/${seasonNumber}?api_key=${API_KEY}&language=ru`)
+        .get(
+            `${API_URL}tv/${id}/season/${seasonNumber}?api_key=${API_KEY}&language=ru`
+        )
         .then((res) => res)
         .catch((e) => console.log(e));
     return response;
 };
 
-const getEpisodeInfo = async (id, seasonNumber, episodeNumber, extra = false) => {
+const getEpisodeInfo = async (
+    id,
+    seasonNumber,
+    episodeNumber,
+    extra = false
+) => {
     const response = await axios
-        .get(`${!extra ? `${API_URL}tv/${id}/season/${seasonNumber}/episode/${episodeNumber}?api_key=${API_KEY}&language=ru`: `${API_URL}tv/${id}/season/${seasonNumber}/episode/${episodeNumber}?api_key=${API_KEY}&append_to_response=videos,images`}`)
+        .get(
+            `${
+                !extra
+                    ? `${API_URL}tv/${id}/season/${seasonNumber}/episode/${episodeNumber}?api_key=${API_KEY}&language=ru`
+                    : `${API_URL}tv/${id}/season/${seasonNumber}/episode/${episodeNumber}?api_key=${API_KEY}&append_to_response=videos,images`
+            }`
+        )
         .then((res) => res)
         .catch((e) => console.log(e));
     return response;
@@ -122,7 +184,9 @@ const getEpisodeInfo = async (id, seasonNumber, episodeNumber, extra = false) =>
 
 const getEpisodeExternalIds = async (id, seasonNumber, episodeNumber) => {
     const response = await axios
-        .get(`${API_URL}tv/${id}/season/${seasonNumber}/episode/${episodeNumber}/external_ids?api_key=${API_KEY}`)
+        .get(
+            `${API_URL}tv/${id}/season/${seasonNumber}/episode/${episodeNumber}/external_ids?api_key=${API_KEY}`
+        )
         .then((res) => res)
         .catch((e) => console.log(e));
     return response;
@@ -130,7 +194,9 @@ const getEpisodeExternalIds = async (id, seasonNumber, episodeNumber) => {
 
 const getEpisodeCredits = async (id, seasonNumber, episodeNumber) => {
     const response = await axios
-        .get(`${API_URL}tv/${id}/season/${seasonNumber}/episode/${episodeNumber}/credits?api_key=${API_KEY}`)
+        .get(
+            `${API_URL}tv/${id}/season/${seasonNumber}/episode/${episodeNumber}/credits?api_key=${API_KEY}`
+        )
         .then((res) => res)
         .catch((e) => console.log(e));
     return response;
@@ -138,7 +204,9 @@ const getEpisodeCredits = async (id, seasonNumber, episodeNumber) => {
 
 const getTvSeriesVideos = async (id, seasonNumber) => {
     const response = await axios
-        .get(`${API_URL}tv/${id}/season/${seasonNumber}/videos?api_key=${API_KEY}`)
+        .get(
+            `${API_URL}tv/${id}/season/${seasonNumber}/videos?api_key=${API_KEY}`
+        )
         .then((res) => res)
         .catch((e) => console.log(e));
     return response;
@@ -192,7 +260,7 @@ const getSeriesCredits = async (id) => {
 
 const getProfile = async (id) => {
     const response = await axios
-        .get(`${API_URL}person/${id}?api_key=${API_KEY}&language=ru`)
+        .get(`${API_URL}person/${id}?api_key=${API_KEY}&language=en`)
         .then((res) => res)
         .catch((e) => console.log(e));
     return response;
@@ -210,9 +278,7 @@ const getMovieByProfileId = async (id) => {
 
 const getTvByProfileId = async (id) => {
     const response = await axios
-        .get(
-            `${API_URL}person/${id}/tv_credits?api_key=${API_KEY}&language=ru`
-        )
+        .get(`${API_URL}person/${id}/tv_credits?api_key=${API_KEY}&language=ru`)
         .then((res) => res)
         .catch((e) => console.log(e));
     return response;
@@ -274,7 +340,8 @@ export {
     getMultiSearchByQuery,
     //series
     getTvGenre,
-    getPopularTv,
+    getCategoryTv,
+    getTvByGenre,
     getSeries,
     getSeriesCredits,
     getSeriesTrailer,
