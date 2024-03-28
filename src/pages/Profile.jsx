@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import {
     getMovieByProfileId,
     getPersonImages,
     getProfile,
     getTvByProfileId,
+    translateText,
 } from "../services/api";
 import MovieList from "../components/MovieList";
 import Pagination from "../components/Pagination";
@@ -19,11 +20,13 @@ import ToggleOverview from "../components/ToggleOverview";
 const Profile = () => {
     const [profile, setProfile] = useState({});
     const [movies, setMovies] = useState([]);
-    const [page, setPage] = useState(1);
+    // const [page, setCurrentPage] = useState(1);
     const [totalMovies, setTotalMovies] = useState([]);
     const [moviesPerPage] = useState(12);
     const [expand, setExpand] = useState(false);
     const [profileImages, setProfileImages] = useState([]);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const page = searchParams.get('p') || '1';
 
     const { id } = useParams();
     const fullText = profile.biography || "";
@@ -32,13 +35,24 @@ const Profile = () => {
     const [text, toggleText] = useTextToggle(fullText);
     const images = profileImages.map((item) => item.file_path);
 
+    // console.log(profile?.biography.length)
     const getRandomImg = (images) => {
         return images[Math.floor(Math.random() * images.length)];
     };
-
+    
     useEffect(() => {
-        getProfile(id).then((data) => {
+        getProfile(id).then(async (data) => {
             setProfile(data.data);
+            const newProfile = data?.data;
+            const transName = await translateText(newProfile.name, 'ru')
+            const transDescription = await translateText(newProfile.biography, 'ru')
+
+            const translatedProfile = {
+                ...newProfile,
+                name: transName,
+                biography: transDescription,
+            }
+            setProfile(translatedProfile);
         });
         Promise.all([getMovieByProfileId(id), getTvByProfileId(id)]).then(
             ([movie, tv]) => {
@@ -113,8 +127,9 @@ const Profile = () => {
                                 setSlide={false}
                             />
                             <Pagination
-                                setPage={setPage}
-                                currentPage={page}
+                                profile={true}
+                                searchParams={searchParams}
+                                setPage={setSearchParams}
                                 totalPages={pages}
                             />
                         </>
