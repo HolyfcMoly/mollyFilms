@@ -18,11 +18,16 @@ const MovieCard = ({ movieGenre, movie, containerClass = ''}) => {
         triggerOnce: true,
     });
 
+    const handleClick = () => {
+        localStorage.setItem('type', movie.media_type ? movie.media_type : movie.first_air_date ? 'tv' : 'movie');
+    }
+
     return (
         <div className={`p-2 sfhd:w-[350px] ss:w-[200px] xss:w-[150px] w-[200px]  max-h-[100%] rounded-xl ${containerClass}`} ref={ref}>
             <Link
                 to={`/movie/${movie.id}`}
                 state={{media_type: movie.media_type ? movie.media_type : movie.first_air_date ? 'tv' : 'movie'}}
+                onClick={() => handleClick()}
                 className="flex flex-col relative group focus:outline-none"
             >
                 <div
