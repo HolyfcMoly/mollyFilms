@@ -14,6 +14,7 @@ const ImageSlider = ({
     containerClass,
 }) => {
     const [isSplideLoaded, setIsSplideLoaded] = useState(false);
+    const [indexCount, setIndexCount] = useState(1);
 
     const options = {
         type: "loop",
@@ -44,7 +45,7 @@ const ImageSlider = ({
         ...options,
         type: 'fade',
         breakpoints: {},
-        start: slideIndex,
+        start: indexCount,
         focus: "center",
         autoWidth: true,
     };
@@ -52,6 +53,7 @@ const ImageSlider = ({
     useEffect(() => {
         setTimeout(() => {
             setIsSplideLoaded(true);
+            setIndexCount(slideIndex)
         }, 200);
     }, [slideIndex]);
 
@@ -81,7 +83,7 @@ const ImageSlider = ({
                                                             ? image.file_path.slice(1,6)
                                                         : getRandomKey(0,index).id
                                                     }
-                                                    className="px-2 flex justify-center  w-full"
+                                                    className="px-2 flex justify-center w-full"
                                                 >
                                                     <img
                                                         src={`https://image.tmdb.org/t/p/original${image.file_path}`}
@@ -90,6 +92,7 @@ const ImageSlider = ({
                                                             show ? showModal() : "";
                                                             setSlideIndex(index);
                                                         }}
+                                                        className="w-full h-full object-cover cursor-pointer"
                                                     />
                                                 </SplideSlide>
                                             )
@@ -98,13 +101,15 @@ const ImageSlider = ({
                                 </div>
                             </Splide>
                         ) : (
-                            <Splide options={options2} hasTrack={false}>
-                                <div className="relative sm:px-8 overflow-hidden">
+                            <>
+                            <p className="absolute xl:-top-5 top-0  left-0 sfhd:text-5xl xl:text-4xl lg:text-2xl sm:text-xl text-base text-secondary">{indexCount + 1} из {content.images.stills.length}</p>
+                            <Splide options={options2} hasTrack={false} onMove={(_,index) => setIndexCount(index)}>
+                                <div className="relative sfhd:px-28 sm:px-16 overflow-hidden">
                                     <div className="splide__arrows">
-                                        <button className="splide__arrow splide__arrow--prev custom__arrow-xs sm:custom__arrow-xl lg:custom__arrow-xxl lg:-left-4 left-0 sm:rounded-[10px] rounded-l-[8px] rounded-r-none lg:w-[4rem] w-[3rem] lg:py-[18.5rem] ss:py-[11rem] xs:py-[7.7rem] py-[6.15rem]  bg-transparent">
+                                        <button className="splide__arrow splide__arrow--prev custom__arrow-xs sm:custom__arrow-xl lg:custom__arrow-xxl sfhd:[&_svg]:w-20 sfhd:[&_svg]:h-20 left-0 sm:rounded-[10px] rounded-l-[8px] rounded-r-none sfhd:w-28 lg:w-[4rem] w-[4rem] h-full bg-transparent">
                                             <IconArrowForward />
                                         </button>
-                                        <button className="splide__arrow splide__arrow--next custom__arrow-xs sm:custom__arrow-xl lg:custom__arrow-xxl  lg:-right-4 right-0 sm:rounded-[10px] rounded-l-none rounded-r-[8px] lg:w-[4rem] w-[3rem] lg:py-[18.5rem] ss:py-[11rem] xs:py-[7.7rem] py-[6.15rem] bg-transparent">
+                                        <button className="splide__arrow splide__arrow--next custom__arrow-xs sm:custom__arrow-xl lg:custom__arrow-xxl sfhd:[&_svg]:w-20 sfhd:[&_svg]:h-20 right-0 sm:rounded-[10px] rounded-l-none rounded-r-[8px] sfhd:w-28 lg:w-[4rem] w-[4rem] h-full bg-transparent">
                                             <IconArrowForward />
                                         </button>
                                     </div>
@@ -116,17 +121,19 @@ const ImageSlider = ({
                                                     ? image.file_path.slice(1,6)
                                                 : getRandomKey(0,index).id
                                             }
-                                                className="px-2 flex justify-center  w-full"
+                                                className="flex justify-center w-full"
                                             >
                                                 <img
                                                     src={`https://image.tmdb.org/t/p/original${image.file_path}`}
                                                     alt=""
+                                                    className="object-cover w-full h-full"
                                                 />
                                             </SplideSlide>
                                         ))}
                                     </SplideTrack>
                                 </div>
                             </Splide>
+                            </>
                         )
                     ) : (
                         ""
