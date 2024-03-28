@@ -161,13 +161,15 @@ const Search = ({ className }) => {
                 containerClass={`fixed`}
             >
                 <div className="fixed sfhd:top-[5.5rem] top-[3.5rem] left-0  h-[70dvh] sm:px-8 px-4 py-5 w-full overflow-y-auto overflow-x-hidden bg-[#14161a] bg-opacity-[0.98] z-[100]">
-                    <div
-                        onClick={allResults}
-                        className="text-secondary inline-flex items-center sfhd:text-5xl md:text-4xl text-2xl cursor-pointer"
-                    >
-                        Все результаты
-                        <IconArrowForward fill="#f0761d"/>
-                    </div>
+                    {moviesAndSeries.length ? (
+                        <div
+                            onClick={allResults}
+                            className="text-secondary inline-flex items-center sfhd:text-5xl md:text-4xl text-2xl cursor-pointer"
+                        >
+                            Все результаты
+                            <IconArrowForward fill="#f0761d"/>
+                        </div>
+                    ) : ''}
 
                     <div className="grid grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] gap-3 py-3">
                         {moviesAndSeries.length
