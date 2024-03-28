@@ -28,6 +28,7 @@ export const genreAndCategoriesIcons = {
     popular: <IconReel />,
     top_rated: <IconStar />,
     upcoming: <IconMovie />,
+    on_the_air: <IconMovie />,
     // // genres
     10759: <IconAdventure />, // adventure
     28: <IconAction />, //action
