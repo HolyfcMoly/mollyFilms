@@ -53,6 +53,15 @@ export const filteredJob = (crew = [], department = "", type='') => {
     return uniqueCrew;
 };
 
+export const filterByProperty = (arr = [], property = '') => {
+    const filterArr = []
+    arr.map(item => {
+        if(Object.prototype.hasOwnProperty.call(item, property)) filterArr.push(item)
+        
+    })
+    return filterArr
+}
+
 
 export const getFullAge = (birthday) => {
     if(!birthday || null) return;
@@ -131,6 +140,7 @@ export const getRandomKey = (min,max) => {
     const letter = Array(3).fill(null).map(() => String.fromCharCode(Math.random() > 0.5 ? 65 + Math.floor(Math.random() * 26) : 97 + Math.floor(Math.random() * 26))).join('')
     return {id:`${num}${letter}`}
 }
+// getRandomKey(1,10) - {id: '24qWe'}
 
 export const setLocalStorageItem = (type, value) => {
     localStorage.setItem(`${type}`, value)
