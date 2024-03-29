@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { getGenre, getNowPlaying, getTvGenre } from "../services/api";
+import { getGenre, getNowPlaying, getTrendingSeries, getTvGenre } from "../services/api";
 import MovieSlider from "./MovieSlider";
 import MovieCard from "./MovieCard";
 import {
@@ -20,6 +20,7 @@ const MovieList = ({
 }) => {
     const [movieGenre, setMovieGenre] = useState([]);
     const [nowPlayingMovie, setNowPlayingMovie] = useState([]);
+    const [trendingSeries, setTrendingSeries] = useState([]);
 
     const actors = filteredJob(movie, "Acting", "known_for_department");
     const films = filteredJob(movie, "movie", "media_type");
@@ -31,7 +32,8 @@ const MovieList = ({
     const ref = useRef('');
     const [storageRef, setStorageRef] = useState('')
     const categories = ["Все", "Фильмы", "Сериалы"];
-    const storage = ref.current = localStorage.getItem('tabType') || '';
+    const storageTabType = ref.current = localStorage.getItem('tabType') || '';
+    const storageType = localStorage.getItem('type') || '';
 
     const handleClick = (e) => {
         localStorage.setItem("tabType", e);
@@ -59,15 +61,21 @@ const MovieList = ({
             }
         );
         if (setSlide) {
-            getNowPlaying().then((data) =>
+            if(storageType === 'tv') {
+                getTrendingSeries().then(data => 
+                    data?.data?.results && setTrendingSeries(data.data.results)
+                )
+            } else {
+                getNowPlaying().then((data) =>
                 setNowPlayingMovie(data.data.results)
             );
+            }
         }
-    }, [setSlide]);
+    }, [setSlide, storageType]);
 
     useEffect(() => {
-        setStorageRef(storage)
-    }, [storageRef, storage])
+        setStorageRef(storageTabType)
+    }, [storageRef, storageTabType])
 
     return (
         <>
@@ -77,7 +85,7 @@ const MovieList = ({
                         Сейчас смотрят
                     </h1>
                     <MovieSlider
-                        movies={nowPlayingMovie}
+                        movies={storageType === 'tv' ? trendingSeries : nowPlayingMovie}
                         movieGenre={movieGenre}
                     />
                 </div>
@@ -126,9 +134,9 @@ const MovieList = ({
                             <h1 className="mb-[1.5rem] text-secondary sfhd:text-5xl md:text-4xl text-2xl">
                                 {genre
                                     ? genre.replace(
-                                          genre[0],
-                                          genre[0].toUpperCase()
-                                      )
+                                        genre[0],
+                                        genre[0].toUpperCase()
+                                    )
                                     : ""}
                                 {query && (
                                     <span className="">{` "${query}"`}</span>
