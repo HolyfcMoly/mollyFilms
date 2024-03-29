@@ -95,7 +95,7 @@ const Search = ({ className }) => {
                             ref={inputRef}
                             className={`xs:w-[70%] w-[50%] fixed ss:top-0 left-[20px] transition-[top] ease-in-out duration-300 ${
                                 open ? "top-3" : "-top-[10rem]"
-                            }  focus:outline-none rounded-[5px] ring-secondary focus-visible:ring-1 sfhd:py-2 px-2 py-[2px] caret-secondary sfhd:text-2xl text-white`}
+                            }  focus:outline-none rounded-[5px] ring-secondary focus-visible:ring-1 sfhd:py-2 px-2 py-[3px] caret-secondary sfhd:text-2xl text-white`}
                         />
                         <button
                             className="block ss:hidden"
@@ -205,7 +205,7 @@ const Search = ({ className }) => {
                                                 )}
                                             </div>
                                             <div className="flex-1 flex flex-col w-[200px] ml-4 text-sm">
-                                                <h1>{item.media_type === 'tv' ? item.name : item.title}</h1>
+                                                <h1 className="bre">{item.media_type === 'tv' ? item.name : item.title}</h1>
                                                 
                                                 {item ? (
                                                 <p>

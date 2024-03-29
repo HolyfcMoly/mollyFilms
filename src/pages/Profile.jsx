@@ -43,16 +43,16 @@ const Profile = () => {
     useEffect(() => {
         getProfile(id).then(async (data) => {
             setProfile(data.data);
-            const newProfile = data?.data;
-            const transName = await translateText(newProfile.name, 'ru')
-            const transDescription = await translateText(newProfile.biography, 'ru')
+            // const newProfile = data?.data;
+            // const transName = await translateText(newProfile.name, 'ru')
+            // const transDescription = await translateText(newProfile.biography, 'ru')
 
-            const translatedProfile = {
-                ...newProfile,
-                name: transName,
-                biography: transDescription,
-            }
-            setProfile(translatedProfile);
+            // const translatedProfile = {
+            //     ...newProfile,
+            //     name: transName,
+            //     biography: transDescription,
+            // }
+            // setProfile(translatedProfile);
         });
         Promise.all([getMovieByProfileId(id), getTvByProfileId(id)]).then(
             ([movie, tv]) => {

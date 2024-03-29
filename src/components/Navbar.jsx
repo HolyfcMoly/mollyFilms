@@ -35,7 +35,7 @@ const Navbar = () => {
 
         <div className="flex-1.5 flex w-full">
             <Search className={`flex-1 flex justify-end relative`}/>
-            <div className="flex-[0.3]"></div>
+            <div className="flex-[0.7] xs:flex-[0.5]"></div>
         </div>
     </nav>
 )};
