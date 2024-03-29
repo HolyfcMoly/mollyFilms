@@ -100,14 +100,14 @@ const Movies = () => {
                     });
                 }
             }
-            if (movieId && typeof movieId === "string" && type === 'movie' && typeStorage === 'movie') {
+            if (movieId && typeof movieId === "string" && typeStorage === 'movie') {
                 refreshAPI();
                 getMovies(movieId, currentPage).then((data) => {
                     data?.data?.results && setGenreMovie(data.data.results);
                     data?.data?.total_pages && setPages(data.data.total_pages);
                 });
             }
-            if (movieId && typeof movieId === "number" && type === 'movie' && typeStorage === 'movie') {
+            if (movieId && typeof movieId === "number" && typeStorage === 'movie') {
                 refreshAPI();
                 getMoviesByGenre(movieId, currentPage).then((data) => {
                     data?.data?.results && setGenreMovie(data.data.results);
