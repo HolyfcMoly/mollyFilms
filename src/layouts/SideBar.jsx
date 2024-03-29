@@ -5,7 +5,7 @@ import GenrePreLoader from "../components/ui/GenresPreLoader";
 import BurgerBtn from "../components/ui/BurgerBtn";
 import { genreAndCategoriesIcons } from "../assets/icons/genres";
 import useResize from "../hooks/useResize";
-import { clickOutSide, filterDuplicates } from "../utils";
+import { clickOutSide } from "../utils";
 import Menu from "../components/Menu";
 
 const SideBar = () => {
@@ -25,16 +25,24 @@ const SideBar = () => {
     const categories = [
         { label: "Популярные", value: "popular" },
         { label: "Топ оценок", value: "top_rated" },
-        { label: "Новинки", value: t === 'movie' ? "upcoming" : "on_the_air" },
+        { label: "Новинки", value: t === 'movie' || storage === 'movie' ? "upcoming" : "on_the_air" },
     ];
+
+    const cleanParams = () => {
+        newParams.set('s',false)
+        newParams.set('q', '')
+        newParams.delete('s',false)
+        newParams.delete('q', '')
+    }
 
     const menuRef = useRef(null);
     const skeletonData = new Array(19).fill("id");
 
     const handleGenreChange = (movies, genre) => {
-        newParams.set('p', 1)
-        newParams.set('id', String(movies))
+        cleanParams();
         newParams.set('g', genre);
+        newParams.set('id', String(movies))
+        newParams.set('p', 1)
         localStorage.setItem('tabType', 'Все')
         navigate(`/?${newParams.toString()}`, {replace: true})
     };
