@@ -47,14 +47,6 @@ export const translateText = async (text, targetLang = "ru") => {
             return text;
         });
     return response;
-    // try {
-    //     const response = await api.post(apiUrl, body, { headers });
-    //     const translatedText = response.data.translations[0].text;
-    //     return translatedText;
-    // } catch (error) {
-    //     console.error("Error translating text:", error);
-    //     return text;
-    // }
 };
 
 const getGenre = () => {
@@ -222,6 +214,14 @@ const getNowPlaying = async (page = 1) => {
     return response;
 };
 
+const getTrendingSeries = async () => {
+    const response = await axios
+        .get(`${API_URL}/trending/tv/week?api_key=${API_KEY}&language=ru`)
+        .then((res) => res)
+        .catch((e) => console.log(e));
+    return response;
+};
+
 const getRecommendMovies = async (id) => {
     const response = await axios
         .get(
@@ -353,6 +353,7 @@ export {
     getEpisodeInfo,
     getEpisodeExternalIds,
     getEpisodeCredits,
+    getTrendingSeries,
     //utils
     cancelRequests,
     getPersonImages,
