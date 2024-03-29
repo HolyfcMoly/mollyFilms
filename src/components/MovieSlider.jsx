@@ -11,8 +11,15 @@ const MovieSlider = ({ movies, movieGenre }) => {
     const [isSplideLoaded, setIsSplideLoaded] = useState(false);
 
     const handleClick = (movie) => {
-        localStorage.setItem('type', movie.media_type ? movie.media_type : movie.first_air_date ? 'tv' : 'movie');
-    }
+        localStorage.setItem(
+            "type",
+            movie.media_type
+                ? movie.media_type
+                : movie.first_air_date
+                ? "tv"
+                : "movie"
+        );
+    };
 
     const options = {
         type: "loop",
@@ -81,7 +88,14 @@ const MovieSlider = ({ movies, movieGenre }) => {
                                     <Link
                                         to={`/movie/${slide.id}`}
                                         className=" h-full block"
-                                        state={{media_type: `${slide.media_type === 'movie' || slide.release_date ? 'movie' : 'tv'}`}}
+                                        state={{
+                                            media_type: `${
+                                                slide.media_type === "movie" ||
+                                                slide.release_date
+                                                    ? "movie"
+                                                    : "tv"
+                                            }`,
+                                        }}
                                         onClick={() => handleClick(slide)}
                                     >
                                         <div className="relative slide_info shadow-[inset_0_-40px_72px_12px_rgba(0,0,0,1)] cursor-pointer rounded-[10px] ">
@@ -94,7 +108,7 @@ const MovieSlider = ({ movies, movieGenre }) => {
                                                             : slide.poster_path
                                                     }
                                                 `}
-                                                    alt={slide.title}
+                                                    alt={slide.title || slide.name}
                                                     className={
                                                         "object-top rounded-[10px] relative z-[-1] bg-neutral-950"
                                                     }
@@ -109,29 +123,28 @@ const MovieSlider = ({ movies, movieGenre }) => {
                                                     </p>
                                                 </div>
                                                 <div
-                                                    className={`flex flex-col absolute bottom-0 left-0 slide-description justify-end w-full px-4 pb-2 xl:pb-6 transition-opacity duration-300`}
+                                                    className={`flex flex-col absolute bottom-0 left-0 slide-description justify-end w-full px-4 pb-4 xl:pb-6 transition-opacity duration-300`}
                                                 >
-                                                    <h2 className="sfhd:text-3xl text-sm lg:text-xl xl:text-2xl">
-                                                        {slide.title}
+                                                    <h2 className="sfhd:text-3xl mb-2 text-sm lg:text-xl xl:text-2xl">
+                                                        {slide.title || slide.name}
                                                     </h2>
                                                     <div className="flex items-center gap-3">
                                                         <p
                                                             className={`sfhd:text-2xl lg:text-base text-xs  ${
-                                                                slide.vote_average >=
-                                                                7
+                                                                slide.vote_average >= 7
                                                                     ? "bg-secondary"
                                                                     : "bg-gray-700"
                                                             }  bg-opacity-80 rounded-[5px] px-1`}
                                                         >
-                                                            {slide.vote_average.toFixed(
-                                                                1
-                                                            )}
+                                                            {slide.vote_average.toFixed(1)}
                                                         </p>
-                                                        <p className="sfhd:text-2xl text-xs lg:text-lg xl:text-xl md:leading-7">
-                                                            {slide.release_date.slice(
-                                                                0,
-                                                                4
-                                                            )}
+                                                        <p className="sfhd:text-2xl text-xs lg:text-lg xl:text-xl ">
+                                                            {slide.media_type ===
+                                                                "movie" ||
+                                                            slide.release_date
+                                                                ? slide.release_date.slice(0, 4)
+                                                                : slide.first_air_date.slice(0,4)
+                                                            }
                                                         </p>
                                                         {movieGenre.map(
                                                             (genre) =>
@@ -139,7 +152,7 @@ const MovieSlider = ({ movies, movieGenre }) => {
                                                                 slide
                                                                     .genre_ids[0] ? (
                                                                     <p
-                                                                        className="sfhd:text-2xl text-xs lg:text-lg xl:text-xl md:leading-7"
+                                                                        className="sfhd:text-2xl text-xs lg:text-lg xl:text-xl "
                                                                         key={
                                                                             genre.id
                                                                         }
