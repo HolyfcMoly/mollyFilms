@@ -15,7 +15,7 @@ import EpisodeInfo from "./pages/EpisodeInfo";
 function App() {
     return (
         <div className="w-full flex flex-col">
-            <BrowserRouter>
+            <BrowserRouter basename="/mollyFilms">
                 <Header />
                 <div className={`${styles.paddingX}`}>
                     <SideBar />
