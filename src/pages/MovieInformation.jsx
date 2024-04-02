@@ -129,7 +129,7 @@ const MovieInformation = () => {
                     <div className="relative sfhd:w-[650px] sfhd:h-[920px] xl:w-[450px] xl:h-[720px] sm:w-[350px] sm:h-[550px] w-[260px] h-[380px] sm:mb-0 sm:mr-8 mb-4 ring-1 ring-secondary rounded-xl shadow-secondary shadow-[0_0_15px_-3px_var(--tw-shadow-color)]">
                         {movie && (
                             <Poster
-                                src={`https://image.tmdb.org/t/p/original${
+                                src={`https://image.tmdb.org/t/p/w500${
                                     movie.poster_path
                                         ? movie.poster_path
                                         : movie.backdrop_path
@@ -277,7 +277,7 @@ const MovieInformation = () => {
                                     <Link to={`/movie/${movie.id}/season/${item.season_number}`} state={{movie: movie, imdbId: externalIds.imdb_id}} key={item.id} className="mt-3 w-20">
                                         <div className="">
                                             <img
-                                                src={`https://image.tmdb.org/t/p/original${item.poster_path ? item.poster_path : movie.poster_path}`}
+                                                src={`https://image.tmdb.org/t/p/w200${item.poster_path ? item.poster_path : movie.poster_path}`}
                                                 alt="season_poster"
                                                 className="h-full w-full object-contain"
                                             />

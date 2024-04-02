@@ -58,9 +58,9 @@ const MovieSlider = ({ movies, movieGenre }) => {
         },
         focus: "start",
         pagination: false,
-        lazyLoad: "nearby",
+        lazyLoad: "sequential",
         arrows: true,
-        interval: 5000,
+        interval: 10000,
     };
 
     useEffect(() => {
@@ -102,7 +102,7 @@ const MovieSlider = ({ movies, movieGenre }) => {
                                             {slide.backdrop_path ||
                                             slide.poster_path ? (
                                                 <Poster
-                                                    src={`https://image.tmdb.org/t/p/original${
+                                                    src={`https://image.tmdb.org/t/p/w500${
                                                         slide.backdrop_path
                                                             ? slide.backdrop_path
                                                             : slide.poster_path

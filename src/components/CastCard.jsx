@@ -12,7 +12,7 @@ const CastCard = ({cast, className = ''}) => {
                             src={`${
                                 !cast.profile_path
                                     ? `${avatar}`
-                                    : `https://image.tmdb.org/t/p/original${cast.profile_path}`
+                                    : `https://image.tmdb.org/t/p/w200${cast.profile_path}`
                             }`}
                             alt={`${cast.original_name}`}
                             loading="lazy"

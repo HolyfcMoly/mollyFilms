@@ -89,12 +89,16 @@ const Profile = () => {
                     <div className="relative sfhd:w-[650px] float-left sfhd:h-[920px] xl:w-[450px] xl:h-[720px] sm:w-[350px] sm:h-[550px] w-[260px] h-[380px] sm:mb-0 sm:mr-8 mb-4 ring-1 ring-secondary rounded-xl shadow-secondary shadow-[0_0_15px_-3px_var(--tw-shadow-color)]">
                         <Poster
                             src={
-                                images.length
-                                    ? `https://image.tmdb.org/t/p/original${getRandomImg(
-                                        images
-                                    )}`
-                                    : profile.profile_path
-                                    ? `https://image.tmdb.org/t/p/original${profile.profile_path}`
+                                // images.length
+                                //     ? `https://image.tmdb.org/t/p/original${getRandomImg(
+                                //         images
+                                //     )}`
+                                //     : profile.profile_path
+                                //     ? `https://image.tmdb.org/t/p/original${profile.profile_path}`
+                                //     : `${avatar}`
+                                    
+                                    profile.profile_path
+                                    ? `https://image.tmdb.org/t/p/w500${profile.profile_path}`
                                     : `${avatar}`
                             }
                             alt={""}

@@ -86,7 +86,7 @@ const ImageSlider = ({
                                                     className="px-2 flex justify-center w-full"
                                                 >
                                                     <img
-                                                        src={`https://image.tmdb.org/t/p/original${image.file_path}`}
+                                                        src={`https://image.tmdb.org/t/p/w500${image.file_path}`}
                                                         alt=""
                                                         onClick={() => {
                                                             show ? showModal() : "";

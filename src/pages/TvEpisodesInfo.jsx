@@ -121,7 +121,7 @@ const TvEpisodesInfo = () => {
                 <div className="relative sfhd:w-[385px] sfhd:h-[570px] xl:w-[300px] xl:h-[450px] sm:w-[220px] sm:h-[350px] w-[100px] h-[150px] mr-4 ring-1 ring-secondary rounded-xl shadow-secondary shadow-[0_0_15px_-3px_var(--tw-shadow-color)]">
                     {season && (
                         <Poster
-                            src={`https://image.tmdb.org/t/p/original${
+                            src={`https://image.tmdb.org/t/p/w500${
                                 season.poster_path
                                     ? season.poster_path
                                     : movieInfo?.poster_path
@@ -243,7 +243,7 @@ const TvEpisodesInfo = () => {
                                             <div className="relative ss:flex-1 ss:w-full fhd:h-[250px] xl:h-[200px] lg:h-[150px] sm:h-[130px] ss:h-[120px] xs:h-[250px] min-w-[170px] min-h-[95px] ring-1  ring-secondary rounded-xl shadow-secondary shadow-[0_0_5px_0px_var(--tw-shadow-color)]">
                                                 {inView ? (
                                                     <Poster
-                                                        src={`https://image.tmdb.org/t/p/original${
+                                                        src={`https://image.tmdb.org/t/p/w500${
                                                             item.still_path
                                                                 ? item.still_path
                                                                 : season.poster_path

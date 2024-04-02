@@ -36,7 +36,7 @@ const MovieCard = ({ movieGenre, movie, containerClass = ''}) => {
                 >
                     {inView ? (
                             <Poster
-                                src={movie.media_type === 'person' ? `https://image.tmdb.org/t/p/original${movie.profile_path}` : `https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                                src={movie.media_type === 'person' ? `https://image.tmdb.org/t/p/w500${movie.profile_path}` : `https://image.tmdb.org/t/p/w400${movie.poster_path}`}
                                 
                                 alt={movie.title}
                                 className={`sfhd:rounded-xl rounded-md bg-transparent`}

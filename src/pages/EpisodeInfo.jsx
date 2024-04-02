@@ -88,7 +88,7 @@ const EpisodeInfo = () => {
                 <div className="relative sfhd:w-[385px] sfhd:h-[570px] xl:w-[300px] xl:h-[450px] sm:w-[220px] sm:h-[350px] w-[100px] h-[150px] mr-4 ring-1 ring-secondary rounded-xl shadow-secondary shadow-[0_0_15px_-3px_var(--tw-shadow-color)]">
                     {episodeInfo && (
                         <Poster
-                            src={`https://image.tmdb.org/t/p/original${
+                            src={`https://image.tmdb.org/t/p/w500${
                                 episodeInfo.still_path
                                     ? episodeInfo.still_path
                                     : posterImg
