@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import { useState } from "react";
 import {
     refreshAPI,
@@ -15,7 +15,7 @@ import Preloader from "../components/ui/Preloader";
 import { excludeGenres } from "../assets/icons/genres";
 import { MAX_PAGES } from "../services/config";
 
-const Movies = () => {
+const Movies = memo(() => {
     const [genreMovie, setGenreMovie] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [allMovies, setAllMovies] = useState(false);
@@ -147,6 +147,6 @@ const Movies = () => {
             )}
         </>
     );
-};
-
+});
+Movies.displayName = 'Movies';
 export default Movies;

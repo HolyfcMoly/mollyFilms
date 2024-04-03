@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { getMultiSearchByQuery } from "../services/api";
 import ImgPreLoader from "./ui/ImgPreLoader";
@@ -8,7 +8,7 @@ import { clickOutSide, filteredJob } from "../utils";
 import Modal from "./ui/Modal";
 import IconArrowForward from "../assets/icons/IconArrowForward";
 
-const Search = ({ className }) => {
+const Search = memo(({ className }) => {
     const [query, setQuery] = useState("");
     const [movies, setMovies] = useState([]);
     const [open, setOpen] = useState(false);
@@ -248,6 +248,6 @@ const Search = ({ className }) => {
             </Modal>
         </>
     );
-};
-
+});
+Search.displayName = 'Search';
 export default Search;

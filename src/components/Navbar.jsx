@@ -1,28 +1,31 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Search from "./Search";
-import { logo } from "../assets";
+import { logo, search } from "../assets";
 import Menu from "./Menu";
 import useResize from "../hooks/useResize";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { memo } from "react";
 
-const Navbar = () => {
+const Navbar = memo(() => {
     const navigate = useNavigate();
     const width = useResize();
     const [isMenu, setIsMenu] = useState(false);
 
-    const handleClick = () => {
+    const handleClick = useCallback(() => {
         const newParams = new URLSearchParams({h: 't'})
         localStorage.setItem('type', 'movie');
         navigate(`/?${newParams.toString()}`)
-    }
+    },[navigate])
+
+    const memoWidth = useMemo(() => width,[width])
 
     useEffect(() => {
         setIsMenu(false)
-        if(width > 769) {
+        if(memoWidth > 769) {
             setIsMenu(true)
         }
-    }, [width])
-    
+    }, [memoWidth])
+
     return (
     <nav className="flex ss:flex-1 gap-4 relative items-center ss:justify-between justify-start w-full">
         <div className="flex flex-2 items-center">
@@ -38,6 +41,6 @@ const Navbar = () => {
             <div className="flex-[0.7] xs:flex-[0.5]"></div>
         </div>
     </nav>
-)};
-
+)});
+Navbar.displayName = 'Navbar';
 export default Navbar;

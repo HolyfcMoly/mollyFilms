@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 import IconArrowForward from "../assets/icons/IconArrowForward";
 import ImgPreLoader from "./ui/ImgPreLoader";
 import Poster from "./ui/Poster";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Preloader from "./ui/Preloader";
+import { memo } from "react";
 
-const MovieSlider = ({ movies, movieGenre }) => {
+const MovieSlider = memo(({ movies, movieGenre }) => {
     const [isSplideLoaded, setIsSplideLoaded] = useState(false);
 
     const handleClick = (movie) => {
@@ -184,6 +185,6 @@ const MovieSlider = ({ movies, movieGenre }) => {
             )}
         </div>
     );
-};
-
+});
+MovieSlider.displayName = 'MovieSlider';
 export default MovieSlider;

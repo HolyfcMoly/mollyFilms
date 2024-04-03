@@ -5,6 +5,7 @@ import { Rating, ThinStar } from "@smastrom/react-rating";
 import { useInView } from "react-intersection-observer";
 import ImgPreLoader from "./ui/ImgPreLoader";
 import { serial } from "../assets";
+import { memo } from "react";
 
 const myStyles = {
     itemShapes: ThinStar,
@@ -12,7 +13,7 @@ const myStyles = {
     inactiveFillColor: "#7d7d7d",
 };
 
-const MovieCard = ({ movieGenre, movie, containerClass = ''}) => {
+const MovieCard = memo(({ movieGenre, movie, containerClass = ''}) => {
     const { ref, inView } = useInView({
         threshold: 0.2,
         triggerOnce: true,
@@ -87,6 +88,6 @@ const MovieCard = ({ movieGenre, movie, containerClass = ''}) => {
             </Link>
         </div>
     );
-};
-
+});
+MovieCard.displayName = 'MovieCard';
 export default MovieCard;

@@ -27,7 +27,6 @@ import { genreAndCategoriesIcons } from "../assets/icons/genres";
 import ImdbBtn from "../components/ui/ImdbBtn";
 import TrailerBtn from "../components/ui/TrailerBtn";
 import CastCard from "../components/CastCard";
-import useTextToggle from "../hooks/useTextToggle";
 import CrewItem from "../components/CrewItem";
 import ToggleOverview from "../components/ToggleOverview";
 
@@ -47,8 +46,6 @@ const MovieInformation = () => {
     const [video, setVideo] = useState([]);
     const [trailerVideo, setTrailerVideo] = useState([]);
     const [externalIds, setExternalIds] = useState({});
-    const [expand,setExpand] = useState(false);
-    const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
     const newParams = useMemo(() => new URLSearchParams(searchParams), [searchParams])
     
@@ -57,7 +54,6 @@ const MovieInformation = () => {
     const runtime = convertRuntime(movie.runtime ?? movie.episode_run_time?.[0] ?? movie.last_episode_to_air?.runtime);
     const seasonCount = getStringDeclination(movie.number_of_seasons, "сезон");
     
-    const [text, toggleText] = useTextToggle(fullText);
     const director = filteredJob(crew, "Directing", "department").slice(0, 10);
     const producer = filteredJob(crew, "Production", "department").slice(0, 10);
     const operator = filteredJob(crew, "Camera", "department").slice(0, 10);
@@ -69,7 +65,6 @@ const MovieInformation = () => {
     // const handleClick = (id) => {
     //     navigate(`/movie/${id}?${newParams.toString()}`)
     // }
-
     useEffect(() => {
         if (defaultType && defaultType === "tv" ) {
             getSeries(id).then((data) => {
@@ -117,6 +112,7 @@ const MovieInformation = () => {
         const trailers = video.filter((item) => item.type === "Trailer");
         setTrailerVideo(trailers);
     }, [video]);
+
     return (
         <>
             <div className="flex flex-col">

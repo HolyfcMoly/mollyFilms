@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import {
     getExternalIds,
@@ -21,7 +21,7 @@ import {
 } from "../utils";
 import IconArrowForward from "../assets/icons/IconArrowForward";
 
-const TvEpisodesInfo = () => {
+const TvEpisodesInfo = memo(() => {
     const { id, sNumber } = useParams();
     const [episodes, setEpisodes] = useState([]);
     const [season, setSeason] = useState([]);
@@ -327,7 +327,6 @@ const TvEpisodesInfo = () => {
                     )}
                     {/* next and prev seasons button */}
                     <div className="flex justify-center gap-6 h-9">
-                        {console.log(totalSeasons)}
                         {seasonNumber > 1 ? (
                             <button
                             className="flex items-center pl-1 pr-4 rounded-[8px] hover:bg-secondary/10 active:bg-secondary/20 transition-colors duration-300"
@@ -360,6 +359,7 @@ const TvEpisodesInfo = () => {
             </div>
         </div>
     );
-};
+});
 
+TvEpisodesInfo.displayName = 'TvEpisodesInfo';
 export default TvEpisodesInfo;

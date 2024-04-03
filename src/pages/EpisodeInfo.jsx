@@ -12,18 +12,21 @@ import Modal from "../components/ui/Modal";
 import { close } from "../assets";
 import CastCard from "../components/CastCard";
 import ProfileSlider from "../components/ProfileSlider";
+import ToggleOverview from "../components/ToggleOverview";
 
 const EpisodeInfo = () => {
     const { id, sNumber, eNumber } = useParams();
     const navigate = useNavigate();
     const location = useLocation();
     const { episode, poster } = location.state || [];
+
     const [episodeInfo, setEpisodeInfo] = useState([]);
     const [episodeImgAndVideo, setEpisodeImgAndVideo] = useState([]);
     const [externalId, setExternalId] = useState([]);
     const [open, setOpen] = useState(false);
     const [slideIndex, setSlideIndex] = useState(0);
     const [cast, setCast] = useState([]);
+
     const externalIds = localStorage.getItem('tvImdbId');
     const time = convertRuntime(episodeInfo.runtime);
     const posterImg = poster || localStorage.getItem('poster');
@@ -31,6 +34,7 @@ const EpisodeInfo = () => {
     const producer = filteredJob(episodeInfo.crew, "Production", "department").slice(0, 10);
     const operator = filteredJob(episodeInfo.crew, "Camera", "department").slice(0, 10);
     const writer = filteredJob(episodeInfo.crew, "Writing", "department").slice(0, 10);
+    const fullText = episodeInfo.overview || '';
 
     const openModal = () => {
         setOpen(true);
@@ -126,7 +130,7 @@ const EpisodeInfo = () => {
                 </div>
             </div>
             <div className="mt-5">
-                <p className="sfhd:text-3xl xl:text-2xl text-lg">{episodeInfo.overview}</p>
+                <ToggleOverview fullText={fullText} textSymbols={400} textClass={`text-lg`}/>
             </div>
             {/* Gallery */}
             {episodeImgAndVideo?.images?.stills && episodeImgAndVideo.images.stills.length ? (

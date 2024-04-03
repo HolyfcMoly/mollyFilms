@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getGenre, getTvGenre } from "../services/api";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import GenrePreLoader from "../components/ui/GenresPreLoader";
@@ -28,24 +28,24 @@ const SideBar = () => {
         { label: "Новинки", value: t === 'movie' || storage === 'movie' ? "upcoming" : "on_the_air" },
     ];
 
-    const cleanParams = () => {
+    const cleanParams = useCallback(() => {
         newParams.set('s',false)
         newParams.set('q', '')
         newParams.delete('s',false)
         newParams.delete('q', '')
-    }
+    },[newParams])
 
     const menuRef = useRef(null);
     const skeletonData = new Array(19).fill("id");
 
-    const handleGenreChange = (movies, genre) => {
+    const handleGenreChange = useCallback((movies, genre) => {
         cleanParams();
         newParams.set('g', genre);
         newParams.set('id', String(movies))
         newParams.set('p', 1)
         localStorage.setItem('tabType', 'Все')
         navigate(`/?${newParams.toString()}`, {replace: true})
-    };
+    },[cleanParams, navigate, newParams]);
 
     useEffect(() => {
         

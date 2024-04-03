@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { memo, useEffect, useMemo, useRef, useState } from "react";
 import ReactPaginate from 'react-paginate'
 import { MAX_PAGES } from "../services/config";
 import IconArrowForward from "../assets/icons/IconArrowForward";
 import useResize from "../hooks/useResize";
 
-const Pagination = ({ searchParams, setPage, totalPages, profile = false}) => {
+const Pagination = memo(({ searchParams, setPage, totalPages, profile = false}) => {
     const newParams = useMemo(() => new URLSearchParams(searchParams), [searchParams]); 
     const [prevId, setPrevId] = useState(null);
     const [prevGenre, setPrevGenre] = useState(null);
@@ -74,7 +74,7 @@ const Pagination = ({ searchParams, setPage, totalPages, profile = false}) => {
             />
         </div>
     );
-};
-
+});
+Pagination.displayName = 'Pagination';
 export default Pagination;
 

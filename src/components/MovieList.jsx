@@ -9,8 +9,9 @@ import {
     getRandomKey,
 } from "../utils";
 import { Link } from "react-router-dom";
+import { memo } from "react";
 
-const MovieList = ({
+const MovieList = memo(({
     movie,
     genre = "Популярные",
     setSlide = true,
@@ -182,6 +183,6 @@ const MovieList = ({
             )}
         </>
     );
-};
-
+});
+MovieList.displayName = 'MovieList';
 export default MovieList;

@@ -1,30 +1,32 @@
-import React from "react";
+import React, { memo, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Menu = ({containerClass, listClass}) => {
+const Menu = memo(({containerClass, listClass}) => {
     const navigate = useNavigate();
-    const newParams = new URLSearchParams()
+    const newParams = useMemo(() => new URLSearchParams(),[]) 
     
-    const handleHomeClick = () => {
+    const handleHomeClick = useCallback(() => {
         newParams.set('h','t')
+        newParams.set('t', 'movie');
+        newParams.delete('t');
         localStorage.setItem('type', 'movie');
         localStorage.removeItem('tabType')
         navigate(`/?${newParams.toString()}`)
-    }
+    },[navigate, newParams])
 
-    const handleMoviesClick = () => {
+    const handleMoviesClick = useCallback(() => {
         newParams.set('t', 'movie');
         localStorage.setItem('type', 'movie');
         localStorage.removeItem('tabType')
         navigate(`/?${newParams.toString()}`)
-    }
+    },[navigate, newParams])
 
-    const handleSeriesClick = () => {
+    const handleSeriesClick = useCallback(() => {
         newParams.set('t', 'tv');
         localStorage.setItem('type', 'tv');
         localStorage.removeItem('tabType')
         navigate(`/?${newParams.toString()}`)
-    }
+    },[navigate, newParams])
 
     return (
         <div className={`${containerClass}`}>
@@ -35,6 +37,6 @@ const Menu = ({containerClass, listClass}) => {
             </ul>
         </div>
     );
-};
-
+});
+Menu.displayName = 'Menu';
 export default Menu;
