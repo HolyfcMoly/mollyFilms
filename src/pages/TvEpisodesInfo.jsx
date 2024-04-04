@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
     getExternalIds,
     getSeries,
@@ -9,17 +9,15 @@ import {
 import BackButton from "../components/ui/BackButton";
 import Poster from "../components/ui/Poster";
 import ToggleOverview from "../components/ToggleOverview";
-import { useInView } from "react-intersection-observer";
 import ImdbBtn from "../components/ui/ImdbBtn";
 import TrailerBtn from "../components/ui/TrailerBtn";
 import VoteRating from "../components/ui/VoteRating";
-import ImgPreLoader from "../components/ui/ImgPreLoader";
 import {
     deleteFromLocalStorage,
     getPremierDate,
-    setLocalStorageItem,
 } from "../utils";
 import IconArrowForward from "../assets/icons/IconArrowForward";
+import EpisodeCard from "../components/EpisodeCard";
 
 const TvEpisodesInfo = memo(() => {
     const { id, sNumber } = useParams();
@@ -37,11 +35,6 @@ const TvEpisodesInfo = memo(() => {
 
     const navigate = useNavigate();
     const fullText = season.overview || "";
-
-    const { ref, inView } = useInView({
-        threshold: 0.7,
-        triggerOnce: true,
-    });
 
     const actions = [
         deleteFromLocalStorage("tvImdbId"),
@@ -219,87 +212,14 @@ const TvEpisodesInfo = memo(() => {
                     })}
                 </ul>
                 {/* episodes */}
-                <div className="mt-5" ref={ref}>
+                <div className="mt-5">
                     <ul className="flex flex-col gap-5 [&_li:not(:last-child)]:border-b">
                         {displayedEpisodes?.map((item) => {
                             return (
-                                <li
-                                    key={item.id}
-                                    className="xl:pb-6 pb-4 border-b-secondary/30"
-                                >
-                                    <div className="flex ss:flex-row flex-col gap-3 px-1">
-                                        <Link
-                                            to={`/movie/${movieInfo.id}/season/${season.season_number}/episode/${item.episode_number}`}
-                                            state={{
-                                                episode: item,
-                                                poster: season.poster_path,
-                                            }}
-                                            className="h-full group"
-                                            onClick={() => {
-                                                setLocalStorageItem("tvImdbId", externalIds.imdb_id);
-                                                setLocalStorageItem("poster", season.poster_path);
-                                            }}
-                                        >
-                                            <div className="relative ss:flex-1 ss:w-full fhd:h-[250px] xl:h-[200px] lg:h-[150px] sm:h-[130px] ss:h-[120px] xs:h-[250px] min-w-[170px] min-h-[95px] ring-1  ring-secondary rounded-xl shadow-secondary shadow-[0_0_5px_0px_var(--tw-shadow-color)]">
-                                                {inView ? (
-                                                    <Poster
-                                                        src={`https://image.tmdb.org/t/p/w500${
-                                                            item.still_path
-                                                                ? item.still_path
-                                                                : season.poster_path
-                                                        }`}
-                                                        alt={`${item.name}`}
-                                                        className={`rounded-xl aspect-video group-hover:opacity-70 transition-opacity duration-300 ${
-                                                            !item.still_path
-                                                                ? "object-top"
-                                                                : ""
-                                                        }`}
-                                                    />
-                                                ) : (
-                                                    ""
-                                                )}
-                                            </div>
-                                        </Link>
-                                        <div className="sm:flex-[3_1_0%] ss:flex-2">
-                                            <div className="flex ss:flex-row flex-col mb-3">
-                                                <Link
-                                                    to={`/movie/${movieInfo.id}/season/${season.season_number}/episode/${item.episode_number}`}
-                                                    onClick={() => {
-                                                        setLocalStorageItem("tvImdbId",externalIds.imdb_id);
-                                                        setLocalStorageItem("poster",season.poster_path );
-                                                    }}
-                                                    className="ss:flex-2 group"
-                                                    state={{
-                                                        episode: item,
-                                                        poster: season.poster_path,
-                                                    }}
-                                                >
-                                                    <h1 className="xl:text-3xl text-lg font-[600] group-hover:opacity-70 transition-opacity duration-300">
-                                                        {`S${item.season_number}. E${item.episode_number} • ${item.name}`}
-                                                    </h1>
-                                                </Link>
-                                                {item.air_date && (
-                                                    <p className="ss:flex-1 sfhd:text-3xl xl:text-2xl text-dimWhite">{`${getPremierDate(
-                                                        item.air_date
-                                                    )}`}</p>
-                                                )}
-                                            </div>
-                                            {item?.overview ? (
-                                                <ToggleOverview
-                                                    fullText={item.overview}
-                                                    textSymbols={100}
-                                                    className={`mb-2`}
-                                                />
-                                            ) : ("")
-                                            }
-                                            {item?.vote_average ? (
-                                                <VoteRating vote={item.vote_average} />
-                                            ) : ("")
-                                            }
-                                        </div>
-                                    </div>
+                                <li key={item.id} className="xl:pb-6 pb-4 border-b-secondary/30">
+                                    <EpisodeCard item={item} movieInfo={movieInfo} season={season} externalIds={externalIds}/>
                                 </li>
-                            );
+                            )
                         })}
                     </ul>
                     {/* load more and all buttons */}
