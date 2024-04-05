@@ -1,7 +1,7 @@
-import React, {  useState } from "react";
+import React, {  memo, useState } from "react";
 import useTextToggle from "../hooks/useTextToggle";
 
-const ToggleOverview = ({
+const ToggleOverview = memo(({
     fullText = '',
     textSymbols = 200,
     children,
@@ -32,6 +32,6 @@ const ToggleOverview = ({
             {children}
         </div>
     );
-};
-
+});
+ToggleOverview.displayName = 'ToggleOverview';
 export default ToggleOverview;

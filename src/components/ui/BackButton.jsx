@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import { useNavigate } from "react-router-dom";
 import IconArrowForward from "../../assets/icons/IconArrowForward";
 
-const BackButton = ({className, actions}) => {
+const BackButton = memo(({className, actions}) => {
     const navigate = useNavigate();
     const handleClick = () => {
         navigate(-1);
@@ -18,6 +18,6 @@ const BackButton = ({className, actions}) => {
             Назад
         </button>
     );
-};
-
+});
+BackButton.displayName = 'BackButton';
 export default BackButton;

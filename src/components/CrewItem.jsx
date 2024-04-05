@@ -1,6 +1,6 @@
-import React from "react";
+import React, { memo } from "react";
 
-const CrewItem = ({crew = [], job = ''}) => {
+const CrewItem = memo(({crew = [], job = ''}) => {
     if (!crew || !job) return;
     return (
             <li>
@@ -16,6 +16,6 @@ const CrewItem = ({crew = [], job = ''}) => {
                 })}
             </li>
         )
-};
-
+});
+CrewItem.displayName = 'CrewItem';
 export default CrewItem;

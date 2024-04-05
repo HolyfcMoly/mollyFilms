@@ -1,5 +1,5 @@
 import { Rating, ThinStar } from "@smastrom/react-rating";
-import React from "react";
+import React, { memo } from "react";
 
 const myStyles = {
     itemShapes: ThinStar,
@@ -7,7 +7,7 @@ const myStyles = {
     inactiveFillColor: "#7d7d7d",
 };
 
-const VoteRating = ({vote}) => {
+const VoteRating = memo(({vote}) => {
     return (
         <div className="flex">
             <span className="sfhd:text-3xl xl:text-2xl mr-3">
@@ -25,6 +25,6 @@ const VoteRating = ({vote}) => {
             )}
         </div>
     );
-};
-
+});
+VoteRating.displayName = 'VoteRating';
 export default VoteRating;

@@ -62,9 +62,6 @@ const MovieInformation = () => {
     const { media_type } = location.state || {};
     const defaultType = media_type || localStorage.getItem('type') || '';
     
-    // const handleClick = (id) => {
-    //     navigate(`/movie/${id}?${newParams.toString()}`)
-    // }
     useEffect(() => {
         if (defaultType && defaultType === "tv" ) {
             getSeries(id).then((data) => {
