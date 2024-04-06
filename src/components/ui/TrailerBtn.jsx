@@ -3,7 +3,7 @@ import { clickOutSide, toggleBodyClasses } from "../../utils";
 import Preloader from "./Preloader";
 import Modal from "./Modal";
 import useResize from "../../hooks/useResize";
-import { close } from "../../assets";
+import CloseBtn from "./CloseBtn";
 
 const TrailerBtn = ({ className = "", trailer }) => {
     const [youTubeKey, setYouTubeKey] = useState("");
@@ -60,15 +60,7 @@ const TrailerBtn = ({ className = "", trailer }) => {
                 >
                     {youTubeKey.length > 0 ? (
                         <div className="w-full h-full">
-                            <button
-                                className="absolute ss:-right-5 right-0 ss:-top-8 -top-6 ss:h-auto ss:w-auto h-6 w-6"
-                                onClick={(e) => {
-                                    setOpen(!open);
-                                    e.stopPropagation();
-                                }}
-                            >
-                                <img src={close} />
-                            </button>
+                            <CloseBtn btnClass={`absolute ss:-right-5 right-0 ss:-top-8 -top-6`} open={open} setOpen={setOpen} />
                             <iframe
                                 autoPlay
                                 allow="autoplay"
@@ -78,15 +70,7 @@ const TrailerBtn = ({ className = "", trailer }) => {
                         </div>
                     ) : (
                         <div className="w-full h-full bg-black video">
-                            <button
-                                className="absolute ss:-right-5 right-0 ss:-top-8 -top-6 ss:h-auto ss:w-auto h-6 w-6"
-                                onClick={(e) => {
-                                    setOpen(!open);
-                                    e.stopPropagation();
-                                }}
-                            >
-                                <img src={close} />
-                            </button>
+                            <CloseBtn btnClass={`absolute ss:-right-5 right-0 ss:-top-8 -top-6`} open={open} setOpen={setOpen} />
                             <Preloader />
                         </div>
                     )}
