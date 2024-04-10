@@ -1,11 +1,11 @@
 import "@splidejs/react-splide/css";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import IconArrowForward from "../assets/icons/IconArrowForward";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import Preloader from "./ui/Preloader";
 import CastCard from "./CastCard";
 
-const ProfileSlider = ({ credits }) => {
+const ProfileSlider = memo(({ credits }) => {
     const [isSplideLoaded, setIsSplideLoaded] = useState(false);
 
     const options = {
@@ -105,6 +105,6 @@ const ProfileSlider = ({ credits }) => {
             )}
         </div>
     );
-};
-
+});
+ProfileSlider.displayName = 'ProfileSlider';
 export default ProfileSlider;
