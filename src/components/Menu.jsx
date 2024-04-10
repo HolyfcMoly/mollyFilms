@@ -31,9 +31,9 @@ const Menu = memo(({containerClass, listClass}) => {
     return (
         <div className={`${containerClass}`}>
             <ul className={`flex gap-4 ${listClass}`}>
-                <li onClick={handleHomeClick} className="cursor-pointer">Главная</li>
-                <li onClick={handleMoviesClick} className="cursor-pointer">Фильмы</li>
-                <li onClick={handleSeriesClick} className="cursor-pointer">Сериалы</li>
+                <li onClick={handleHomeClick} className="cursor-pointer hover:text-secondary transition-colors duration-300 active:text-secondary/70">Главная</li>
+                <li onClick={handleMoviesClick} className="cursor-pointer hover:text-secondary transition-colors duration-300 active:text-secondary/70">Фильмы</li>
+                <li onClick={handleSeriesClick} className="cursor-pointer hover:text-secondary transition-colors duration-300 active:text-secondary/70">Сериалы</li>
             </ul>
         </div>
     );
