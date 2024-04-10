@@ -50,34 +50,26 @@ const Search = memo(({ className }) => {
 
     useEffect(() => {
         setIsMobile(false);
-        if (width < 620) setIsMobile(true);
-    }, [width, isMobile]);
-
-    useEffect(() => {
+        if (width < 992) setIsMobile(true);
+        document.body.classList.remove(isMobile ? "overflow-hidden" : "overflow-hidden","pr-[1.05rem]")
+        if (timeoutInputRef) {
+            clearInterval(timeoutInputRef.current);
+        }
         if (open || query) {
             inputRef.current.focus();
             setOpen(true);
             document.addEventListener("click", (e) => {
                 clickOutSide(e, inputRef, handleReset);
             });
-            return () => document.removeEventListener("click", clickOutSide);
-        }
-    }, [open, query]);
-
-    useEffect(() => {
-        document.body.classList.remove("overflow-hidden");
-        if (timeoutInputRef) {
-            clearInterval(timeoutInputRef.current);
-        }
-        if (query) {
             timeoutInputRef.current = setTimeout(() => {
                 getMultiSearchByQuery(query, 1).then((data) => {
                     setMovies(data.data.results);
                 });
             }, 700);
-            document.body.classList.add("overflow-hidden");
+        document.body.classList.add(isMobile ? "overflow-hidden" : "overflow-hidden","pr-[1.05rem]")
+            return () => document.removeEventListener("click", clickOutSide);
         }
-    }, [query]);
+    }, [open, query, isMobile, width]);
 
     return (
         <>
@@ -91,11 +83,11 @@ const Search = memo(({ className }) => {
                             onChange={(e) => {
                                 setQuery(e.target.value);
                             }}
-                            placeholder="Search"
+                            placeholder="Фильм, сериал или имя актера"
                             ref={inputRef}
-                            className={`xs:w-[70%] w-[50%] fixed ss:top-0 left-[20px] transition-[top] ease-in-out duration-300 ${
+                            className={`overflow-hidden text-ellipsis xs:w-[70%] ss:w-full w-[50%] ss:relative fixed ss:top-0 ss:left-0 left-[20px] ss:transition-none transition-[top] ease-in-out duration-300 ${
                                 open ? "top-3" : "-top-[10rem]"
-                            }  focus:outline-none rounded-[5px] ring-secondary focus-visible:ring-1 sfhd:py-2 px-2 py-[3px] caret-secondary sfhd:text-2xl text-white`}
+                            }  focus:outline-none rounded-[5px] ring-secondary focus-visible:ring-1 sfhd:py-2 px-2 py-[3px] caret-secondary sfhd:text-2xl text-white `}
                         />
                         <button
                             className="block ss:hidden"
@@ -130,9 +122,9 @@ const Search = memo(({ className }) => {
                             type="search"
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
-                            placeholder="Search"
+                            placeholder="Фильм, сериал или имя актера"
                             ref={inputRef}
-                            className={`w-full focus:outline-none rounded-[5px] ring-secondary focus-visible:ring-1 sfhd:py-2 px-2 py-[2px] caret-secondary sfhd:text-2xl text-white`}
+                            className={`overflow-hidden text-ellipsis w-full focus:outline-none rounded-[5px] ring-secondary focus-visible:ring-1 sfhd:py-2 px-2 py-[2px] caret-secondary sfhd:text-2xl text-white`}
                         />
                         {query && (
                             <button
@@ -188,7 +180,7 @@ const Search = memo(({ className }) => {
                                             state={{media_type: item.media_type}}
                                             className="flex relative group focus:outline-none"
                                         >
-                                            <div className="w-fit min-w-[130px] max-w-[140px]  h-[190px]  relative scale-100 group-hover:scale-105 group-active:scale-100 group-focus:scale-105 transition-all rounded-lg border-[1px] border-orange-500/30 group-hover:border-orange-500/70 group-focus:border-orange-500/70 shadow-orange-500 group-hover:shadow-[0_0_15px_-3px_var(--tw-shadow-color)] group-focus:shadow-[0_0_15px_-3px_var(--tw-shadow-color)]">
+                                            <div className="py-1 w-fit min-w-[130px] max-w-[140px] h-[190px] relative scale-100 group-hover:scale-105 group-active:scale-100 group-focus:scale-105 transition-all rounded-lg border-[1px] border-orange-500/30 group-hover:border-orange-500/70 group-focus:border-orange-500/70 shadow-orange-500 group-hover:shadow-[0_0_15px_-3px_var(--tw-shadow-color)] group-focus:shadow-[0_0_15px_-3px_var(--tw-shadow-color)]">
                                                 {item.poster_path || item.backdrop_path ? (
                                                     <img
                                                         src={`https://image.tmdb.org/t/p/original${item.poster_path ? item.poster_path : item.backdrop_path}`}
