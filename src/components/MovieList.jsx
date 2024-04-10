@@ -88,6 +88,7 @@ const MovieList = memo(({
                     <MovieSlider
                         movies={storageType === 'tv' ? trendingSeries : nowPlayingMovie}
                         movieGenre={movieGenre}
+                        type={storageType}
                     />
                 </div>
             )}

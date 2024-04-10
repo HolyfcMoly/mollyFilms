@@ -4,8 +4,8 @@ import Poster from "./ui/Poster";
 import { Rating, ThinStar } from "@smastrom/react-rating";
 import { useInView } from "react-intersection-observer";
 import ImgPreLoader from "./ui/ImgPreLoader";
-import { serial } from "../assets";
 import { memo } from "react";
+import TvIcon from "../assets/icons/TvIcon";
 
 const myStyles = {
     itemShapes: ThinStar,
@@ -46,7 +46,7 @@ const MovieCard = memo(({ movieGenre, movie, containerClass = ''}) => {
                         <ImgPreLoader />
                     )}
                     {movie.media_type === 'tv' || movie.first_air_date ? (
-                        <img src={serial} alt="serial" className="w-6 h-6 absolute top-1 right-1 group-hover:z-50"/>
+                        <TvIcon />
                     ) : ''}
                     <div className="flex flex-col justify-end opacity-0 transition-all rounded-xl group-focus:opacity-100 hover:opacity-100 hover:shadow-[inset_0_-100px_50px_-55px_rgba(0,0,0,1)] group-focus:shadow-[inset_0_-100px_50px_-55px_rgba(0,0,0,1)] absolute inset-0 bg-neutral-900 bg-opacity-40 h-full sfhd:px-5 px-2 py-5">
                         <div className={`flex`}>
