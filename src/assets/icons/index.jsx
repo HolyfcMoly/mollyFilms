@@ -1,3 +1,3 @@
 import IconArrowForward from './IconArrowForward';
-
-export default {IconArrowForward}
+import TvIcon from './TvIcon'
+export default {IconArrowForward, TvIcon}
