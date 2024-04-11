@@ -38,8 +38,7 @@ const MovieCard = memo(({ movieGenre, movie, containerClass = ''}) => {
                     {inView ? (
                             <Poster
                                 src={movie.media_type === 'person' ? `https://image.tmdb.org/t/p/w500${movie.profile_path}` : `https://image.tmdb.org/t/p/w400${movie.poster_path}`}
-                                
-                                alt={movie.title}
+                                alt={movie.title || movie.name}
                                 className={`sfhd:rounded-xl rounded-md bg-transparent`}
                             />
                     ) : (
@@ -58,14 +57,14 @@ const MovieCard = memo(({ movieGenre, movie, containerClass = ''}) => {
                                 className="sfhd:max-w-[150px] max-w-[100px]"
                             />
                         </div>
-                        <h3 className="sfhd:text-2xl">
+                        <p className="sfhd:text-2xl">
                             {movie.release_date
                                 ? movie.release_date.slice(0, 4)
                                 : movie.release_date}
                             {movie.first_air_date
                                 ? movie.first_air_date.slice(0, 4)
                                 : movie.first_air_date}
-                        </h3>
+                        </p>
                         {movieGenre && movieGenre.map((genre) =>
                             movie.genre_ids && genre.id === movie.genre_ids[0] ? (
                                 <p key={genre.id} className="sfhd:text-2xl">

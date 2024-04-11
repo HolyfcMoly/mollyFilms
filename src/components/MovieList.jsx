@@ -50,7 +50,7 @@ const MovieList = memo(({
             return filteredMovies
         }
     }
-    
+
     useEffect(() => {
         Promise.all([getGenre(), getTvGenre()]).then(
             ([movieGenres, tvGenres]) => {
