@@ -23,8 +23,7 @@ const Profile = () => {
     // const [page, setCurrentPage] = useState(1);
     const [totalMovies, setTotalMovies] = useState([]);
     const [moviesPerPage] = useState(12);
-    const [expand, setExpand] = useState(false);
-    const [profileImages, setProfileImages] = useState([]);
+    // const [profileImages, setProfileImages] = useState([]);
     const [searchParams, setSearchParams] = useSearchParams();
     const page = searchParams.get('p') || '1';
 
@@ -32,8 +31,8 @@ const Profile = () => {
     const fullText = profile.biography || "";
     const pages = Math.round(movies.length / moviesPerPage);
     const age = getStringDeclination(getFullAge(profile.birthday), "год");
-    const [text, toggleText] = useTextToggle(fullText);
-    const images = profileImages.map((item) => item.file_path);
+    // random image on profile
+    // const images = profileImages.map((item) => item.file_path);
 
     // console.log(profile?.biography.length)
     const getRandomImg = (images) => {
@@ -68,9 +67,10 @@ const Profile = () => {
                 }
             }
         );
-        getPersonImages(id).then((data) => {
-            setProfileImages(data.data.profiles);
-        });
+        // get images for display it random on poster
+        // getPersonImages(id).then((data) => {
+        //     setProfileImages(data.data.profiles);
+        // });
     }, [id]);
 
     useEffect(() => {
@@ -79,6 +79,10 @@ const Profile = () => {
         setTotalMovies(movies.slice(startIndex, endIndex));
     }, [movies, moviesPerPage, page]);
 
+    useEffect(() =>  {
+        window.scrollTo(0,0);
+    }, [])
+    
     return (
         <>
             <div>
@@ -89,6 +93,7 @@ const Profile = () => {
                     <div className="relative sfhd:w-[650px] float-left sfhd:h-[920px] xl:w-[450px] xl:h-[720px] sm:w-[350px] sm:h-[550px] w-[260px] h-[380px] sm:mb-0 sm:mr-8 mb-4 ring-1 ring-secondary rounded-xl shadow-secondary shadow-[0_0_15px_-3px_var(--tw-shadow-color)]">
                         <Poster
                             src={
+                                // if need random poster image
                                 // images.length
                                 //     ? `https://image.tmdb.org/t/p/original${getRandomImg(
                                 //         images

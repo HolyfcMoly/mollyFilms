@@ -52,6 +52,10 @@ const EpisodeInfo = memo(() => {
     };
 
     useEffect(() => {
+        window.scrollTo(0,0)
+    }, [])
+
+    useEffect(() => {
         if (!episode) {
             getEpisodeInfo(id, sNumber, eNumber).then((data) => {
                 data?.data && setEpisodeInfo(data.data);

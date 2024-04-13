@@ -55,6 +55,12 @@ const TvEpisodesInfo = memo(() => {
     };
 
     useEffect(() => {
+        if(seasonNumber) {
+            window.scrollTo(0,0)
+        }
+    }, [seasonNumber])
+
+    useEffect(() => {
         setSeasonNumber(sNumber);
         if (!movie) {
             getSeries(id).then((data) => {

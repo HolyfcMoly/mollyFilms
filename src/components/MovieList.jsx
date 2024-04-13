@@ -77,7 +77,6 @@ const MovieList = memo(({
     useEffect(() => {
         setStorageRef(storageTabType)
     }, [storageRef, storageTabType])
-
     return (
         <>
             {setSlide && (

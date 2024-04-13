@@ -123,6 +123,12 @@ const Movies = memo(() => {
         }
     }, [query, movieId, currentPage, type, genre, typeStorage]);
 
+    useEffect(() => {
+        if(currentPage) {
+            window.scrollTo(0,0)
+        }
+    }, [currentPage])
+
     return (
         <>
             {!genreMovie.length ? (

@@ -82,7 +82,7 @@ const MovieSlider = memo(({ movies, movieGenre, type }) => {
     };
 
     useEffect(() => {
-        if(movies.length) {
+        if(movies?.length) {
             setIsMoviesLoaded(true);
             const urls = movies.map((item, index) => {
                 return {[index]: item.backdrop_path ? item.backdrop_path : item.poster_path}

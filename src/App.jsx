@@ -21,7 +21,7 @@ function App() {
                 <div className={`${styles.paddingX}`}>
                     <SideBar />
                     <main className={`md:px-8 xss:px-2 pt-1 flex-1  sfhd:ml-[22rem] xl:ml-[16rem] md:ml-[12.5rem] overflow-hidden`}>
-                        {/* <Suspense fallback={<Loading />}> */}
+                        {/* <Suspense fallback={<SuspencePreload />}> */}
                             <Routes>
                                 <Route path="/" element={<Movies />} />
                                 <Route

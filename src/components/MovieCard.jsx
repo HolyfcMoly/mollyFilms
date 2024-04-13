@@ -21,6 +21,7 @@ const MovieCard = memo(({ movieGenre, movie, containerClass = ''}) => {
 
     const handleClick = () => {
         localStorage.setItem('type', movie.media_type ? movie.media_type : movie.first_air_date ? 'tv' : 'movie');
+        window.scrollTo(0,0);
     }
 
     return (

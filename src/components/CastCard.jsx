@@ -5,7 +5,7 @@ import { avatar } from "../assets";
 const CastCard = ({cast, className = ''}) => {
     return (
         <div className={`sfhd:w-[140px] sfhd:max-w-[120px] max-w-[90px] w-full h-full ${className}`}>
-            <Link to={`/profile/${cast.id}`} className="">
+            <Link to={`/profile/${cast.id}`} onClick={() => window.scrollTo(0,0)} className="">
                 <div>
                     <div className="sfhd:h-[180px] h-[135px]">
                         <img

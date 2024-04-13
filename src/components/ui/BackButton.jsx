@@ -5,8 +5,9 @@ import IconArrowForward from "../../assets/icons/IconArrowForward";
 const BackButton = memo(({className, actions}) => {
     const navigate = useNavigate();
     const handleClick = () => {
+        window.scrollTo(0,0)
         navigate(-1);
-        actions?.forEach(action => action())
+        actions?.forEach(action => action)
     }
     
     return (

@@ -104,6 +104,10 @@ const MovieInformation = () => {
         'Returning Series': "Выходит" ,
         In_Production: "Скоро" ,
     };
+
+    useEffect(() => {
+        window.scrollTo(0,0)
+    }, [])
     
     useEffect(() => {
         const trailers = video.filter((item) => item.type === "Trailer");
